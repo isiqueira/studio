@@ -32,15 +32,13 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
               data-ai-hint={'office document'}
             />
           </CardHeader>
-          <div className="absolute top-40 left-5 transform -translate-y-1/2 flex items-center gap-4">
+          <div className="absolute top-40 left-5 transform -translate-y-1/2">
             <div className="p-2 bg-card border-4 border-card flex items-center justify-center">
                 <FileText className="h-10 w-10 text-primary" />
             </div>
-            <p className="text-xl font-bold text-card-foreground">
-              {quote.officeCount}
-            </p>
           </div>
           <CardContent className="flex-grow p-6 pt-12">
+            <h3 className="text-2xl font-bold text-card-foreground">{quote.officeCount}</h3>
              <p className="text-lg font-body text-foreground mt-2">
               {formattedValue}
             </p>
