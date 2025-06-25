@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import type { Quote } from '@/types';
 import { Quote as QuoteIcon } from "lucide-react";
+import Image from 'next/image';
 
 
 interface QuoteCardProps {
@@ -15,10 +16,17 @@ export default function QuoteCard({ quote }: QuoteCardProps) {
     <Dialog>
       <DialogTrigger asChild>
         <Card className="flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg overflow-hidden">
-          <CardHeader>
-            <QuoteIcon className="h-8 w-8 text-primary/30" />
+          <CardHeader className="p-0 relative h-40">
+            <Image
+              src={quote.imageUrl || 'https://placehold.co/400x200.png'}
+              alt={quote.source}
+              fill
+              className="object-cover"
+              data-ai-hint={quote.data_ai_hint || 'quote'}
+            />
           </CardHeader>
-          <CardContent className="flex-grow">
+          <CardContent className="flex-grow p-6">
+            <QuoteIcon className="h-8 w-8 text-primary/30 mb-4" />
             <p className="text-lg font-body text-card-foreground">
               "{quote.text.length > 100 ? `${quote.text.substring(0, 100)}...` : quote.text}"
             </p>
