@@ -18,9 +18,9 @@ export default function AppFooter() {
               height={50}
               data-ai-hint="logo"
             />
-            <p className="text-muted-foreground text-sm">
+            {/* <p className="text-muted-foreground text-sm">
               A curated collection of inspiring quotes to brighten your day.
-            </p>
+            </p> */}
           </div>
           
           {/* Quick Links */}
