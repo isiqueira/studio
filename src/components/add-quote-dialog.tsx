@@ -23,7 +23,7 @@ import { useState } from 'react';
 
 const quoteSchema = z.object({
   text: z.string().min(10, 'Quote must be at least 10 characters long.').max(500, 'Quote must be 500 characters or less.'),
-  source: z.string().min(2, 'Source must be at least 2 characters long.').max(100, 'Source must be 100 characters or less.'),
+  sourceName: z.string().min(2, 'Source must be at least 2 characters long.').max(100, 'Source must be 100 characters or less.'),
 });
 
 interface AddQuoteDialogProps {
@@ -36,12 +36,12 @@ export default function AddQuoteDialog({ addQuote }: AddQuoteDialogProps) {
     resolver: zodResolver(quoteSchema),
     defaultValues: {
       text: '',
-      source: '',
+      sourceName: '',
     },
   });
 
   function onSubmit(values: z.infer<typeof quoteSchema>) {
-    addQuote(values);
+    addQuote({ text: values.text, source: { name: values.sourceName } });
     form.reset();
     setIsOpen(false);
   }
@@ -76,7 +76,7 @@ export default function AddQuoteDialog({ addQuote }: AddQuoteDialogProps) {
             />
             <FormField
               control={form.control}
-              name="source"
+              name="sourceName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Source (Author)</FormLabel>
