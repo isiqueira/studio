@@ -49,7 +49,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
           <CardFooter>
             <p className="text-sm font-semibold text-card-foreground/70 flex items-center gap-2">
               <CalendarDays className="h-4 w-4" />
-              Due: {new Date(quote.dueDate).toLocaleDateString('pt-BR')}
+              Due: {new Date(quote.dueDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
             </p>
           </CardFooter>
         </Card>
@@ -73,7 +73,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                 <div className="flex items-center gap-3 mb-2">
                   <CalendarDays className="h-5 w-5 text-muted-foreground" />
                   <span className="text-base text-foreground">
-                    Due Date: {new Date(quote.dueDate).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    Due Date: {new Date(quote.dueDate).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
                   </span>
                 </div>
                  <div className="flex items-center gap-3">
