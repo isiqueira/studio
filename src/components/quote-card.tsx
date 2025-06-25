@@ -37,8 +37,14 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
             </div>
           </CardHeader>
           <div className="absolute top-40 left-5 transform -translate-y-1/2">
-            <div className="p-2 bg-card border-4 border-card flex items-center justify-center">
-                <FileText className="h-10 w-10 text-primary" />
+            <div className="bg-card border-4 border-card flex items-center justify-center overflow-hidden">
+              <Image
+                src="https://placehold.co/60x60.png"
+                alt="Quotation Logo"
+                width={60}
+                height={60}
+                data-ai-hint="company logo"
+              />
             </div>
           </div>
           <CardContent className="flex-grow p-6 pt-12">
@@ -54,7 +60,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
           <CardFooter>
             <p className="text-sm font-semibold text-card-foreground/70 flex items-center gap-2">
               <CalendarDays className="h-4 w-4" />
-              Due: {new Date(quote.dueDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
+              Due: {new Date(quote.dueDate).toLocaleDateString('pt-br', { timeZone: 'UTC' })}
             </p>
           </CardFooter>
         </Card>
