@@ -52,10 +52,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
              <p className="text-lg font-body text-foreground mt-2">
               {formattedValue}
             </p>
-             <p className="text-sm text-muted-foreground mt-1 capitalize flex items-center gap-2">
-              <Tags className="h-4 w-4" />
-              Status: {quote.status}
-            </p>
           </CardContent>
           <CardFooter>
             <p className="text-sm font-semibold text-card-foreground/70 flex items-center gap-2">
@@ -76,10 +72,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
                 <div className="flex items-center gap-3 mb-2">
                   <CircleDollarSign className="h-5 w-5 text-muted-foreground" />
                   <span className="text-lg text-foreground">{formattedValue}</span>
-                </div>
-                 <div className="flex items-center gap-3 mb-2">
-                  <Tags className="h-5 w-5 text-muted-foreground" />
-                  <span className="text-base text-foreground capitalize">Status: {quote.status}</span>
                 </div>
                 <div className="flex items-center gap-3 mb-2">
                   <CalendarDays className="h-5 w-5 text-muted-foreground" />
