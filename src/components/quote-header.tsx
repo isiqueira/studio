@@ -1,20 +1,17 @@
 "use client";
 
 import type { Quote } from '@/types';
-import AddQuoteDialog from './add-quote-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 interface QuoteHeaderProps {
-  addQuote: (quote: Omit<Quote, 'id'>) => void;
   quoteCount: number;
 }
 
-export default function QuoteHeader({ addQuote, quoteCount }: QuoteHeaderProps) {
+export default function QuoteHeader({ quoteCount }: QuoteHeaderProps) {
   return (
     <div className="mb-12">
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground/90">Eloquent Echoes</h1>
-        <AddQuoteDialog addQuote={addQuote} />
       </header>
       <div className="flex justify-between items-center">
         <div>
