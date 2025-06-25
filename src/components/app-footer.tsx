@@ -68,7 +68,7 @@ export default function AppFooter() {
         </div>
 
         <div className="mt-8 border-t border-border pt-8 text-center">
-          <p className="text-sm text-muted-foreground">&copy; {currentYear} Eloquent Echoes. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">&copy; {currentYear} Araújo Siqueira Consultoria. All rights reserved.</p>
         </div>
       </div>
     </footer>
