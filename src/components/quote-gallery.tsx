@@ -1,26 +1,26 @@
 "use client";
 
-import type { Quote } from '@/types';
+import type { Quotation } from '@/types';
 import QuoteCard from './quote-card';
 
 interface QuoteGalleryProps {
-  quotes: Quote[];
+  quotations: Quotation[];
 }
 
-export default function QuoteGallery({ quotes }: QuoteGalleryProps) {
-  if (quotes.length === 0) {
+export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
+  if (quotations.length === 0) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-headline">No quotes yet.</h2>
-        <p className="text-muted-foreground mt-2">Why not add one?</p>
+        <h2 className="text-2xl font-headline">No quotations yet.</h2>
+        <p className="text-muted-foreground mt-2">There are no quotations to display.</p>
       </div>
     )
   }
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {quotes.map((quote) => (
-        <QuoteCard key={quote.id} quote={quote} />
+      {quotations.map((quotation) => (
+        <QuoteCard key={quotation.id} quotation={quotation} />
       ))}
     </div>
   );

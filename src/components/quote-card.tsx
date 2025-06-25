@@ -2,54 +2,87 @@
 
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import type { Quote } from '@/types';
-import { Quote as QuoteIcon } from "lucide-react";
+import type { Quotation } from '@/types';
+import { FileText, CalendarDays, Tags, CircleDollarSign } from "lucide-react";
 import Image from 'next/image';
 
-
 interface QuoteCardProps {
-  quote: Quote;
+  quotation: Quotation;
 }
 
-export default function QuoteCard({ quote }: QuoteCardProps) {
+export default function QuoteCard({ quotation }: QuoteCardProps) {
+  const { quote } = quotation;
+
+  const formattedValue = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: quote.converted_currency,
+  }).format(quote.converted_value);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg">
           <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
             <Image
-              src={quote.image?.url || 'https://placehold.co/400x200.png'}
-              alt={quote.source.name}
+              src={'https://placehold.co/400x200.png'}
+              alt={quote.officeCount}
               fill
               className="object-cover"
-              data-ai-hint={quote.image?.data_ai_hint || 'quote'}
+              data-ai-hint={'office document'}
             />
           </CardHeader>
-          <Image
-            src={quote.source.imageUrl || 'https://placehold.co/80x80.png'}
-            alt={quote.source.name}
-            width={80}
-            height={80}
-            className="absolute top-40 left-5 transform -translate-y-1/2 border-4 border-card"
-            data-ai-hint={quote.source.data_ai_hint || 'portrait person'}
-          />
+          <div className="absolute top-40 left-5 transform -translate-y-1/2 p-2 bg-card border-4 border-card flex items-center justify-center">
+             <FileText className="h-10 w-10 text-primary" />
+          </div>
           <CardContent className="flex-grow p-6 pt-12">
-            <QuoteIcon className="h-8 w-8 text-primary/30 mb-4" />
-            <p className="text-lg font-body text-card-foreground">
-              "{quote.text.length > 100 ? `${quote.text.substring(0, 100)}...` : quote.text}"
+            <p className="text-xl font-bold text-card-foreground">
+              {quote.officeCount}
+            </p>
+             <p className="text-lg font-body text-foreground mt-2">
+              {formattedValue}
+            </p>
+             <p className="text-sm text-muted-foreground mt-1 capitalize flex items-center gap-2">
+              <Tags className="h-4 w-4" />
+              Status: {quote.status}
             </p>
           </CardContent>
           <CardFooter>
-            <p className="text-sm font-semibold text-card-foreground/70">- {quote.source.name}</p>
+            <p className="text-sm font-semibold text-card-foreground/70 flex items-center gap-2">
+              <CalendarDays className="h-4 w-4" />
+              Due: {new Date(quote.dueDate).toLocaleDateString('pt-BR')}
+            </p>
           </CardFooter>
         </Card>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md bg-background">
-        <DialogHeader className="pt-6">
-          <QuoteIcon className="h-8 w-8 text-primary/40 mb-4" />
-          <DialogTitle className="text-2xl font-body leading-relaxed">"{quote.text}"</DialogTitle>
-          <DialogDescription className="text-right text-lg pt-6 !mt-4">
-            - {quote.source.name}
+        <DialogHeader className="pt-6 text-left">
+          <DialogTitle className="text-2xl font-body leading-relaxed flex items-center gap-3">
+             <FileText className="h-8 w-8 text-primary/80" />
+            {quote.officeCount}
+          </DialogTitle>
+          <DialogDescription className="text-left !mt-6 space-y-3" asChild>
+            <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <CircleDollarSign className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-lg text-foreground">{formattedValue}</span>
+                </div>
+                 <div className="flex items-center gap-3 mb-2">
+                  <Tags className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-base text-foreground capitalize">Status: {quote.status}</span>
+                </div>
+                <div className="flex items-center gap-3 mb-2">
+                  <CalendarDays className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-base text-foreground">
+                    Due Date: {new Date(quote.dueDate).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </span>
+                </div>
+                 <div className="flex items-center gap-3">
+                  <CalendarDays className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-base text-foreground">
+                    Created At: {new Date(quote.created_at).toLocaleString('pt-BR')}
+                  </span>
+                </div>
+            </div>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

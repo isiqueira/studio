@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from 'react-hook-form';
@@ -18,8 +19,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Plus } from 'lucide-react';
-import type { Quote } from '@/types';
 import { useState } from 'react';
+
+// Local type definition to prevent build errors after refactor. This component is not currently used.
+type Quote = {
+  id: string;
+  text: string;
+  source: { name: string };
+}
 
 const quoteSchema = z.object({
   text: z.string().min(10, 'Quote must be at least 10 characters long.').max(500, 'Quote must be 500 characters or less.'),
