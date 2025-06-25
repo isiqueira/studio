@@ -1,6 +1,6 @@
 "use client";
 
-import type { Quote } from '@/types';
+import { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 interface QuoteHeaderProps {
@@ -8,10 +8,26 @@ interface QuoteHeaderProps {
 }
 
 export default function QuoteHeader({ quoteCount }: QuoteHeaderProps) {
+  const [creationDate, setCreationDate] = useState('');
+
+  useEffect(() => {
+    // This runs only on the client, after hydration
+    setCreationDate(new Date().toLocaleDateString('pt-BR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }));
+  }, []);
+
+  const title = "Orçamento para Italo";
+
   return (
     <div className="mb-12">
       <header className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground/90">Eloquent Echoes</h1>
+        <div>
+          <h3 className="text-4xl md:text-5xl font-headline font-bold text-foreground/90">{title}</h3>
+          {creationDate && <p className="text-muted-foreground mt-2">criado em {creationDate}</p>}
+        </div>
       </header>
       <div className="flex justify-between items-center">
         <div>
