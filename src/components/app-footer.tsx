@@ -24,7 +24,7 @@ export default function AppFooter() {
           </div>
           
           {/* Quick Links */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-semibold text-card-foreground tracking-wider uppercase">Quick Links</h3>
             <ul className="mt-4 space-y-2">
               <li><Link href="#" className="text-sm text-muted-foreground hover:text-foreground">Home</Link></li>
@@ -32,16 +32,16 @@ export default function AppFooter() {
               <li><Link href="#" className="text-sm text-muted-foreground hover:text-foreground">Submit a Quote</Link></li>
               <li><Link href="#" className="text-sm text-muted-foreground hover:text-foreground">Contact</Link></li>
             </ul>
-          </div>
+          </div> */}
           
           {/* Legal */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-semibold text-card-foreground tracking-wider uppercase">Legal</h3>
             <ul className="mt-4 space-y-2">
               <li><Link href="#" className="text-sm text-muted-foreground hover:text-foreground">Privacy Policy</Link></li>
               <li><Link href="#" className="text-sm text-muted-foreground hover:text-foreground">Terms of Service</Link></li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Social Media */}
           <div>
