@@ -44,7 +44,7 @@ export default function AppFooter() {
           </div> */}
 
           {/* Social Media */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-semibold text-card-foreground tracking-wider uppercase">Follow Us</h3>
             <div className="flex mt-4 space-x-4">
               <Link href="#" className="text-muted-foreground hover:text-foreground">
@@ -64,7 +64,7 @@ export default function AppFooter() {
                 <Instagram className="h-6 w-6" />
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-8 border-t border-border pt-8 text-center">
