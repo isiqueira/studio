@@ -4,4 +4,6 @@ export type Quote = {
   source: string;
   imageUrl?: string;
   data_ai_hint?: string;
+  sourceImageUrl?: string;
+  sourceImage_data_ai_hint?: string;
 };

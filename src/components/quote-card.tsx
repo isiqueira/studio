@@ -15,8 +15,8 @@ export default function QuoteCard({ quote }: QuoteCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg overflow-hidden">
-          <CardHeader className="p-0 relative h-40">
+        <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg">
+          <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
             <Image
               src={quote.imageUrl || 'https://placehold.co/400x200.png'}
               alt={quote.source}
@@ -25,7 +25,15 @@ export default function QuoteCard({ quote }: QuoteCardProps) {
               data-ai-hint={quote.data_ai_hint || 'quote'}
             />
           </CardHeader>
-          <CardContent className="flex-grow p-6">
+          <Image
+            src={quote.sourceImageUrl || 'https://placehold.co/80x80.png'}
+            alt={quote.source}
+            width={80}
+            height={80}
+            className="absolute top-40 left-5 transform -translate-y-1/2 rounded-full border-4 border-card"
+            data-ai-hint={quote.sourceImage_data_ai_hint || 'portrait person'}
+          />
+          <CardContent className="flex-grow p-6 pt-12">
             <QuoteIcon className="h-8 w-8 text-primary/30 mb-4" />
             <p className="text-lg font-body text-card-foreground">
               "{quote.text.length > 100 ? `${quote.text.substring(0, 100)}...` : quote.text}"
