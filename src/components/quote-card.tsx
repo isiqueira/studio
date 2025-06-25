@@ -9,9 +9,10 @@ import Image from 'next/image';
 
 interface QuoteCardProps {
   quotation: Quotation;
+  index: number;
 }
 
-export default function QuoteCard({ quotation }: QuoteCardProps) {
+export default function QuoteCard({ quotation, index }: QuoteCardProps) {
   const { quote } = quotation;
 
   const formattedValue = new Intl.NumberFormat('pt-BR', {
@@ -31,6 +32,9 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
               className="object-cover"
               data-ai-hint={'office document'}
             />
+            <div className="absolute bottom-2 right-2 bg-card/80 text-card-foreground px-2 py-1 rounded-md text-sm font-semibold">
+              Opção {index + 1}
+            </div>
           </CardHeader>
           <div className="absolute top-40 left-5 transform -translate-y-1/2">
             <div className="p-2 bg-card border-4 border-card flex items-center justify-center">

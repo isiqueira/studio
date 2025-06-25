@@ -19,8 +19,8 @@ export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {quotations.map((quotation) => (
-        <QuoteCard key={quotation.id} quotation={quotation} />
+      {quotations.map((quotation, index) => (
+        <QuoteCard key={quotation.id} quotation={quotation} index={index} />
       ))}
     </div>
   );
