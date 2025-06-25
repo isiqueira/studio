@@ -30,7 +30,7 @@ export default function QuoteCard({ quote }: QuoteCardProps) {
             alt={quote.source}
             width={80}
             height={80}
-            className="absolute top-40 left-5 transform -translate-y-1/2 rounded-full border-4 border-card"
+            className="absolute top-40 left-5 transform -translate-y-1/2 border-4 border-card"
             data-ai-hint={quote.sourceImage_data_ai_hint || 'portrait person'}
           />
           <CardContent className="flex-grow p-6 pt-12">
