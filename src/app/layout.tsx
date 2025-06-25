@@ -5,8 +5,8 @@ import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
 
 export const metadata: Metadata = {
-  title: 'Eloquent Echoes',
-  description: 'A curated collection of inspiring quotes.',
+  title: 'STB - Quotation',
+  description: 'A STB multi-quotation app.',
 };
 
 export default function RootLayout({
