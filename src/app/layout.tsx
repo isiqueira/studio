@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import AppHeader from '@/components/app-header';
 
 export const metadata: Metadata = {
   title: 'Eloquent Echoes',
@@ -20,7 +21,10 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        {children}
+        <div className="flex flex-col min-h-screen">
+          <AppHeader />
+          <main className="flex-grow">{children}</main>
+        </div>
         <Toaster />
       </body>
     </html>
