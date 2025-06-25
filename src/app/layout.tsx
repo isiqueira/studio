@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import AppHeader from '@/components/app-header';
+import AppFooter from '@/components/app-footer';
 
 export const metadata: Metadata = {
   title: 'Eloquent Echoes',
@@ -24,6 +25,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <AppHeader />
           <main className="flex-grow">{children}</main>
+          <AppFooter />
         </div>
         <Toaster />
       </body>
