@@ -36,7 +36,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               Opção {index + 1}
             </div>
           </CardHeader>
-          <div className="absolute top-40 left-5 transform -translate-y-1/2">
+          <div className="absolute top-40 left-5 transform -translate-y-1/2 flex items-center gap-4">
             <div className="bg-card border-4 border-card flex items-center justify-center overflow-hidden">
               <Image
                 src="https://placehold.co/60x60.png"
@@ -46,9 +46,9 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
                 data-ai-hint="company logo"
               />
             </div>
-          </div>
-          <CardContent className="flex-grow p-6 pt-12">
             <h3 className="text-2xl font-bold text-card-foreground">{quote.officeCount}</h3>
+          </div>
+          <CardContent className="flex-grow p-6 pt-16">
              <p className="text-lg font-body text-foreground mt-2">
               {formattedValue}
             </p>
