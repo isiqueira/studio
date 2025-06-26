@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import type { User } from '@/types';
 
 interface QuoteHeaderProps {
   quoteCount: number;
+  user: User;
 }
 
-export default function QuoteHeader({ quoteCount }: QuoteHeaderProps) {
+export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
   const [creationDate, setCreationDate] = useState('');
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function QuoteHeader({ quoteCount }: QuoteHeaderProps) {
     }));
   }, []);
 
-  const title = "Orçamento para Italo";
+  const title = `Orçamento para ${user.name}`;
 
   return (
     <div className="mb-12">

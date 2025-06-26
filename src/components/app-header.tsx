@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import type { User } from '@/types';
 
-export default function AppHeader() {
+interface AppHeaderProps {
+  user: User;
+}
+
+export default function AppHeader({ user }: AppHeaderProps) {
   return (
     <header className="flex items-center justify-between h-20 px-8 border-b bg-card">
       <div className="flex items-center">
@@ -15,12 +20,12 @@ export default function AppHeader() {
       </div>
       <div className="flex items-center gap-4">
         <div className="text-right">
-          <p className="font-semibold text-card-foreground">John Doe</p>
-          <p className="text-sm text-muted-foreground">john.doe@example.com</p>
+          <p className="font-semibold text-card-foreground">{user.name}</p>
+          <p className="text-sm text-muted-foreground">{user.email}</p>
         </div>
         <Avatar>
-          <AvatarImage src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg" alt="@johndoe" data-ai-hint="person face" />
-          <AvatarFallback>JD</AvatarFallback>
+          <AvatarImage src={user.avatarUrl} alt={`@${user.name}`} data-ai-hint="person face" />
+          <AvatarFallback>{user.avatarFallback}</AvatarFallback>
         </Avatar>
       </div>
     </header>

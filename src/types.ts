@@ -20,3 +20,10 @@ export type Quotation = {
     logo: string | null;
   };
 };
+
+export type User = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  avatarFallback: string;
+};

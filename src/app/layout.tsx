@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
+import { currentUser } from '@/data/user';
 
 export const metadata: Metadata = {
   title: 'STB - Quotation',
@@ -23,7 +24,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <div className="flex flex-col min-h-screen">
-          <AppHeader />
+          <AppHeader user={currentUser} />
           <main className="flex-grow">{children}</main>
           <AppFooter />
         </div>
