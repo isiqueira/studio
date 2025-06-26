@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import UserComponent from './user-component';
+import { currentUser } from '@/data/user';
 
 const StbLogo = ({ className }: { className?: string }) => (
   <svg
@@ -52,9 +53,7 @@ export default function AppHeader() {
         </nav>
       </div>
       <div className="flex items-center gap-4">
-        <Button variant="secondary" className="bg-white text-[#0B0F3A] font-bold hover:bg-white/90">
-          ORÇAMENTO
-        </Button>
+        <UserComponent user={currentUser} />
       </div>
     </header>
   );
