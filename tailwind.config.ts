@@ -14,6 +14,11 @@ export default {
         headline: ['Montserrat', 'sans-serif'],
         code: ['monospace'],
       },
+      fontWeight: {
+        normal: '400',
+        semibold: '600',
+        bold: '700',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

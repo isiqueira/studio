@@ -3,7 +3,6 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
-import { currentUser } from '@/data/user';
 
 export const metadata: Metadata = {
   title: 'STB - Quotation',
@@ -20,11 +19,11 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         <div className="flex flex-col min-h-screen">
-          <AppHeader user={currentUser} />
+          <AppHeader />
           <main className="flex-grow">{children}</main>
           <AppFooter />
         </div>

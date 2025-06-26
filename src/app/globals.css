@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 0 0% 96.1%; /* #F5F5F5 Very Light Gray */
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 100%; /* #FFFFFF White */
+    --foreground: 235 25% 15%; /* #1A1D33 Dark Blue-Gray */
 
-    --card: 0 0% 100%; /* White cards */
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 235 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 235 25% 15%;
 
-    --primary: 285 28% 86%; /* #D8BFD8 Pale Violet */
-    --primary-foreground: 240 10% 3.9%;
+    --primary: 220 85% 55%; /* #2979FF Bright Blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary: 0 0% 95%; /* #F2F2F2 Light Gray */
+    --secondary-foreground: 235 25% 15%;
 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 235 15% 45%;
     
-    --accent: 240 67% 97%; /* #E6E6FA Soft Lavender */
-    --accent-foreground: 240 10% 3.9%;
+    --accent: 0 0% 97%;
+    --accent-foreground: 235 25% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 285 20% 88%;
-    --input: 0 0% 100%;
-    --ring: 285 28% 86%;
+    --border: 0 0% 90%; /* #E6E6E6 */
+    --input: 0 0% 85%; /* #D9D9D9 */
+    --ring: 220 85% 55%;
 
     --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;

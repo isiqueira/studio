@@ -1,6 +1,5 @@
-import QuoteApp from '@/components/quote-app';
-import { currentUser } from '@/data/user';
+import HeroSection from '@/components/hero-section';
 
 export default function Home() {
-  return <QuoteApp user={currentUser} />;
+  return <HeroSection />;
 }
