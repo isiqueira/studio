@@ -8,7 +8,7 @@ export default function AppFooter() {
           {/* Logo */}
           <div className="flex items-start">
             <Image
-              src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/stb-header-icon-e1747230805925.webp"
+              src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/stb-footer-icon-e1747230782897.webp"
               alt="STB Logo"
               width={100}
               height={40}
