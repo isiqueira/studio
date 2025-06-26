@@ -9,9 +9,11 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
+// Consolidating all metadata here as per Next.js App Router best practices.
+// This also resolves the 'http-equiv' vs 'httpEquiv' casing error.
 export const metadata: Metadata = {
-  title: 'STB - Quotation',
-  description: 'A STB multi-quotation app.',
+  title: 'STB Australia - Quotation',
+  description: 'STB Australia - Quotation',
   icons: {
     icon: '/favicon.ico',
   },
@@ -21,6 +23,9 @@ export const metadata: Metadata = {
     maximumScale: 1,
   },
   themeColor: '#ffffff',
+  other: {
+    'msapplication-TileColor': '#da532c',
+  }
 };
 
 export default function RootLayout({
@@ -30,13 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable}`}>
-      <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="STB Australia - Quotation" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <title>STB Australia - Quotation</title>
-      </head>
+      {/* The <head> tag is now managed by Next.js via the metadata export above. */}
       <body className="font-body antialiased">
         {children}
         <Toaster />
