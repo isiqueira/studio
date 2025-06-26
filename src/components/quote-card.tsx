@@ -23,10 +23,10 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg">
+        <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-2 border-border hover:border-[#0B0F3A] rounded-lg">
           <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
             <Image
-              src={quote.imageHeader}
+              src={quote.imageHeader || "https://placehold.co/600x400.png"}
               alt={quote.officeCount}
               fill
               className="object-cover"
