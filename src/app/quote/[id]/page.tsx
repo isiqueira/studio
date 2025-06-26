@@ -1,7 +1,7 @@
 import QuoteDetailPage from '@/components/quote-detail-page';
 import { quoteDetailsData } from '@/data/quote-details';
 import { currentUser } from '@/data/user';
-import AppFooter from '@/components/app-footer';
+import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
 
 export default function QuotePage({ params }: { params: { id: string } }) {
@@ -16,7 +16,7 @@ export default function QuotePage({ params }: { params: { id: string } }) {
       <main className="flex-grow">
         <QuoteDetailPage quote={quoteData} user={user} />
       </main>
-      <AppFooter />
+      <QuoteDetailFooter />
     </div>
   );
 }
