@@ -1,0 +1,6 @@
+# See https://www.robotstxt.org/robotstxt.html for documentation
+# This file tells search engine crawlers which pages they can and cannot access on your site.
+
+User-agent: *
+Disallow: /_next/
+Allow: /
