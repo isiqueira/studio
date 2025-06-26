@@ -26,32 +26,12 @@ const StbLogo = ({ className }: { className?: string }) => (
   </svg>
 );
 
-
-const navLinks = [
-  { href: '#', label: 'ESTUDE INGLÊS' },
-  { href: '#', label: 'PROFISSÕES' },
-  { href: '#', label: 'VOCACIONAL' },
-  { href: '#', label: 'SUPERIOR' },
-  { href: '#', label: 'HIGH SCHOOL' },
-  { href: '#', label: 'BLOG' },
-  { href: '#', label: 'SOBRE' },
-];
-
 export default function AppHeader() {
   return (
     <header className="flex items-center justify-between h-20 px-8 bg-[#0B0F3A]">
-      <div className="flex items-center gap-10">
-        <Link href="/">
-          <StbLogo className="h-8 w-auto" />
-        </Link>
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} className="text-sm font-semibold text-white/80 hover:text-white uppercase tracking-wider">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      <Link href="/">
+        <StbLogo className="h-8 w-auto" />
+      </Link>
       <div className="flex items-center gap-4">
         <UserComponent user={currentUser} />
       </div>
