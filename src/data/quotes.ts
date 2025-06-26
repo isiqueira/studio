@@ -20,7 +20,8 @@ export const initialQuotations: Quotation[] = [
         "converted_value": 28833.48,
         "converted_currency": "BRL",
         "sold_at": null,
-        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_7550.jpg"
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_7550.jpg",
+        "imageHeader": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//1749130123.jpg"
     }
   },
   {
@@ -42,7 +43,8 @@ export const initialQuotations: Quotation[] = [
         "converted_value": 52500.00,
         "converted_currency": "BRL",
         "sold_at": null,
-        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_6298.jpg"
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_6298.jpg",
+        "imageHeader": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//1717589099.jpg"
     }
   },
   {
@@ -64,7 +66,8 @@ export const initialQuotations: Quotation[] = [
         "converted_value": 12750.75,
         "converted_currency": "BRL",
         "sold_at": "2025-05-18 11:00:00",
-        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_31.jpg"
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_31.jpg",
+        "imageHeader": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//1508254646.png"
     }
   }
 ];

@@ -18,6 +18,7 @@ export type Quotation = {
     converted_currency: string;
     sold_at: string | null;
     logo: string | null;
+    imageHeader: string | null; 
   };
 };
 
