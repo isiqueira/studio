@@ -2,12 +2,22 @@
 
 import type { Quotation } from '@/types';
 import QuoteCard from './quote-card';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface QuoteGalleryProps {
   quotations: Quotation[];
 }
 
 export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
+  const isMobile = useIsMobile();
+
   if (quotations.length === 0) {
     return (
       <div className="text-center py-20">
@@ -17,6 +27,30 @@ export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
     )
   }
   
+  if (isMobile) {
+    return (
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        className="w-full max-w-sm mx-auto"
+      >
+        <CarouselContent>
+          {quotations.map((quotation, index) => (
+            <CarouselItem key={quotation.id}>
+              <div className="p-1">
+                <QuoteCard quotation={quotation} index={index} />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {quotations.map((quotation, index) => (
