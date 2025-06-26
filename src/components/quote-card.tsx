@@ -26,7 +26,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
         <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg">
           <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
             <Image
-              src={'https://picsum.photos/400/200?random=1'}
+              src={'https://placehold.co/400x200.png'}
               alt={quote.officeCount}
               fill
               className="object-cover"
