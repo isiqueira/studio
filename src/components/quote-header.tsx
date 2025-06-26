@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -37,7 +38,7 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
             <p className="text-muted-foreground">{quoteCount} Opções</p>
         </div>
         <Select defaultValue="pt-br">
-            <SelectTrigger className="w-[220px]">
+            <SelectTrigger className="w-[220px] border-foreground">
               <SelectValue placeholder="Language" />
             </SelectTrigger>
             <SelectContent>
