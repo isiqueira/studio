@@ -1,6 +1,8 @@
 import QuoteDetailPage from '@/components/quote-detail-page';
 import { quoteDetailsData } from '@/data/quote-details';
 import { currentUser } from '@/data/user';
+import AppFooter from '@/components/app-footer';
+import QuoteDetailHeader from '@/components/quote-detail-header';
 
 export default function QuotePage({ params }: { params: { id: string } }) {
   // In a real app, you would use params.id to fetch the specific quote data.
@@ -8,5 +10,13 @@ export default function QuotePage({ params }: { params: { id: string } }) {
   const quoteData = quoteDetailsData;
   const user = currentUser;
 
-  return <QuoteDetailPage quote={quoteData} user={user} />;
+  return (
+    <div className="flex flex-col min-h-screen bg-muted">
+      <QuoteDetailHeader />
+      <main className="flex-grow">
+        <QuoteDetailPage quote={quoteData} user={user} />
+      </main>
+      <AppFooter />
+    </div>
+  );
 }

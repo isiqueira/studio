@@ -7,11 +7,9 @@ interface QuoteInfoBoxProps {
 }
 
 export default function QuoteInfoBox({ quote, user }: QuoteInfoBoxProps) {
-  const getFirstName = (name: string) => name.split(' ')[0];
-
   return (
     <div className="bg-muted p-6 rounded-lg text-sm text-foreground/80 space-y-1">
-      <p>Hi {getFirstName(user.name)},</p>
+      <p>Hi {user.name},</p>
       <p>
         We prepared this quotation and it's valid until {format(new Date(quote.validUntil), 'EEE, MMM d, yyyy')}.
       </p>
