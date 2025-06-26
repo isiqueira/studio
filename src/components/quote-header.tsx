@@ -69,7 +69,7 @@ export default function QuoteHeader({ quoteCount }: QuoteHeaderProps) {
                     <path d="M10 2L18 7L10 12L2 7L10 2Z" fill="#fedd00"/>
                     <circle cx="10" cy="7" r="3.5" fill="#012169"/>
                   </svg>
-                  Brazilian Portuguese
+                  Português
                 </div>
               </SelectItem>
             </SelectContent>
