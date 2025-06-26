@@ -19,7 +19,7 @@ export default function AppHeader() {
           <p className="text-sm text-muted-foreground">john.doe@example.com</p>
         </div>
         <Avatar>
-          <AvatarImage src="https://placehold.co/40x40.png" alt="@johndoe" data-ai-hint="person face" />
+          <AvatarImage src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg" alt="@johndoe" data-ai-hint="person face" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
       </div>

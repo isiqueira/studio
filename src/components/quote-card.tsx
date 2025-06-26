@@ -26,7 +26,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
         <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-border rounded-lg">
           <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
             <Image
-              src={'https://placehold.co/400x200.png'}
+              src={'https://placehold.co/600x400.png'}
               alt={quote.officeCount}
               fill
               className="object-cover"
@@ -39,7 +39,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
           <div className="absolute top-40 left-5 flex items-center gap-4">
             <div className="bg-card border-4 border-card flex items-center justify-center overflow-hidden">
               <Image
-                src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg"
+                src={quote.logo || 'https://placehold.co/60x60.png'}
                 alt="Quotation Logo"
                 width={60}
                 height={60}

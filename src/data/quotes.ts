@@ -19,7 +19,8 @@ export const initialQuotations: Quotation[] = [
         "created_at": "2025-06-05 14:32:53",
         "converted_value": 28833.48,
         "converted_currency": "BRL",
-        "sold_at": null
+        "sold_at": null,
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_7550.jpg"
     }
   },
   {
@@ -40,7 +41,8 @@ export const initialQuotations: Quotation[] = [
         "created_at": "2025-06-06 10:15:00",
         "converted_value": 52500.00,
         "converted_currency": "BRL",
-        "sold_at": null
+        "sold_at": null,
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_6298.jpg"
     }
   },
   {
@@ -61,7 +63,8 @@ export const initialQuotations: Quotation[] = [
         "created_at": "2025-05-10 16:45:10",
         "converted_value": 12750.75,
         "converted_currency": "BRL",
-        "sold_at": "2025-05-18 11:00:00"
+        "sold_at": "2025-05-18 11:00:00",
+        "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images//school_31.jpg"
     }
   }
 ];
