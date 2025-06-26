@@ -29,11 +29,11 @@ export default function AppFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background border-t mt-auto">
+    <footer className="bg-[#0B0F3A] text-white mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center">
-          <StbLogo className="h-8 w-auto text-foreground" />
-          <p className="text-sm text-muted-foreground">&copy; {currentYear} STB. All rights reserved.</p>
+          <StbLogo className="h-8 w-auto" />
+          <p className="text-sm text-white/80">&copy; {currentYear} STB. All rights reserved.</p>
         </div>
       </div>
     </footer>
