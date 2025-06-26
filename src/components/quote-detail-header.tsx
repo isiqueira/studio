@@ -15,7 +15,7 @@ export default function QuoteDetailHeader() {
         <div className="flex items-center justify-between h-24">
           <Link href="/">
             <Image
-              src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/stb-header-icon-e1747230805925.webp"
+              src="https://proposalcpq.azurewebsites.net/img/stb-logo.png"
               alt="STB Logo"
               width={100}
               height={40}
