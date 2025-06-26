@@ -4,7 +4,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import type { Quotation } from '@/types';
-import { FileText, CalendarDays, Tags, CircleDollarSign } from "lucide-react";
+import { FileText, CalendarDays, CircleDollarSign } from "lucide-react";
 import Image from 'next/image';
 
 interface QuoteCardProps {
@@ -39,7 +39,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
           <div className="absolute top-40 left-5 flex items-center gap-4">
             <div className="bg-card border-4 border-card flex items-center justify-center overflow-hidden">
               <Image
-                src="https://placehold.co/60x60.png"
+                src="https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg"
                 alt="Quotation Logo"
                 width={60}
                 height={60}
