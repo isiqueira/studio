@@ -15,26 +15,33 @@ export default function QuoteDetailPage({ quote, user }: QuoteDetailPageProps) {
     <div className="bg-white text-foreground">
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="space-y-12">
-          <QuoteInfoBox quote={quote} user={user} />
+          <QuoteInfoBox greetings={quote.greetings} userName={user.name} />
           
           <QuoteSection title="Courses">
             <div className="space-y-8">
-              {quote.courses.map((course) => (
-                <CourseItem key={course.id} course={course} />
+              {quote.courses.map((course, index) => (
+                <CourseItem key={index} course={course} />
               ))}
             </div>
           </QuoteSection>
 
-          <QuoteSection title="Extras">
-            <div className="space-y-8">
-              {quote.extras.map((extra) => (
-                <ExtraItem key={extra.id} extra={extra} />
-              ))}
-            </div>
-          </QuoteSection>
+          {quote.extras.length > 0 && (
+            <QuoteSection title="Extras">
+              <div className="space-y-8">
+                {quote.extras.map((extra, index) => (
+                  <ExtraItem key={index} extra={extra} />
+                ))}
+              </div>
+            </QuoteSection>
+          )}
 
           <QuoteSection title="Payment Plan">
-            <PaymentPlan paymentPlan={quote.paymentPlan} />
+            <PaymentPlan 
+              installments={quote.paymentPlan}
+              duration={quote.duration}
+              period={quote.period}
+              totalAmount={quote.totalAmount}
+            />
           </QuoteSection>
         </div>
       </div>

@@ -1,13 +1,7 @@
+import type { Seller } from '@/types';
 import Image from 'next/image';
 
-export default function QuoteDetailFooter() {
-  const agent = {
-    name: 'Lucas P. Rodrigues',
-    phone: '+61 479 132 985',
-    email: 'operations@stbaustralia.com.au',
-    avatarUrl: 'https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg',
-  };
-
+export default function QuoteDetailFooter({ seller }: { seller: Seller }) {
   const office = {
     addressLine1: 'Level 6 / 225 Clarence St - Sydney - NSW - 2000',
     city: 'Sydney',
@@ -20,16 +14,16 @@ export default function QuoteDetailFooter() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div className="flex items-center gap-6">
                         <Image
-                            src={agent.avatarUrl}
-                            alt={agent.name}
+                            src={seller.photo || 'https://placehold.co/80x80.png'}
+                            alt={seller.name}
                             width={80}
                             height={80}
                             className="rounded-full w-20 h-20 object-cover"
                         />
                         <div className="text-sm space-y-1">
-                            <p className="font-semibold text-base text-foreground">{agent.name}</p>
-                            <p className="text-foreground/80">{agent.phone}</p>
-                            <p className="text-foreground/80">{agent.email}</p>
+                            <p className="font-semibold text-base text-foreground">{seller.name}</p>
+                            <p className="text-foreground/80">{seller.phone}</p>
+                            <p className="text-foreground/80">{seller.email}</p>
                         </div>
                     </div>
 

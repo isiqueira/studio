@@ -1,6 +1,4 @@
-import type { QuoteDetails } from '@/types';
-
-export const quoteDetailsData: QuoteDetails = {
+{
   "quotationId": 846,
   "companyInfo": {
     "phone": "+61 (02) 9299 4428",
@@ -10,7 +8,7 @@ export const quoteDetailsData: QuoteDetails = {
   },
   "courses": [
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "",
       "name": "Advanced Diploma of Leadership and Management",
       "location": "SYDNEY",
       "period": "Start Date: 14/07/2025 - End Date:  09/07/2026",
@@ -34,7 +32,7 @@ export const quoteDetailsData: QuoteDetails = {
       ]
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "",
       "name": "Graduate Diploma of Management (learning)",
       "location": "SYDNEY",
       "period": "Start Date: 13/07/2026 - End Date:  10/07/2028",
@@ -60,19 +58,19 @@ export const quoteDetailsData: QuoteDetails = {
   ],
   "extras": [
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "",
       "name": "VISA Application",
       "period": "Student VISA Subclass 500",
       "price": 1622.4
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "",
       "name": "VISA Application",
       "period": "Subsequent temporary application charge",
       "price": 709.8
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "",
       "name": "Bupa OSHC",
       "period": "Single - Start Date: 14/07/2025 - End Date: 10/09/2028",
       "price": 2954
@@ -118,7 +116,7 @@ export const quoteDetailsData: QuoteDetails = {
     "name": "Lucas P. Rodrigues",
     "phone": "+61 479 132 985",
     "email": "operations@stbaustralia.com.au",
-    "photo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/fake_porfile_img.jpg"
+    "photo": ""
   },
   "greetings": {
     "greeting": "Hi Geórgia,",
@@ -130,4 +128,4 @@ export const quoteDetailsData: QuoteDetails = {
   "duration": "38 Months",
   "period": "Start Date: 14/07/2025 - End Date: 10/09/2028",
   "totalAmount": 8536.2
-};
+}

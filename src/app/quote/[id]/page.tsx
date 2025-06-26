@@ -12,11 +12,11 @@ export default function QuotePage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-muted">
-      <QuoteDetailHeader />
+      <QuoteDetailHeader companyInfo={quoteData.companyInfo} />
       <main className="flex-grow">
         <QuoteDetailPage quote={quoteData} user={user} />
       </main>
-      <QuoteDetailFooter />
+      <QuoteDetailFooter seller={quoteData.seller} />
     </div>
   );
 }

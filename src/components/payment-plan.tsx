@@ -1,10 +1,11 @@
-import type { PaymentPlanDetails } from '@/types';
-import { format } from 'date-fns';
+import type { PaymentPlanInstallment } from '@/types';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 
-const formatCurrency = (amount: number, currency: string) => {
+// Assuming AUD as currency since it's not provided in the new model
+const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-AU', {
     style: 'currency',
-    currency: currency,
+    currency: 'AUD',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
@@ -18,39 +19,63 @@ const PlanRow = ({ label, value, isBold = false }: { label: string; value: strin
 );
 
 interface PaymentPlanProps {
-  paymentPlan: PaymentPlanDetails;
+  installments: PaymentPlanInstallment[];
+  duration: string;
+  period: string;
+  totalAmount: number;
 }
 
-export default function PaymentPlan({ paymentPlan }: PaymentPlanProps) {
+export default function PaymentPlan({ installments, duration, period, totalAmount }: PaymentPlanProps) {
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
-      <div className="bg-[#0B0F3A] text-white p-6 space-y-4">
-        <div className="flex justify-between">
-          <span>Total study plan duration</span>
-          <span>{paymentPlan.duration}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Dates</span>
-          <span>Start Date: {format(new Date(paymentPlan.startDate), 'dd/MM/yyyy')} - End Date: {format(new Date(paymentPlan.endDate), 'dd/MM/yyyy')}</span>
-        </div>
-        <div className="flex justify-between font-bold text-lg">
-          <span>Total Amount</span>
-          <span>{formatCurrency(paymentPlan.totalAmount, paymentPlan.currency)}</span>
+    <div className="space-y-8">
+      <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <div className="bg-[#0B0F3A] text-white p-6 space-y-4">
+          <div className="flex justify-between">
+            <span>Total study plan duration</span>
+            <span>{duration}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Dates</span>
+            <span>{period}</span>
+          </div>
+          <div className="flex justify-between font-bold text-lg">
+            <span>Total Amount</span>
+            <span>{formatCurrency(totalAmount)}</span>
+          </div>
         </div>
       </div>
-      <div className="bg-white p-6">
-        <div className="flex justify-between items-center pb-2 border-b border-gray-300">
-            <span className="text-sm font-semibold text-foreground">Due date</span>
-            <span className="text-sm font-semibold text-foreground">{format(new Date(paymentPlan.dueDate), 'dd/MM/yyyy')}</span>
-        </div>
-        <div className="space-y-1 mt-2">
-            {paymentPlan.items.map((item, index) => (
-                <PlanRow key={index} label={item.description} value={formatCurrency(item.amount, item.currency)} />
-            ))}
-            <div className="pt-2">
-                 <PlanRow label="Total first payment" value={formatCurrency(paymentPlan.totalFirstPayment, paymentPlan.currency)} isBold={true} />
-            </div>
-        </div>
+      
+      <div className='space-y-6'>
+        {installments.map((installment, index) => {
+          const installmentTotal = installment.payments.reduce((total, item) => total + item.price, 0);
+          return (
+            <Card key={index} className="overflow-hidden">
+              <CardHeader className='bg-muted'>
+                <CardTitle className='text-base flex justify-between'>
+                  <span>Due date</span>
+                  <span>{installment.dueDate}</span>
+                </CardTitle>
+                {installment.description && (
+                  <CardDescription>{installment.description}</CardDescription>
+                )}
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="space-y-1 mt-2">
+                    {installment.payments.map((item, pIndex) => (
+                        <PlanRow key={pIndex} label={item.description} value={formatCurrency(item.price)} />
+                    ))}
+                    <div className="pt-2">
+                        <PlanRow 
+                          label={installment.firstPayment ? "Total first payment" : "Installment Total"} 
+                          value={formatCurrency(installmentTotal)} 
+                          isBold={true} 
+                        />
+                    </div>
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export type Quotation = {
     converted_currency: string;
     sold_at: string | null;
     logo: string | null;
-    imageHeader: string | null; 
+    imageHeader: string | null;
   };
 };
 
@@ -29,59 +29,70 @@ export type User = {
   avatarFallback: string;
 };
 
-// New types for quote detail page
-type PriceItem = {
-  label: string;
-  amount: number;
-  currency: string;
-};
+// New types for quote detail page based on the provided JSON structure
+export interface CompanyInfo {
+  phone: string;
+  email: string;
+  address: string;
+  city: string;
+}
 
-export type Course = {
-  id: number;
+export interface CoursePrice {
+  description: string;
+  price: number;
+}
+
+export interface Course {
   logo: string;
   name: string;
   location: string;
-  startDate?: string;
-  endDate?: string;
-  terms?: string[];
-  prices: PriceItem[];
-  total: number;
-  currency: string;
-  included?: string[];
-  notIncluded?: string[];
-};
+  period: string;
+  prices: CoursePrice[];
+}
 
-export type Extra = {
-  id: number;
+export interface Extra {
   logo: string;
   name: string;
+  period: string;
+  price: number;
+}
+
+export interface Payment {
   description: string;
   price: number;
-  currency: string;
-};
+}
 
-type PaymentPlanItem = {
-  description: string;
-  amount: number;
-  currency: string;
-};
-
-export type PaymentPlanDetails = {
-  duration: string;
-  startDate: string;
-  endDate: string;
-  totalAmount: number;
-  currency: string;
+export interface PaymentPlanInstallment {
   dueDate: string;
-  items: PaymentPlanItem[];
-  totalFirstPayment: number;
-};
+  firstPayment: boolean;
+  description: string;
+  payments: Payment[];
+}
 
-export type QuoteDetails = {
-  validUntil: string;
-  createdAt: string;
-  termsLink: string;
+export interface Seller {
+  name: string;
+  phone: string;
+  email: string;
+  photo: string;
+}
+
+export interface Greetings {
+  greeting: string;
+  line1: string;
+  line2: string;
+  line3: string;
+  line4: string;
+}
+
+export interface QuoteDetails {
+  quotationId: number;
+  companyInfo: CompanyInfo;
   courses: Course[];
   extras: Extra[];
-  paymentPlan: PaymentPlanDetails;
-};
+  paymentPlan: PaymentPlanInstallment[];
+  seller: Seller;
+  greetings: Greetings;
+  duration: string;
+  period: string;
+  totalAmount: number;
+}

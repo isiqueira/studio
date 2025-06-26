@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail } from 'lucide-react';
+import type { CompanyInfo } from '@/types';
 
 const IconWrapper = ({ children }: { children: React.ReactNode }) => (
     <div className="bg-black text-white rounded-full p-1.5 flex items-center justify-center">
@@ -8,7 +9,7 @@ const IconWrapper = ({ children }: { children: React.ReactNode }) => (
     </div>
 );
 
-export default function QuoteDetailHeader() {
+export default function QuoteDetailHeader({ companyInfo }: { companyInfo: CompanyInfo }) {
   return (
     <header className="bg-white">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -27,13 +28,13 @@ export default function QuoteDetailHeader() {
               <IconWrapper>
                 <Phone size={14} />
               </IconWrapper>
-              <span>+61 (02) 9299 4428</span>
+              <span>{companyInfo.phone}</span>
             </div>
             <div className="flex items-center gap-3">
               <IconWrapper>
                 <Mail size={14} />
               </IconWrapper>
-              <span>operations@stbaustralia.com.au</span>
+              <span>{companyInfo.email}</span>
             </div>
           </div>
         </div>
