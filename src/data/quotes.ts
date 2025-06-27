@@ -36,7 +36,7 @@ export const initialQuotations: Quotation[] = [
             "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
           },
           "prices": [
-            { "description": "Programa", "price": 4500.00 },
+            { "description": "BANANA", "price": 4500.00 },
             { "description": "Matrícula", "price": 150.00 }
           ]
         }

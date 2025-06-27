@@ -1,7 +1,7 @@
 
 'use server';
 
-import { BlobServiceClient } from '@azure/storage-blob';
+import { BlobClient, BlobDownloadResponseParsed, BlobServiceClient, ContainerClient } from '@azure/storage-blob';
 
 const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
 
@@ -29,4 +29,43 @@ export async function getBlobFile(containerName: string, blobName: string): Prom
     console.error(`Failed to retrieve blob "${blobName}" from container "${containerName}":`, error);
     throw new Error('Could not retrieve file from Azure Blob Storage.');
   }
+}
+
+export async function downloadBlobToString(
+  containerClient: ContainerClient,
+  blobName: string
+): Promise<string> {
+
+  const blobClient: BlobClient = containerClient.getBlobClient(blobName);
+
+  const downloadResponse: BlobDownloadResponseParsed =
+    await blobClient.download();
+
+  if (!downloadResponse.errorCode && downloadResponse.readableStreamBody) {
+    const downloaded = await streamToBuffer(
+      downloadResponse.readableStreamBody
+    );
+    if (downloaded) {
+      console.log('Downloaded blob content:', downloaded.toString());
+      return downloaded.toString();
+    } else {
+      console.error('Failed to download blob content.');
+      return '';
+    }
+  }
+}
+
+function streamToBuffer(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+
+    readableStream.on('data', (data) => {
+      const content: Buffer = data instanceof Buffer ? data : Buffer.from(data);
+      chunks.push(content);
+    });
+    readableStream.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
+    readableStream.on('error', reject);
+  });
 }
