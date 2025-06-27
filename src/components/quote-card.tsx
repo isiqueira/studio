@@ -154,14 +154,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               </p>
             </div>
           </div>
-          {quote.plugAndPlay === 1 && (
-            <Badge
-              variant="default"
-              className="absolute top-4 right-4 bg-primary text-primary-foreground"
-            >
-              Plug & Play
-            </Badge>
-          )}
         </CardHeader>
 
         <CardContent className="p-0 flex-grow">
