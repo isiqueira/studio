@@ -54,7 +54,7 @@ export const initialQuotations: Quotation[] = [
       ],
       "paymentPlan": [],
       "totalAmount": 14205.00,
-      "firstPaymentAmount": 7500.00
+      "firstPaymentAmount": 710.25
     }
   },
   {
@@ -99,7 +99,7 @@ export const initialQuotations: Quotation[] = [
       ],
       "paymentPlan": [],
       "totalAmount": 10782.00,
-      "firstPaymentAmount": 5000.00
+      "firstPaymentAmount": 539.1
     }
   },
   {
@@ -142,7 +142,7 @@ export const initialQuotations: Quotation[] = [
       ],
       "paymentPlan": [],
       "totalAmount": 8932.00,
-      "firstPaymentAmount": 4500.00
+      "firstPaymentAmount": 446.6
     }
   }
 ];
