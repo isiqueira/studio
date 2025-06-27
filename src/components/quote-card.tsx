@@ -1,21 +1,16 @@
 
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Quotation, Course } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { CalendarDays } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 interface QuoteCardProps {
   quotation: Quotation;
-  index: number;
 }
 
 const formatCurrency = (amount: number, currency: string = "AUD") => {
@@ -47,7 +42,7 @@ const PriceRow = ({
   isBold = false,
 }: {
   label: string;
-  value: string;
+  value:string;
   isBold?: boolean;
 }) => (
   <div className="flex justify-between items-center py-2 text-sm">
@@ -69,12 +64,12 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
   const cityName = locationParts[1];
 
   return (
-    <div className="mb-6">
+    <div className="space-y-4">
       <h4 className="text-lg font-semibold text-foreground mb-4">
         {course.name}
       </h4>
 
-      <div className="flex items-center gap-4 mb-4">
+      <div className="flex items-center gap-4">
         {educationGroupLogo && (
           <Image
             src={educationGroupLogo}
@@ -89,7 +84,10 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
             <p className="text-sm font-medium text-foreground">{schoolName}</p>
           )}
           {cityName && (
-            <p className="text-muted-foreground text-sm">{cityName}</p>
+            <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>{cityName}</span>
+            </div>
           )}
         </div>
       </div>
@@ -112,12 +110,12 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 };
 
 
-export default function QuoteCard({ quotation, index }: QuoteCardProps) {
+export default function QuoteCard({ quotation }: QuoteCardProps) {
   const { quote } = quotation;
 
   return (
     <Link href={`/quote/${quote.id}`} className="block h-full">
-      <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg transition-shadow duration-200">
+      <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
         <CardContent className="p-0 flex-grow">
           <Section>
             {quote.courses.map((course, courseIndex) => (
