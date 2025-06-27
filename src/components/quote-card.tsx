@@ -88,14 +88,7 @@ const CourseSection = ({ course }: { course: Course }) => {
             <p className="text-sm text-muted-foreground">{schoolName}</p>
           )}
           {cityName && (
-            <p className="text-muted-foreground flex items-center text-sm">
-              <Image
-                src="https://flagcdn.com/w20/au.png"
-                alt="Australia flag"
-                width={20}
-                height={15}
-                className="mr-2"
-              />
+            <p className="text-muted-foreground text-sm">
               {cityName}
             </p>
           )}
