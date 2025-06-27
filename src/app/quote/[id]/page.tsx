@@ -10,7 +10,7 @@ export default function QuotePage({ params }: { params: { id: string } }) {
   // In a real app, you would use params.id to fetch the specific quote data.
   // For this example, we'll use the mock data directly.
   const blobData = getBlobFile('propostas', params.id);
-
+  console.log('blobData', blobData);
   const quoteData = quoteDetailsData;
   const user = currentUser;
 
