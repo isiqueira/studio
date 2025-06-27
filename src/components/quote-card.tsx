@@ -63,7 +63,7 @@ const PriceRow = ({
   </div>
 );
 
-const CourseSection = ({ course }: { course: Course }) => {
+const CourseSection = ({ course, educationGroupLogo }: { course: Course, educationGroupLogo?: string }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
   const locationParts = course.location.split('|').map(s => s.trim());
   const schoolName = locationParts[0];
@@ -72,31 +72,32 @@ const CourseSection = ({ course }: { course: Course }) => {
   return (
     <div className="mb-6">
       <div className="flex items-start gap-4">
-        {course.educationGroupLogo && (
-          <Image
-            src={course.educationGroupLogo}
-            alt={`${course.name} logo`}
-            width={40}
-            height={40}
-          />
+        {educationGroupLogo && (
+            <Image
+                src={educationGroupLogo}
+                alt={`${schoolName} logo`}
+                width={40}
+                height={40}
+                className="rounded-md"
+            />
         )}
         <div className="flex-1">
-          <h4 className="text-lg font-semibold text-foreground mb-1">
-            {course.name}
-          </h4>
-          {schoolName && (
-            <p className="text-sm text-muted-foreground">{schoolName}</p>
-          )}
-          {cityName && (
-            <p className="text-muted-foreground text-sm">
-              {cityName}
-            </p>
-          )}
+            <h4 className="text-lg font-semibold text-foreground mb-1">
+                {course.name}
+            </h4>
+            {schoolName && (
+                <p className="text-sm text-muted-foreground">{schoolName}</p>
+            )}
+            {cityName && (
+                <p className="text-muted-foreground text-sm">
+                {cityName}
+                </p>
+            )}
         </div>
       </div>
       
       <div className="mt-4">
-        <h5 className="text-base font-semibold text-foreground mb-3">Valores</h5>
+        <SectionTitle>Valores</SectionTitle>
         
         <div className="space-y-3 text-sm">
           {course.prices.map((price, priceIndex) => {
@@ -166,6 +167,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               <CourseSection
                 key={courseIndex}
                 course={course}
+                educationGroupLogo={quote.educationGroupLogo}
               />
             ))}
           </Section>
@@ -189,14 +191,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
 
         <CardFooter className="p-0">
           <div className="w-full">
-            {quote.paymentPlan.length > 0 && quote.paymentPlan[0] && (
-              <div className="p-4 sm:p-6 bg-muted/50 border-t">
-                <p className="text-xs text-muted-foreground">First Payment</p>
-                <p className="text-lg font-bold text-foreground">
-                  {formatCurrency(quote.paymentPlan[0].firstPaymentAmount)}
-                </p>
-              </div>
-            )}
             <div className="p-4 sm:p-6 bg-muted mt-auto">
               <div className="flex justify-between items-center">
                 <div className="text-left">
