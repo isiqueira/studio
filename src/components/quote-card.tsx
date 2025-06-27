@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -68,15 +67,15 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
       <h4 className="text-lg font-semibold text-foreground mb-4">
         {course.name}
       </h4>
-
-      <div className="flex items-center gap-4">
+      
+      <div className="flex items-start gap-4">
         {educationGroupLogo && (
           <Image
             src={educationGroupLogo}
             alt={`${schoolName || 'School'} logo`}
             width={48}
             height={48}
-            className="w-12 h-12 rounded-md object-contain self-start"
+            className="w-12 h-12 rounded-md object-contain"
           />
         )}
         <div className="flex-1">
@@ -118,13 +117,15 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
         <CardContent className="p-0 flex-grow">
           <Section>
-            {quote.courses.map((course, courseIndex) => (
-              <CourseSection
-                key={courseIndex}
-                course={course}
-                educationGroupLogo={quote.educationGroupLogo}
-              />
-            ))}
+            <div className="space-y-8">
+              {quote.courses.map((course, courseIndex) => (
+                <CourseSection
+                  key={courseIndex}
+                  course={course}
+                  educationGroupLogo={quote.educationGroupLogo}
+                />
+              ))}
+            </div>
           </Section>
 
           {quote.extras.length > 0 && (
