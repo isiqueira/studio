@@ -1,3 +1,4 @@
+import { ServiceSubmitBatchOptionalParamsModel } from "@azure/storage-blob";
 
 export interface CoursePrice {
   description: string;
@@ -33,36 +34,25 @@ export interface PaymentPlanInstallment {
 
 export type Quotation = {
   id: number;
-  quoteOnline_id: number;
-  quote_id: number;
-  like: null;
-  view: number;
   quote: {
     id: number;
-    officeCount: string;
-    plugAndPlay: number;
-    office_id: number;
-    status: string;
-    opportunity_id: number;
-    dueDate: string;
-    creator_id: number;
+    quotationHash: string;
+    validUntil: string;
     created_at: string;
-    converted_value: number;
-    converted_currency: string;
-    sold_at: string | null;
-    logo: string | null;
-    imageHeader: string | null;
-    educationGroupLogo?: string;
-    
-    // Detailed information for the new card layout
+    name: string;
+    school: School;
     courses: Course[];
     extras: Extra[];
     paymentPlan: PaymentPlanInstallment[];
     totalAmount: number; // The original total in AUD
     firstPaymentAmount: number;
-    entryRequirements?: string;
   };
 };
+export type School = {
+  name: string;
+  logo: string;
+  location?: string;
+}
 
 export type User = {
   name: string;

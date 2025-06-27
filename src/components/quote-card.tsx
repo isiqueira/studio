@@ -109,7 +109,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                 <CourseSection
                   key={courseIndex}
                   course={course}
-                  educationGroupLogo={quote.educationGroupLogo}
+                  educationGroupLogo={quote.school.logo}
                 />
               ))}
             </div>
