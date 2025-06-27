@@ -9,7 +9,7 @@ export const initialQuotations: Quotation[] = [
       "created_at": "2025-06-05 14:32:53",
       "firstPaymentAmount": 710.25,
       "name": "General English Full Time",
-      "quotationHash": "",
+      "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
       "courses": [
         {
           "logo": "",
@@ -58,7 +58,7 @@ export const initialQuotations: Quotation[] = [
       "created_at": "2025-06-05 14:32:53",
       "firstPaymentAmount": 710.25,
       "name": "General English Full Time",
-      "quotationHash": "",
+      "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
       "courses": [
         {
           "logo": "",
@@ -94,7 +94,7 @@ export const initialQuotations: Quotation[] = [
       "created_at": "2025-06-05 14:32:53",
       "firstPaymentAmount": 710.25,
       "name": "General English Full Time",
-      "quotationHash": "",
+      "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
       "courses": [
         {
           "logo": "",
