@@ -38,15 +38,29 @@ const PriceRow = ({ label, value }: { label: string; value: string }) => (
   </div>
 );
 
-const CourseSection = ({ course }: { course: Course }) => {
+const CourseSection = ({ course, logo }: { course: Course, logo?: string }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
   return (
     <div className="mb-6">
-      <h4 className="text-lg font-bold text-foreground">{course.name}</h4>
-      <p className="text-sm text-muted-foreground">{course.location}</p>
-      <p className="text-sm text-muted-foreground">{course.period}</p>
+      <div className="flex items-start gap-3 mb-4">
+        {logo && (
+          <Image
+            src={logo}
+            alt={`${course.name} logo`}
+            width={48}
+            height={48}
+            className="w-12 h-12 object-contain rounded-md border p-1 bg-white"
+            data-ai-hint="education logo"
+          />
+        )}
+        <div className="flex-1">
+          <h4 className="text-lg font-bold text-foreground">{course.name}</h4>
+          <p className="text-sm text-muted-foreground">{course.location}</p>
+          <p className="text-sm text-muted-foreground">{course.period}</p>
+        </div>
+      </div>
       
-      <div className="mt-4 border rounded-lg overflow-hidden">
+      <div className="border rounded-lg overflow-hidden">
         <div className="bg-muted px-4 py-2">
            <h5 className="font-semibold text-foreground">Valores</h5>
         </div>
@@ -80,16 +94,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
             data-ai-hint="office building"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          {quote.educationGroupLogo && (
-              <Image
-                  src={quote.educationGroupLogo}
-                  alt="Education Group Logo"
-                  width={120}
-                  height={40}
-                  className="absolute top-4 right-4 h-10 w-auto"
-                  data-ai-hint="education logo"
-              />
-          )}
           <div className="absolute bottom-4 left-4 flex items-end gap-3">
               <div className="bg-white p-1 rounded-md shadow-md">
                   <Image
@@ -110,7 +114,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
         <CardContent className="p-0 flex-grow">
           <Section>
             {quote.courses.map((course, courseIndex) => (
-              <CourseSection key={courseIndex} course={course} />
+              <CourseSection key={courseIndex} course={course} logo={course.logo || quote.educationGroupLogo} />
             ))}
           </Section>
           
