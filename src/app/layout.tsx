@@ -1,4 +1,5 @@
-import type {Metadata} from 'next';
+
+import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { Montserrat } from 'next/font/google';
@@ -9,23 +10,22 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
-// Consolidating all metadata here as per Next.js App Router best practices.
-// This also resolves the 'http-equiv' vs 'httpEquiv' casing error.
 export const metadata: Metadata = {
   title: 'STB Australia - Quotation',
   description: 'STB Australia - Quotation',
   icons: {
     icon: '/favicon.ico',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
-  themeColor: '#ffffff',
   other: {
     'msapplication-TileColor': '#da532c',
   }
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({
