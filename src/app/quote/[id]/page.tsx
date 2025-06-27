@@ -3,10 +3,14 @@ import { quoteDetailsData } from '@/data/quote-details';
 import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
+import { getBlobFile } from '@/lib/azure';
+
 
 export default function QuotePage({ params }: { params: { id: string } }) {
   // In a real app, you would use params.id to fetch the specific quote data.
   // For this example, we'll use the mock data directly.
+  const blobData = getBlobFile('propostas', params.id);
+
   const quoteData = quoteDetailsData;
   const user = currentUser;
 
