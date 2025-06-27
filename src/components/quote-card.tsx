@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Quotation, Course } from "@/types";
-import { Badge } from "@/components/ui/badge";
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -69,11 +68,10 @@ const CourseSection = ({ course }: { course: Course }) => {
 
   return (
     <div className="mb-6">
-      {/* Course Header */}
       <div className="mb-4 flex items-start gap-4">
-        {course.educationGroupLogo && (
+        {course.logo && (
           <Image
-            src={course.educationGroupLogo}
+            src={course.logo}
             alt={`${course.name} logo`}
             width={40}
             height={40}
@@ -81,7 +79,9 @@ const CourseSection = ({ course }: { course: Course }) => {
           />
         )}
         <div className="flex-1">
-          <h4 className="text-lg font-semibold text-foreground mb-1">{course.name}</h4>
+          <h4 className="text-lg font-semibold text-foreground mb-1">
+            {course.name}
+          </h4>
           <p className="text-muted-foreground flex items-center text-sm">
             <Image
               src="https://flagcdn.com/w20/au.png"
@@ -99,7 +99,6 @@ const CourseSection = ({ course }: { course: Course }) => {
         </div>
       </div>
 
-      {/* Pricing Section */}
       <div>
         <h5 className="text-base font-semibold text-foreground mb-3">Valores</h5>
         
@@ -118,7 +117,6 @@ const CourseSection = ({ course }: { course: Course }) => {
         
         <Separator className="my-3" />
         
-        {/* Subtotal */}
         <div className="flex justify-between items-center font-bold">
           <p className="text-foreground">Subtotal</p>
           <p className="text-lg text-foreground">{formatCurrency(total)}</p>
@@ -127,6 +125,7 @@ const CourseSection = ({ course }: { course: Course }) => {
     </div>
   );
 };
+
 
 export default function QuoteCard({ quotation, index }: QuoteCardProps) {
   const { quote } = quotation;
@@ -159,7 +158,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               </h3>
               <p className="text-xs text-white/80 flex items-center gap-1.5">
                 <CalendarDays className="w-3 h-3" /> Due:{" "}
-                {new Date(quote.dueDate).toLocaleDateString("en-CA")}
+                {new Date(quote.dueDate + "T00:00:00").toLocaleDateString("en-CA")}
               </p>
             </div>
           </div>
