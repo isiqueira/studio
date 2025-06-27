@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -93,10 +94,17 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
       
       <SectionTitle>Valores</SectionTitle>
       
-      {course.prices.map((price, priceIndex) => {
-        if (price.price <= 0) return null;
-        return <PriceRow key={priceIndex} label={price.description} value={formatCurrency(price.price)} />;
-      })}
+      <div className="space-y-[7px]">
+        {course.prices.map((price, priceIndex) => {
+          if (price.price <= 0) return null;
+          return (
+            <div key={priceIndex} className="flex justify-between items-center text-sm">
+              <span className="text-foreground/80">{price.description}</span>
+              <span className="font-medium text-foreground">{formatCurrency(price.price)}</span>
+            </div>
+          );
+        })}
+      </div>
       
       <Separator className="my-3" />
       
@@ -164,6 +172,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                       quote.firstPaymentAmount,
                       "AUD"
                     )}
+                  }
                   </p>
                 </div>
               </div>
