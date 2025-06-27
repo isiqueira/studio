@@ -11,6 +11,7 @@ import type { Quotation, Course } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { CalendarDays } from "lucide-react";
 
 interface QuoteCardProps {
   quotation: Quotation;
@@ -80,7 +81,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
             alt={`${schoolName || 'School'} logo`}
             width={48}
             height={48}
-            className="w-12 h-12 rounded-md object-contain"
+            className="w-12 h-12 rounded-md object-contain self-start"
           />
         )}
         <div className="flex-1">
@@ -157,12 +158,12 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-muted-foreground">
-                    Total ({quote.converted_currency})
+                    First Payment (AUD)
                   </p>
                   <p className="text-2xl font-bold text-primary">
                     {formatCurrency(
-                      quote.converted_value,
-                      quote.converted_currency
+                      quote.firstPaymentAmount,
+                      "AUD"
                     )}
                   </p>
                 </div>

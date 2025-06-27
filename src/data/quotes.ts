@@ -14,7 +14,7 @@ export const initialQuotations: Quotation[] = [
       "office_id": 3549,
       "status": "new",
       "opportunity_id": 497564,
-      "dueDate": "2025-06-27",
+      "dueDate": "2025-06-27T00:00:00.000Z",
       "creator_id": 6543,
       "created_at": "2025-06-05 14:32:53",
       "converted_value": 50498.60,
@@ -53,7 +53,8 @@ export const initialQuotations: Quotation[] = [
         { "logo": "", "name": "Student VISA Application - Single Support", "period": "Administrative Support", "price": 300.00 }
       ],
       "paymentPlan": [],
-      "totalAmount": 14205.00
+      "totalAmount": 14205.00,
+      "firstPaymentAmount": 7500.00
     }
   },
   {
@@ -69,7 +70,7 @@ export const initialQuotations: Quotation[] = [
       "office_id": 3550,
       "status": "sent",
       "opportunity_id": 497565,
-      "dueDate": "2025-07-01",
+      "dueDate": "2025-07-01T00:00:00.000Z",
       "creator_id": 6543,
       "created_at": "2025-06-06 10:15:00",
       "converted_value": 52500.00,
@@ -97,7 +98,8 @@ export const initialQuotations: Quotation[] = [
         { "logo": "", "name": "Student VISA Application - Subclass 500", "period": "Australian Government Fee", "price": 1632.00 }
       ],
       "paymentPlan": [],
-      "totalAmount": 10782.00
+      "totalAmount": 10782.00,
+      "firstPaymentAmount": 5000.00
     }
   },
   {
@@ -113,7 +115,7 @@ export const initialQuotations: Quotation[] = [
       "office_id": 3551,
       "status": "sold",
       "opportunity_id": 497566,
-      "dueDate": "2025-05-20",
+      "dueDate": "2025-05-20T00:00:00.000Z",
       "creator_id": 6544,
       "created_at": "2025-05-10 16:45:10",
       "converted_value": 12750.75,
@@ -139,7 +141,8 @@ export const initialQuotations: Quotation[] = [
         { "logo": "", "name": "Student VISA Application - Subclass 500", "period": "Australian Government Fee", "price": 1632.00 }
       ],
       "paymentPlan": [],
-      "totalAmount": 8932.00
+      "totalAmount": 8932.00,
+      "firstPaymentAmount": 4500.00
     }
   }
 ];

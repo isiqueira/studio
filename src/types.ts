@@ -59,6 +59,7 @@ export type Quotation = {
     extras: Extra[];
     paymentPlan: PaymentPlanInstallment[];
     totalAmount: number; // The original total in AUD
+    firstPaymentAmount: number;
     entryRequirements?: string;
   };
 };
@@ -69,3 +70,38 @@ export type User = {
   avatarUrl: string;
   avatarFallback: string;
 };
+
+export interface CompanyInfo {
+    phone: string;
+    email: string;
+    address: string;
+    city: string;
+}
+
+export interface Greetings {
+    greeting: string;
+    line1: string;
+    line2: string;
+    line3: string;
+    line4: string;
+}
+
+export interface Seller {
+    name: string;
+    phone: string;
+    email: string;
+    photo: string;
+}
+
+export interface QuoteDetails {
+    quotationId: number;
+    companyInfo: CompanyInfo;
+    courses: Course[];
+    extras: Extra[];
+    paymentPlan: PaymentPlanInstallment[];
+    seller: Seller;
+    greetings: Greetings;
+    duration: string;
+    period: string;
+    totalAmount: number;
+}
