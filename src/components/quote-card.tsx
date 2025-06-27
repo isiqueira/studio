@@ -65,6 +65,9 @@ const PriceRow = ({
 
 const CourseSection = ({ course }: { course: Course }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
+  const locationParts = course.location.split('|').map(s => s.trim());
+  const schoolName = locationParts[0];
+  const cityName = locationParts[1];
 
   return (
     <div className="mb-6">
@@ -75,23 +78,27 @@ const CourseSection = ({ course }: { course: Course }) => {
             alt={`${course.name} logo`}
             width={40}
             height={40}
-            className="rounded-md"
           />
         )}
         <div className="flex-1">
           <h4 className="text-lg font-semibold text-foreground mb-1">
             {course.name}
           </h4>
-          <p className="text-muted-foreground flex items-center text-sm">
-            <Image
-              src="https://flagcdn.com/w20/au.png"
-              alt="Australia flag"
-              width={20}
-              height={15}
-              className="mr-2"
-            />
-            {course.location.split('|').pop()?.trim()}
-          </p>
+          {schoolName && (
+            <p className="text-sm text-muted-foreground">{schoolName}</p>
+          )}
+          {cityName && (
+            <p className="text-muted-foreground flex items-center text-sm">
+              <Image
+                src="https://flagcdn.com/w20/au.png"
+                alt="Australia flag"
+                width={20}
+                height={15}
+                className="mr-2"
+              />
+              {cityName}
+            </p>
+          )}
         </div>
       </div>
       
