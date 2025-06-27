@@ -68,10 +68,10 @@ const CourseSection = ({ course }: { course: Course }) => {
 
   return (
     <div className="mb-6">
-      <div className="mb-4 flex items-start gap-4">
-        {course.logo && (
+      <div className="flex items-start gap-4">
+        {course.educationGroupLogo && (
           <Image
-            src={course.logo}
+            src={course.educationGroupLogo}
             alt={`${course.name} logo`}
             width={40}
             height={40}
@@ -88,18 +88,14 @@ const CourseSection = ({ course }: { course: Course }) => {
               alt="Australia flag"
               width={20}
               height={15}
-              className="mr-2 rounded-sm"
+              className="mr-2"
             />
             {course.location.split('|').pop()?.trim()}
           </p>
-          <div className="mt-2 text-xs text-muted-foreground space-y-0.5">
-            <p>{course.location}</p>
-            <p>{course.period}</p>
-          </div>
         </div>
       </div>
-
-      <div>
+      
+      <div className="mt-4">
         <h5 className="text-base font-semibold text-foreground mb-3">Valores</h5>
         
         <div className="space-y-3 text-sm">
