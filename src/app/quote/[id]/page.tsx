@@ -11,6 +11,7 @@ export default function QuotePage({ params }: { params: { id: string } }) {
   // For this example, we'll use the mock data directly.
   const blobData = getBlobFile('propostas', params.id);
   console.log('blobData', blobData);
+
   const quoteData = quoteDetailsData;
   const user = currentUser;
 

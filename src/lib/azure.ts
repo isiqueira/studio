@@ -23,6 +23,7 @@ export async function getBlobFile(containerName: string, blobName: string): Prom
     const blobClient = containerClient.getBlobClient(blobName);
 
     const downloadResponse = await blobClient.downloadToBuffer();
+    console.log('download success');
     return downloadResponse;
   } catch (error) {
     console.error(`Failed to retrieve blob "${blobName}" from container "${containerName}":`, error);
