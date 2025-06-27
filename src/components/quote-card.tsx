@@ -36,27 +36,6 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   </h3>
 );
 
-const PriceRow = ({
-  label,
-  value,
-  isBold = false,
-}: {
-  label: string;
-  value:string;
-  isBold?: boolean;
-}) => (
-  <div className="flex justify-between items-center py-2 text-sm">
-    <span
-      className={cn(isBold ? "font-bold text-foreground" : "text-foreground/80")}
-    >
-      {label}
-    </span>
-    <span className={cn("font-medium text-foreground", isBold && "font-bold")}>
-      {value}
-    </span>
-  </div>
-);
-
 const CourseSection = ({ course, educationGroupLogo }: { course: Course, educationGroupLogo?: string }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
   const locationParts = course.location.split('|').map(s => s.trim());
@@ -141,13 +120,14 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
               <Separator />
               <Section>
                 <SectionTitle>Taxas</SectionTitle>
-                {quote.extras.map((extra, extraIndex) => (
-                  <PriceRow
-                    key={extraIndex}
-                    label={extra.name}
-                    value={formatCurrency(extra.price)}
-                  />
-                ))}
+                <div className="space-y-[7px]">
+                  {quote.extras.map((extra, extraIndex) => (
+                    <div key={extraIndex} className="flex justify-between items-center text-sm">
+                      <span className="text-foreground/80">{extra.name}</span>
+                      <span className="font-medium text-foreground">{formatCurrency(extra.price)}</span>
+                    </div>
+                  ))}
+                </div>
               </Section>
             </>
           )}
@@ -172,7 +152,6 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                       quote.firstPaymentAmount,
                       "AUD"
                     )}
-                  }
                   </p>
                 </div>
               </div>
