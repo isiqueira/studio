@@ -5,11 +5,9 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Quotation, Course } from "@/types";
-import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -71,17 +69,18 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
   return (
     <div className="mb-6">
-      <h4 className="text-lg font-semibold text-foreground mb-3">
+      <h4 className="text-lg font-semibold text-foreground mb-4">
         {course.name}
       </h4>
 
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-4 mb-4">
         {educationGroupLogo && (
           <Image
             src={educationGroupLogo}
             alt={`${schoolName || 'School'} logo`}
-            width={40}
-            height={40}
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-md object-contain"
           />
         )}
         <div className="flex-1">
@@ -118,37 +117,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
   return (
     <Link href={`/quote/${quote.id}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg transition-shadow duration-200">
-        <CardHeader className="p-0 relative h-32 md:h-40">
-          <Image
-            src={quote.imageHeader || "https://placehold.co/800x200.png"}
-            alt="Quote header"
-            fill
-            className="object-cover"
-            data-ai-hint="office building"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-4 left-4 flex items-end gap-3">
-            <div className="bg-white p-1 rounded-md shadow-md">
-              <Image
-                src={quote.logo || "https://placehold.co/48x48.png"}
-                alt="Quote Logo"
-                width={48}
-                height={48}
-                data-ai-hint="company logo"
-              />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg text-white">
-                {quote.officeCount}
-              </h3>
-              <p className="text-xs text-white/80 flex items-center gap-1.5">
-                <CalendarDays className="w-3 h-3" /> Due:{" "}
-                {new Date(quote.dueDate + "T00:00:00").toLocaleDateString("en-CA")}
-              </p>
-            </div>
-          </div>
-        </CardHeader>
-
         <CardContent className="p-0 flex-grow">
           <Section>
             {quote.courses.map((course, courseIndex) => (
