@@ -11,6 +11,7 @@ import { MapPin } from "lucide-react";
 
 interface QuoteCardProps {
   quotation: Quotation;
+  index: number;
 }
 
 const formatCurrency = (amount: number, currency: string = "AUD") => {
@@ -38,9 +39,8 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
 
 const CourseSection = ({ course, educationGroupLogo }: { course: Course, educationGroupLogo?: string }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
-  const locationParts = course.location.split('|').map(s => s.trim());
-  const schoolName = locationParts[0];
-  const cityName = locationParts[1];
+  const schoolName = course.school.name;
+  const cityName = course.location;
 
   return (
     <div className="space-y-4">
@@ -100,7 +100,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
   const { quote } = quotation;
 
   return (
-    <Link href={`/quote/${quote.id}`} className="block h-full">
+    <Link href={`/quote/${quote.quotationHash}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
         <CardContent className="p-0 flex-grow">
           <Section>
@@ -109,7 +109,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                 <CourseSection
                   key={courseIndex}
                   course={course}
-                  educationGroupLogo={quote.school.logo}
+                  educationGroupLogo={quote.courses[courseIndex]?.school?.logo}
                 />
               ))}
             </div>

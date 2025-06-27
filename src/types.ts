@@ -10,6 +10,7 @@ export interface Course {
   name: string;
   location: string;
   period: string;
+  school: School;  
   prices: CoursePrice[];
 }
 
@@ -40,7 +41,6 @@ export type Quotation = {
     validUntil: string;
     created_at: string;
     name: string;
-    school: School;
     courses: Course[];
     extras: Extra[];
     paymentPlan: PaymentPlanInstallment[];
