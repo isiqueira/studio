@@ -71,53 +71,41 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
   return (
     <div className="mb-6">
-      <div className="flex items-start gap-4">
+      <h4 className="text-lg font-semibold text-foreground mb-3">
+        {course.name}
+      </h4>
+
+      <div className="flex items-center gap-3 mb-4">
         {educationGroupLogo && (
-            <Image
-                src={educationGroupLogo}
-                alt={`${schoolName} logo`}
-                width={40}
-                height={40}
-                className="rounded-md"
-            />
+          <Image
+            src={educationGroupLogo}
+            alt={`${schoolName || 'School'} logo`}
+            width={40}
+            height={40}
+          />
         )}
         <div className="flex-1">
-            <h4 className="text-lg font-semibold text-foreground mb-1">
-                {course.name}
-            </h4>
-            {schoolName && (
-                <p className="text-sm text-muted-foreground">{schoolName}</p>
-            )}
-            {cityName && (
-                <p className="text-muted-foreground text-sm">
-                {cityName}
-                </p>
-            )}
+          {schoolName && (
+            <p className="text-sm font-medium text-foreground">{schoolName}</p>
+          )}
+          {cityName && (
+            <p className="text-muted-foreground text-sm">{cityName}</p>
+          )}
         </div>
       </div>
       
-      <div className="mt-4">
-        <SectionTitle>Valores</SectionTitle>
-        
-        <div className="space-y-3 text-sm">
-          {course.prices.map((price, priceIndex) => {
-            if (price.price <= 0) return null;
-
-            return (
-              <div key={priceIndex} className="flex justify-between items-start">
-                <p className="text-foreground">{price.description}</p>
-                <p className="font-semibold text-foreground whitespace-nowrap pl-4">{formatCurrency(price.price)}</p>
-              </div>
-            );
-          })}
-        </div>
-        
-        <Separator className="my-3" />
-        
-        <div className="flex justify-between items-center font-bold">
-          <p className="text-foreground">Subtotal</p>
-          <p className="text-lg text-foreground">{formatCurrency(total)}</p>
-        </div>
+      <SectionTitle>Valores</SectionTitle>
+      
+      {course.prices.map((price, priceIndex) => {
+        if (price.price <= 0) return null;
+        return <PriceRow key={priceIndex} label={price.description} value={formatCurrency(price.price)} />;
+      })}
+      
+      <Separator className="my-3" />
+      
+      <div className="flex justify-between items-center font-bold">
+        <p className="text-foreground">Subtotal</p>
+        <p className="text-lg text-foreground">{formatCurrency(total)}</p>
       </div>
     </div>
   );
