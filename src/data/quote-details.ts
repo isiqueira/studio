@@ -31,7 +31,12 @@ export const quoteDetailsData: QuoteDetails = {
           "description": "Additional Fee",
           "price": 0
         }
-      ]
+      ],
+      "school": {
+        "name": '',
+        "logo": '',
+        "location": undefined
+      }
     },
     {
       "logo": "https://placehold.co/100x100.png",
@@ -55,7 +60,12 @@ export const quoteDetailsData: QuoteDetails = {
           "description": "Additional Fee",
           "price": 0
         }
-      ]
+      ],
+      "school": {
+        "name": '',
+        "logo": '',
+        "location": undefined
+      }
     }
   ],
   "extras": [
