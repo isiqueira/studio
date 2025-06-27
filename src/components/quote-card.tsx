@@ -64,42 +64,56 @@ const PriceRow = ({
   </div>
 );
 
-const CourseSection = ({ course, logo }: { course: Course; logo?: string }) => {
+const CourseSection = ({ course }: { course: Course }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
+
   return (
     <div className="mb-6">
-      <div className="flex items-start gap-3 mb-4">
-        {logo && (
-          <Image
-            src={logo}
-            alt={`${course.name} logo`}
-            width={48}
-            height={48}
-            className="w-12 h-12 object-contain rounded-md border p-1 bg-white"
-            data-ai-hint="education logo"
-          />
-        )}
-        <div className="flex-1">
-          <h4 className="text-lg font-bold text-foreground">{course.name}</h4>
-          <p className="text-sm text-muted-foreground">{course.location}</p>
-          <p className="text-sm text-muted-foreground">{course.period}</p>
+      {/* Course Header */}
+      <div className="mb-4">
+        <h4 className="text-2xl font-semibold text-foreground mb-2">{course.name}</h4>
+        <p className="text-muted-foreground flex items-center text-base">
+          <span className="mr-2 text-lg" role="img" aria-label="Australia">🇦🇺</span>
+          {course.location.split('|').pop()?.trim()}
+        </p>
+        <div className="mt-4 text-sm text-muted-foreground space-y-0.5">
+          <p>{course.location}</p>
+          <p>{course.period}</p>
         </div>
       </div>
 
+      <Separator className="my-4" />
+
+      {/* Pricing Section */}
       <div>
-        <SectionTitle>Valores</SectionTitle>
-        {course.prices.map(
-          (price, priceIndex) =>
-            price.price > 0 && (
-              <PriceRow
-                key={priceIndex}
-                label={price.description}
-                value={formatCurrency(price.price)}
-              />
-            )
-        )}
-        <Separator className="my-2" />
-        <PriceRow label="Subtotal" value={formatCurrency(total)} isBold />
+        <h5 className="text-xl font-semibold text-foreground mb-3">Valores</h5>
+        
+        <p className="text-primary font-semibold mb-2">Programas</p>
+        
+        <div className="space-y-3">
+          {course.prices.map((price, priceIndex) => {
+            if (price.price <= 0) return null;
+
+            const isPrograma = price.description === 'Programa';
+            return (
+              <div key={priceIndex} className="flex justify-between items-start">
+                <div>
+                  <p className="font-medium text-foreground">{isPrograma ? course.name : price.description}</p>
+                  {isPrograma && <p className="text-sm text-muted-foreground">{course.period}</p>}
+                </div>
+                <p className="font-semibold text-foreground whitespace-nowrap pl-4">{formatCurrency(price.price)}</p>
+              </div>
+            );
+          })}
+        </div>
+        
+        <Separator className="my-3" />
+        
+        {/* Subtotal */}
+        <div className="flex justify-between items-center">
+          <p className="text-muted-foreground">Subtotal</p>
+          <p className="font-bold text-lg text-foreground">{formatCurrency(total)}</p>
+        </div>
       </div>
     </div>
   );
@@ -143,7 +157,7 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
           {quote.plugAndPlay === 1 && (
             <Badge
               variant="default"
-              className="absolute top-4 right-4 bg-green-500 text-white"
+              className="absolute top-4 right-4 bg-primary text-primary-foreground"
             >
               Plug & Play
             </Badge>
@@ -156,7 +170,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               <CourseSection
                 key={courseIndex}
                 course={course}
-                logo={course.logo || quote.educationGroupLogo}
               />
             ))}
           </Section>
