@@ -117,16 +117,6 @@ export default function QuoteCard({ quotation, index }: QuoteCardProps) {
               <CourseSection key={courseIndex} course={course} logo={course.logo || quote.educationGroupLogo} />
             ))}
           </Section>
-          
-          {quote.entryRequirements && (
-              <>
-              <Separator />
-              <Section>
-                  <SectionTitle>Entry Requirements</SectionTitle>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line">{quote.entryRequirements}</p>
-              </Section>
-              </>
-          )}
 
           {quote.extras.length > 0 && (
               <>
