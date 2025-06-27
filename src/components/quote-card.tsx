@@ -70,37 +70,46 @@ const CourseSection = ({ course }: { course: Course }) => {
   return (
     <div className="mb-6">
       {/* Course Header */}
-      <div className="mb-4">
-        <h4 className="text-2xl font-semibold text-foreground mb-2">{course.name}</h4>
-        <p className="text-muted-foreground flex items-center text-base">
-          <span className="mr-2 text-lg" role="img" aria-label="Australia">🇦🇺</span>
-          {course.location.split('|').pop()?.trim()}
-        </p>
-        <div className="mt-4 text-sm text-muted-foreground space-y-0.5">
-          <p>{course.location}</p>
-          <p>{course.period}</p>
+      <div className="mb-4 flex items-start gap-4">
+        {course.educationGroupLogo && (
+          <Image
+            src={course.educationGroupLogo}
+            alt={`${course.name} logo`}
+            width={40}
+            height={40}
+            className="rounded-md"
+          />
+        )}
+        <div className="flex-1">
+          <h4 className="text-lg font-semibold text-foreground mb-1">{course.name}</h4>
+          <p className="text-muted-foreground flex items-center text-sm">
+            <Image
+              src="https://flagcdn.com/w20/au.png"
+              alt="Australia flag"
+              width={20}
+              height={15}
+              className="mr-2 rounded-sm"
+            />
+            {course.location.split('|').pop()?.trim()}
+          </p>
+          <div className="mt-2 text-xs text-muted-foreground space-y-0.5">
+            <p>{course.location}</p>
+            <p>{course.period}</p>
+          </div>
         </div>
       </div>
 
-      <Separator className="my-4" />
-
       {/* Pricing Section */}
       <div>
-        <h5 className="text-xl font-semibold text-foreground mb-3">Valores</h5>
+        <h5 className="text-base font-semibold text-foreground mb-3">Valores</h5>
         
-        <p className="text-primary font-semibold mb-2">Programas</p>
-        
-        <div className="space-y-3">
+        <div className="space-y-3 text-sm">
           {course.prices.map((price, priceIndex) => {
             if (price.price <= 0) return null;
 
-            const isPrograma = price.description === 'Programa';
             return (
               <div key={priceIndex} className="flex justify-between items-start">
-                <div>
-                  <p className="font-medium text-foreground">{isPrograma ? course.name : price.description}</p>
-                  {isPrograma && <p className="text-sm text-muted-foreground">{course.period}</p>}
-                </div>
+                <p className="text-foreground">{price.description}</p>
                 <p className="font-semibold text-foreground whitespace-nowrap pl-4">{formatCurrency(price.price)}</p>
               </div>
             );
@@ -110,9 +119,9 @@ const CourseSection = ({ course }: { course: Course }) => {
         <Separator className="my-3" />
         
         {/* Subtotal */}
-        <div className="flex justify-between items-center">
-          <p className="text-muted-foreground">Subtotal</p>
-          <p className="font-bold text-lg text-foreground">{formatCurrency(total)}</p>
+        <div className="flex justify-between items-center font-bold">
+          <p className="text-foreground">Subtotal</p>
+          <p className="text-lg text-foreground">{formatCurrency(total)}</p>
         </div>
       </div>
     </div>

@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
         hostname: 'proposalcpq.azurewebsites.net',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'flagcdn.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
