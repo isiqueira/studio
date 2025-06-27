@@ -1,64 +1,155 @@
 
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import type { Quotation } from '@/types';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import type { Quotation, Course } from '@/types';
 import { CalendarDays } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
+import { cn } from "@/lib/utils";
 
 interface QuoteCardProps {
   quotation: Quotation;
   index: number;
 }
 
+const formatCurrency = (amount: number, currency: string = 'AUD') => {
+  return new Intl.NumberFormat(currency === 'BRL' ? 'pt-BR' : 'en-AU', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
+const Section = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={cn("p-4 sm:p-6", className)}>{children}</div>
+);
+
+const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+  <h3 className="text-sm font-semibold uppercase text-muted-foreground tracking-wider mb-4">{children}</h3>
+);
+
+const PriceRow = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex justify-between items-center py-2 text-sm">
+    <span className="text-foreground/80">{label}</span>
+    <span className="font-medium text-foreground">{value}</span>
+  </div>
+);
+
+const CourseSection = ({ course }: { course: Course }) => {
+  const total = course.prices.reduce((acc, p) => acc + p.price, 0);
+  return (
+    <div className="mb-6">
+      <h4 className="text-lg font-bold text-foreground">{course.name}</h4>
+      <p className="text-sm text-muted-foreground">{course.location}</p>
+      <p className="text-sm text-muted-foreground">{course.period}</p>
+      
+      <div className="mt-4 border rounded-lg overflow-hidden">
+        <div className="bg-muted px-4 py-2">
+           <h5 className="font-semibold text-foreground">Valores</h5>
+        </div>
+        <div className="p-4">
+          {course.prices.map((price, priceIndex) => (
+             price.price > 0 && <PriceRow key={priceIndex} label={price.description} value={formatCurrency(price.price)} />
+          ))}
+           <Separator className="my-2" />
+           <div className="flex justify-between items-center py-2 text-sm">
+            <span className="font-bold text-foreground">Subtotal</span>
+            <span className="font-bold text-foreground">{formatCurrency(total)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function QuoteCard({ quotation, index }: QuoteCardProps) {
   const { quote } = quotation;
 
-  const formattedValue = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: quote.converted_currency,
-  }).format(quote.converted_value);
-
   return (
-    <Link href={`/quote/${quote.id}`} className="block">
-      <Card className="relative flex flex-col h-full cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card hover:bg-accent border-2 border-border hover:border-[#0B0F3A] rounded-lg">
-        <CardHeader className="p-0 relative h-40 overflow-hidden rounded-t-lg">
-          <Image
-            src={quote.imageHeader || "https://placehold.co/600x400.png"}
-            alt={quote.officeCount}
-            fill
-            className="object-cover"
-            data-ai-hint={'office document'}
-          />
-          <div className="absolute bottom-2 right-2 bg-card/80 text-card-foreground px-2 py-1 rounded-md text-sm font-semibold">
-            Opção {index + 1}
-          </div>
-        </CardHeader>
-        <div className="absolute top-40 left-5 flex items-center gap-4">
-          <div className="bg-card border-4 border-card flex items-center justify-center overflow-hidden">
+    <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card">
+      <CardHeader className="p-0 relative h-32 md:h-40">
+        <Image
+          src={quote.imageHeader || "https://placehold.co/800x200.png"}
+          alt="Quote header"
+          fill
+          className="object-cover"
+          data-ai-hint="office building"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {quote.educationGroupLogo && (
             <Image
-              src={quote.logo || 'https://placehold.co/60x60.png'}
-              alt="Quotation Logo"
-              width={60}
-              height={60}
-              data-ai-hint="company logo"
+                src={quote.educationGroupLogo}
+                alt="Education Group Logo"
+                width={120}
+                height={40}
+                className="absolute top-4 right-4 h-10 w-auto"
+                data-ai-hint="education logo"
             />
-          </div>
-          <h3 className="text-2xl font-bold text-card-foreground">{quote.officeCount}</h3>
+        )}
+        <div className="absolute bottom-4 left-4 flex items-end gap-3">
+            <div className="bg-white p-1 rounded-md shadow-md">
+                <Image
+                src={quote.logo || 'https://placehold.co/48x48.png'}
+                alt="Quote Logo"
+                width={48}
+                height={48}
+                data-ai-hint="company logo"
+                />
+            </div>
+            <div>
+                <Link href={`/quote/${quote.id}`} className="block">
+                    <h3 className="font-bold text-lg text-white hover:underline">{quote.officeCount}</h3>
+                </Link>
+                <p className="text-xs text-white/80 flex items-center gap-1.5"><CalendarDays className="w-3 h-3" /> Due: {new Date(quote.dueDate).toLocaleDateString('en-CA')}</p>
+            </div>
         </div>
-        <CardContent className="flex-grow p-6 pt-24">
-           <p className="text-lg font-body text-foreground mt-2">
-              {formattedValue}
-            </p>
-        </CardContent>
-        <CardFooter>
-          <p className="text-sm font-semibold text-card-foreground/70 flex items-center gap-2">
-            <CalendarDays className="h-4 w-4" />
-            Due: {new Date(quote.dueDate).toLocaleDateString('pt-br', { timeZone: 'UTC' })}
-          </p>
-        </CardFooter>
-      </Card>
-    </Link>
+      </CardHeader>
+
+      <CardContent className="p-0 flex-grow">
+        <Section>
+          {quote.courses.map((course, courseIndex) => (
+            <CourseSection key={courseIndex} course={course} />
+          ))}
+        </Section>
+        
+        {quote.entryRequirements && (
+            <>
+            <Separator />
+            <Section>
+                <SectionTitle>Entry Requirements</SectionTitle>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">{quote.entryRequirements}</p>
+            </Section>
+            </>
+        )}
+
+        {quote.extras.length > 0 && (
+            <>
+            <Separator />
+            <Section>
+                <SectionTitle>Taxas</SectionTitle>
+                {quote.extras.map((extra, extraIndex) => (
+                    <PriceRow key={extraIndex} label={extra.name} value={formatCurrency(extra.price)} />
+                ))}
+            </Section>
+            </>
+        )}
+      </CardContent>
+
+      <div className="p-4 sm:p-6 bg-muted mt-auto">
+        <div className="flex justify-between items-center">
+            <div className="text-left">
+                <p className="text-xs text-muted-foreground">Total (AUD)</p>
+                <p className="text-lg font-bold text-foreground">{formatCurrency(quote.totalAmount, 'AUD')}</p>
+            </div>
+            <div className="text-right">
+                <p className="text-xs text-muted-foreground">Total ({quote.converted_currency})</p>
+                <p className="text-2xl font-bold text-primary">{formatCurrency(quote.converted_value, quote.converted_currency)}</p>
+            </div>
+        </div>
+      </div>
+    </Card>
   );
 }

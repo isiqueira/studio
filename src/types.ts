@@ -1,41 +1,3 @@
-export type Quotation = {
-  id: number;
-  quoteOnline_id: number;
-  quote_id: number;
-  like: null;
-  view: number;
-  quote: {
-    id: number;
-    officeCount: string;
-    plugAndPlay: number;
-    office_id: number;
-    status: string;
-    opportunity_id: number;
-    dueDate: string;
-    creator_id: number;
-    created_at: string;
-    converted_value: number;
-    converted_currency: string;
-    sold_at: string | null;
-    logo: string | null;
-    imageHeader: string | null;
-  };
-};
-
-export type User = {
-  name: string;
-  email: string;
-  avatarUrl: string;
-  avatarFallback: string;
-};
-
-// New types for quote detail page based on the provided JSON structure
-export interface CompanyInfo {
-  phone: string;
-  email: string;
-  address: string;
-  city: string;
-}
 
 export interface CoursePrice {
   description: string;
@@ -69,30 +31,41 @@ export interface PaymentPlanInstallment {
   payments: Payment[];
 }
 
-export interface Seller {
+export type Quotation = {
+  id: number;
+  quoteOnline_id: number;
+  quote_id: number;
+  like: null;
+  view: number;
+  quote: {
+    id: number;
+    officeCount: string;
+    plugAndPlay: number;
+    office_id: number;
+    status: string;
+    opportunity_id: number;
+    dueDate: string;
+    creator_id: number;
+    created_at: string;
+    converted_value: number;
+    converted_currency: string;
+    sold_at: string | null;
+    logo: string | null;
+    imageHeader: string | null;
+    educationGroupLogo?: string;
+    
+    // Detailed information for the new card layout
+    courses: Course[];
+    extras: Extra[];
+    paymentPlan: PaymentPlanInstallment[];
+    totalAmount: number; // The original total in AUD
+    entryRequirements?: string;
+  };
+};
+
+export type User = {
   name: string;
-  phone: string;
   email: string;
-  photo: string;
-}
-
-export interface Greetings {
-  greeting: string;
-  line1: string;
-  line2: string;
-  line3: string;
-  line4: string;
-}
-
-export interface QuoteDetails {
-  quotationId: number;
-  companyInfo: CompanyInfo;
-  courses: Course[];
-  extras: Extra[];
-  paymentPlan: PaymentPlanInstallment[];
-  seller: Seller;
-  greetings: Greetings;
-  duration: string;
-  period: string;
-  totalAmount: number;
-}
+  avatarUrl: string;
+  avatarFallback: string;
+};
