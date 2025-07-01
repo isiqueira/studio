@@ -8,7 +8,7 @@ import type { Quotation, Course } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { MapPin } from "lucide-react";
+import { MapPin, CalendarDays, Clock } from "lucide-react";
 
 interface QuoteCardProps {
   quotation: Quotation;
@@ -43,6 +43,29 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
   const schoolName = course.school.name;
   const cityName = course.location;
 
+  let startDate, endDate, durationWeeks;
+  if (course.period && course.period.includes(' - ')) {
+    const [startDateStr, endDateStr] = course.period.split(' - ');
+    startDate = new Date(startDateStr.trim());
+    endDate = new Date(endDateStr.trim());
+    if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+      const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      durationWeeks = Math.round(diffDays / 7);
+    } else {
+        startDate = undefined;
+        endDate = undefined;
+    }
+  }
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+  }
+
   return (
     <div className="space-y-4">
       <h4 className="text-lg font-semibold text-foreground mb-4">
@@ -50,16 +73,14 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
       </h4>
       
       <div className="flex items-start gap-4">
-        {educationGroupLogo && (
-          <Image
-            src={educationGroupLogo}
-            alt={`${schoolName || 'School'} logo`}
-            width={48}
-            height={48}
-            className="w-12 h-12 rounded-md object-contain"
-          />
-        )}
-        <div className="flex-1">
+        <Image
+          src={educationGroupLogo || 'https://placehold.co/48x48.png'}
+          alt={`${schoolName || 'School'} logo`}
+          width={48}
+          height={48}
+          className="w-12 h-12 rounded-md object-contain"
+        />
+        <div className="flex-1 space-y-1.5">
           {schoolName && (
             <p className="text-sm font-medium text-foreground">{schoolName}</p>
           )}
@@ -67,6 +88,18 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
             <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
               <MapPin className="w-3.5 h-3.5" />
               <span>{cityName}</span>
+            </div>
+          )}
+          {startDate && endDate && (
+            <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
+              <CalendarDays className="w-3 h-3" />
+              <span>{formatDate(startDate)} - {formatDate(endDate)}</span>
+            </div>
+          )}
+          {durationWeeks !== undefined && (
+             <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
+                <Clock className="w-3 h-3" />
+                <span>{durationWeeks} weeks duration</span>
             </div>
           )}
         </div>
