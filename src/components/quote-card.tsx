@@ -1,6 +1,7 @@
 
 "use client";
 
+import React from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import type { Quotation, Course } from "@/types";
@@ -119,13 +120,19 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
             <>
               <Separator />
               <Section>
-                <SectionTitle>Taxas</SectionTitle>
-                <div className="space-y-[7px]">
+                <h3 className="text-sm font-semibold text-primary mb-4">Taxas</h3>
+                <div className="flex flex-col">
                   {quote.extras.map((extra, extraIndex) => (
-                    <div key={extraIndex} className="flex justify-between items-center text-sm">
-                      <span className="text-foreground/80">{extra.name}</span>
-                      <span className="font-medium text-foreground">{formatCurrency(extra.price)}</span>
-                    </div>
+                    <React.Fragment key={extraIndex}>
+                      <div className="flex justify-between items-start text-sm">
+                        <div>
+                          <p className="text-foreground">{extra.name}</p>
+                          <p className="text-muted-foreground text-xs">{extra.period}</p>
+                        </div>
+                        <p className="font-medium text-foreground whitespace-nowrap">{formatCurrency(extra.price)}</p>
+                      </div>
+                      {extraIndex < quote.extras.length - 1 && <Separator className="my-3" />}
+                    </React.Fragment>
                   ))}
                 </div>
               </Section>
