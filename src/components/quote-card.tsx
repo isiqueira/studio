@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { MapPin, CalendarDays, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface QuoteCardProps {
   quotation: Quotation;
@@ -176,24 +177,27 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
         <CardFooter className="p-0">
           <div className="w-full">
             <div className="p-4 sm:p-6 bg-muted mt-auto">
-              <div className="flex justify-between items-center">
-                <div className="text-left">
-                  <p className="text-xs text-muted-foreground">Total (AUD)</p>
-                  <p className="text-lg font-bold text-foreground">
-                    {formatCurrency(quote.totalAmount, "AUD")}
-                  </p>
+              <div className="flex flex-col gap-4">
+                <div className="flex justify-between items-center">
+                  <div className="text-left">
+                    <p className="text-xs text-muted-foreground">Total (AUD)</p>
+                    <p className="text-lg font-bold text-foreground">
+                      {formatCurrency(quote.totalAmount, "AUD")}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground">
+                      First Payment (AUD)
+                    </p>
+                    <p className="text-2xl font-bold text-primary">
+                      {formatCurrency(
+                        quote.firstPaymentAmount,
+                        "AUD"
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-xs text-muted-foreground">
-                    First Payment (AUD)
-                  </p>
-                  <p className="text-2xl font-bold text-primary">
-                    {formatCurrency(
-                      quote.firstPaymentAmount,
-                      "AUD"
-                    )}
-                  </p>
-                </div>
+                <Button className="w-full">Aqui vai um texto legal</Button>
               </div>
             </div>
           </div>
