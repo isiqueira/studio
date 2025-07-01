@@ -72,7 +72,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
         {course.name}
       </h4>
       
-      <div className="flex items-start gap-4">
+      <div className="flex items-center gap-4">
         <Image
           src={educationGroupLogo || 'https://placehold.co/48x48.png'}
           alt={`${schoolName || 'School'} logo`}
