@@ -197,7 +197,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                     </p>
                   </div>
                 </div>
-                <Button className="w-full">Aqui vai um texto legal</Button>
+                <Button className="w-full bg-[#0c0f3a] hover:bg-[#0c0f3a]/90">Aqui vai um texto legal</Button>
               </div>
             </div>
           </div>
