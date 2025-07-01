@@ -36,7 +36,7 @@ export const quoteDetailsData: QuoteDetails = {
         "name": "Pacific College",
         "logo": "",
         "location": "SYDNEY",
-        "videoUrl": "https://www.youtube.com/embed/WH_S_j54v1s"
+        "videoUrl": "https://www.youtube.com/embed/JRS4GkR39RU"
       }
     },
     {
@@ -66,7 +66,7 @@ export const quoteDetailsData: QuoteDetails = {
         "name": "Management School",
         "logo": "",
         "location": "SYDNEY",
-        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        "videoUrl": "https://www.youtube.com/embed/JRS4GkR39RU"
       }
     }
   ],
