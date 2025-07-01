@@ -33,9 +33,10 @@ export const quoteDetailsData: QuoteDetails = {
         }
       ],
       "school": {
-        "name": '',
-        "logo": '',
-        "location": undefined
+        "name": "Pacific College",
+        "logo": "",
+        "location": "SYDNEY",
+        "videoUrl": "https://www.youtube.com/embed/WH_S_j54v1s"
       }
     },
     {
@@ -62,9 +63,10 @@ export const quoteDetailsData: QuoteDetails = {
         }
       ],
       "school": {
-        "name": '',
-        "logo": '',
-        "location": undefined
+        "name": "Management School",
+        "logo": "",
+        "location": "SYDNEY",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
       }
     }
   ],

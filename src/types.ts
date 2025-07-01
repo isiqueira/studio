@@ -52,6 +52,7 @@ export type School = {
   name: string;
   logo: string;
   location?: string;
+  videoUrl?: string;
 }
 
 export type User = {

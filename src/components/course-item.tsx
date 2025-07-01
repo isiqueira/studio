@@ -31,26 +31,42 @@ export default function CourseItem({ course }: CourseItemProps) {
         <Image src={course.logo || 'https://placehold.co/100x100.png'} alt={`${course.name} logo`} width={100} height={100} className="w-24 h-auto mt-1" />
         <div className="flex-1">
           <h3 className="text-xl font-bold text-foreground">{course.name}</h3>
+          {course.school?.name && <p className="text-md font-semibold text-muted-foreground">{course.school.name}</p>}
           <p className="text-sm text-muted-foreground">{course.location}</p>
           <p className="text-sm text-muted-foreground">{course.period}</p>
         </div>
       </div>
       
-      <div className="pl-[124px] space-y-2">
-        {course.prices.length > 0 && (
-          <div className="border-b border-gray-200 pb-2">
-            <span className="text-sm font-semibold text-foreground">Price</span>
-          </div>
+      <div className="pl-[124px] space-y-4">
+        {course.school?.videoUrl && (
+            <div className="relative h-0 pb-[56.25%]">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src={course.school.videoUrl}
+                title={`${course.school.name || course.name} video`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
         )}
-        {course.prices.map((price, index) => (
-          price.price > 0 && <PriceRow key={index} label={price.description} value={formatCurrency(price.price)} />
-        ))}
-        {course.prices.length > 0 && (
-          <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-semibold text-foreground">Course Total</span>
-              <span className="text-sm font-bold text-foreground">{formatCurrency(courseTotal)}</span>
-          </div>
-        )}
+        
+        <div className="space-y-2">
+            {course.prices.length > 0 && (
+            <div className="border-b border-gray-200 pb-2">
+                <span className="text-sm font-semibold text-foreground">Price</span>
+            </div>
+            )}
+            {course.prices.map((price, index) => (
+            price.price > 0 && <PriceRow key={index} label={price.description} value={formatCurrency(price.price)} />
+            ))}
+            {course.prices.length > 0 && (
+            <div className="flex justify-between items-center py-2">
+                <span className="text-sm font-semibold text-foreground">Course Total</span>
+                <span className="text-sm font-bold text-foreground">{formatCurrency(courseTotal)}</span>
+            </div>
+            )}
+        </div>
       </div>
     </div>
   );
