@@ -16,6 +16,17 @@ export default function QuoteDetailPage({ quote, user }: QuoteDetailPageProps) {
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="space-y-12">
           <QuoteInfoBox greetings={quote.greetings} userName={user.name} />
+
+          <div className="relative h-0 pb-[56.25%]">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
+              src="https://www.youtube.com/embed/WH_S_j54v1s"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
           
           <QuoteSection title="Courses">
             <div className="space-y-8">
