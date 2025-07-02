@@ -23,6 +23,7 @@ export async function GET(
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch quotation data';
+    console.error(`[API] Error fetching quotation ${id}:`, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -44,6 +45,7 @@ export async function PUT(
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update quotation data';
+    console.error(`[API] Error updating quotation ${id}:`, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -64,6 +66,7 @@ export async function DELETE(
 
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to delete quotation data';
+        console.error(`[API] Error deleting quotation ${id}:`, error);
         return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }

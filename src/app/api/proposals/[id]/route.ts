@@ -20,6 +20,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch proposal data';
+    console.error(`[API] Error fetching proposal ${id}:`, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -38,6 +39,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update proposal';
+    console.error(`[API] Error updating proposal ${id}:`, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -55,6 +57,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete proposal';
+    console.error(`[API] Error deleting proposal ${id}:`, error);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
