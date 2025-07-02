@@ -41,7 +41,7 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
 
 const CourseSection = ({ course, educationGroupLogo }: { course: Course, educationGroupLogo?: string }) => {
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
-  const schoolName = course.school.name;
+  const schoolName = course.school?.name;
   const cityName = course.location;
   const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
@@ -133,31 +133,29 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
 
 export default function QuoteCard({ quotation }: QuoteCardProps) {
-  const { quote } = quotation;
-
   return (
-    <Link href={`/quote/${quote.id}`} className="block h-full">
+    <Link href={`/quote/${quotation.id}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
         <CardContent className="p-0 flex-grow">
           <Section>
             <div className="space-y-8">
-              {quote.courses.map((course, courseIndex) => (
+              {quotation.courses.map((course, courseIndex) => (
                 <CourseSection
                   key={courseIndex}
                   course={course}
-                  educationGroupLogo={quote.courses[courseIndex]?.school?.logo}
+                  educationGroupLogo={quotation.courses[courseIndex]?.school?.logo}
                 />
               ))}
             </div>
           </Section>
 
-          {quote.extras.length > 0 && (
+          {quotation.extras.length > 0 && (
             <>
               <Separator />
               <Section>
                 <h3 className="text-sm font-semibold text-[#61657e] mb-4">Taxas</h3>
                 <div className="flex flex-col">
-                  {quote.extras.map((extra, extraIndex) => (
+                  {quotation.extras.map((extra, extraIndex) => (
                     <React.Fragment key={extraIndex}>
                       <div className="flex justify-between items-start text-sm">
                         <div>
@@ -166,7 +164,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                         </div>
                         <p className="font-medium text-foreground whitespace-nowrap">{formatCurrency(extra.price)}</p>
                       </div>
-                      {extraIndex < quote.extras.length - 1 && <Separator className="my-3" />}
+                      {extraIndex < quotation.extras.length - 1 && <Separator className="my-3" />}
                     </React.Fragment>
                   ))}
                 </div>
@@ -183,7 +181,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                   <div className="text-left">
                     <p className="text-xs text-muted-foreground">Total (AUD)</p>
                     <p className="text-lg font-bold text-foreground">
-                      {formatCurrency(quote.totalAmount, "AUD")}
+                      {formatCurrency(quotation.totalAmount, "AUD")}
                     </p>
                   </div>
                   <div className="text-right">
@@ -192,7 +190,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                     </p>
                     <p className="text-2xl font-bold text-primary">
                       {formatCurrency(
-                        quote.firstPaymentAmount,
+                        quotation.firstPaymentAmount,
                         "AUD"
                       )}
                     </p>

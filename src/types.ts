@@ -1,9 +1,15 @@
-import { ServiceSubmitBatchOptionalParamsModel } from "@azure/storage-blob";
-
 export interface CoursePrice {
   priceId?: number;
   description: string;
   price: number;
+}
+
+export interface School {
+  school_id?: number;
+  name: string;
+  logo: string;
+  location?: string;
+  videoUrl?: string;
 }
 
 export interface Course {
@@ -34,40 +40,9 @@ export interface PaymentPlanInstallment {
   installmentId?: number;
   dueDate: string;
   firstPayment: boolean;
-  description: string;
+  description:string;
   payments: Payment[];
 }
-
-export type Quotation = {
-  id: number;
-  quotation_id?: number; // From DB
-  quote: {
-    id: number;
-    quotationHash: string;
-    validUntil: string;
-    created_at: string;
-    name: string;
-    courses: Course[];
-    extras: Extra[];
-    paymentPlan: PaymentPlanInstallment[];
-    totalAmount: number; // The original total in AUD
-    firstPaymentAmount: number;
-  };
-};
-export type School = {
-  school_id?: number;
-  name: string;
-  logo: string;
-  location?: string;
-  videoUrl?: string;
-}
-
-export type User = {
-  name: string;
-  email: string;
-  avatarUrl: string;
-  avatarFallback: string;
-};
 
 export interface CompanyInfo {
     id?: number;
@@ -94,18 +69,25 @@ export interface Seller {
     photo: string;
 }
 
-export interface QuoteDetails {
-    quotationId: number | string;
-    quotationHash?: string;
-    companyInfo?: CompanyInfo;
-    courses: Course[];
-    extras: Extra[];
-    paymentPlan: PaymentPlanInstallment[];
-    seller?: Seller;
-    greetings?: Greetings;
-    duration: string;
-    period: string;
-    totalAmount: number;
+// A unified Quotation type for both list and detail views.
+export interface Quotation {
+  id: number;
+  name: string;
+  totalAmount: number;
+  firstPaymentAmount: number;
+  courses: Course[];
+  extras: Extra[];
+
+  // Optional fields, mainly for the detail view
+  quotationHash?: string;
+  duration?: string;
+  period?: string;
+  validUntil?: string;
+  createdAt?: string;
+  companyInfo?: CompanyInfo;
+  seller?: Seller;
+  greetings?: Greetings;
+  paymentPlan?: PaymentPlanInstallment[];
 }
 
 export interface Proposal {
@@ -119,5 +101,12 @@ export interface Proposal {
   seller?: Seller;
   companyInfo?: CompanyInfo;
   greetings?: Greetings;
-  quotations?: Quotation[];
+  quotations?: Quotation[]; // Now uses the unified Quotation type
 }
+
+export type User = {
+  name: string;
+  email: string;
+  avatarUrl: string;
+  avatarFallback: string;
+};

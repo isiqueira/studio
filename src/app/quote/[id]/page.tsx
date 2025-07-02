@@ -2,9 +2,9 @@ import QuoteDetailPage from '@/components/quote-detail-page';
 import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
-import type { QuoteDetails } from '@/types';
+import type { Quotation } from '@/types';
 
-async function getQuoteData(id: string): Promise<QuoteDetails | null> {
+async function getQuoteData(id: string): Promise<Quotation | null> {
   try {
     // On the server, we need to use the full URL.
     // In a production environment, you should use an environment variable for the base URL.

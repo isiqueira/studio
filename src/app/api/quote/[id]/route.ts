@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import type { QuoteDetails } from '@/types';
+import type { Quotation } from '@/types';
 
 // This function handles GET requests to /api/quote/[id]
 export async function GET(
@@ -18,30 +18,17 @@ export async function GET(
     const { data, error } = await supabase
       .from('quotations')
       .select(`
-        quotationId:quotation_id,
+        id:quotation_id,
         quotationHash:quotation_hash,
         duration,
         period,
         totalAmount:total_amount,
-        companyInfo:company_info (
-            phone,
-            email,
-            address,
-            city
-        ),
-        seller:sellers (
-            name,
-            phone,
-            email,
-            photo
-        ),
-        greetings (
-            greeting,
-            line1,
-            line2,
-            line3,
-            line4
-        ),
+        firstPaymentAmount: first_payment_amount,
+        validUntil: valid_until,
+        createdAt: created_at,
+        companyInfo:proposals(company_info(*)),
+        seller:proposals(sellers(*)),
+        greetings:proposals(greetings(*)),
         courses:courses (
           courseId:course_id,
           logo,
@@ -90,8 +77,16 @@ export async function GET(
     if (!data) {
       return NextResponse.json({ error: 'Quotation not found' }, { status: 404 });
     }
+    
+    // The query for related data returns nested objects. We flatten them.
+    const finalData = {
+        ...data,
+        companyInfo: data.companyInfo?.company_info,
+        seller: data.seller?.sellers,
+        greetings: data.greetings?.greetings,
+    }
 
-    return NextResponse.json(data);
+    return NextResponse.json(finalData);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch quotation data';
     return NextResponse.json({ error: errorMessage }, { status: 500 });
@@ -110,7 +105,7 @@ export async function PUT(
   }
 
   try {
-    const body: Partial<QuoteDetails> = await request.json();
+    const body: Partial<Quotation> = await request.json();
 
     // NOTE: This implementation only updates top-level quotation fields.
     // A full update of nested courses, extras, and payment plans would require
@@ -122,6 +117,8 @@ export async function PUT(
         duration: body.duration,
         period: body.period,
         total_amount: body.totalAmount,
+        first_payment_amount: body.firstPaymentAmount,
+        name: body.name,
       })
       .eq('quotation_id', id)
       .select()

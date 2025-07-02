@@ -1,4 +1,4 @@
-import type { QuoteDetails, User } from '@/types';
+import type { Quotation, User } from '@/types';
 import QuoteInfoBox from './quote-info-box';
 import QuoteSection from './quote-section';
 import CourseItem from './course-item';
@@ -6,7 +6,7 @@ import ExtraItem from './extra-item';
 import PaymentPlan from './payment-plan';
 
 interface QuoteDetailPageProps {
-  quote: QuoteDetails;
+  quote: Quotation;
   user: User;
 }
 
@@ -15,7 +15,7 @@ export default function QuoteDetailPage({ quote, user }: QuoteDetailPageProps) {
     <div className="bg-white text-foreground">
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="space-y-12">
-          <QuoteInfoBox greetings={quote.greetings} userName={user.name} />
+          {quote.greetings && <QuoteInfoBox greetings={quote.greetings} userName={user.name} />}
           
           <QuoteSection title="Courses">
             <div className="space-y-8">
@@ -34,15 +34,17 @@ export default function QuoteDetailPage({ quote, user }: QuoteDetailPageProps) {
               </div>
             </QuoteSection>
           )}
-
-          <QuoteSection title="Payment Plan">
-            <PaymentPlan 
-              installments={quote.paymentPlan}
-              duration={quote.duration}
-              period={quote.period}
-              totalAmount={quote.totalAmount}
-            />
-          </QuoteSection>
+          
+          {quote.paymentPlan && quote.duration && quote.period && (
+            <QuoteSection title="Payment Plan">
+              <PaymentPlan 
+                installments={quote.paymentPlan}
+                duration={quote.duration}
+                period={quote.period}
+                totalAmount={quote.totalAmount}
+              />
+            </QuoteSection>
+          )}
         </div>
       </div>
     </div>
