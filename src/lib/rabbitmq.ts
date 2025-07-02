@@ -4,7 +4,7 @@ import amqplib from 'amqplib';
 import type { Connection, Channel } from 'amqplib';
 
 const rabbitmqUrl = process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672';
-const queueName = 'log_queue';
+const queueName = 'logs';
 
 let connection: Connection | null = null;
 let channel: Channel | null = null;
