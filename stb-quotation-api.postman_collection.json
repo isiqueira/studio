@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "c1a2b3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
+		"name": "STB Quotation API",
+		"description": "A collection of API endpoints for managing quotations, schools, and sellers in the STB Quotation App.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Quotations",
+			"description": "Endpoints for managing quotations.",
+			"item": [
+				{
+					"name": "Get All Quotations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quotations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quotations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quotation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New Test Quotation\",\n    \"totalAmount\": 9999.99,\n    \"firstPaymentAmount\": 1500.00,\n    \"duration\": \"24 Months\",\n    \"period\": \"Start Date: 01/01/2026 - End Date: 31/12/2027\",\n    \"validUntil\": \"2025-12-31T23:59:59Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quotations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quotations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quotation by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quote/846",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quote",
+								"846"
+							]
+						},
+						"description": "Fetches the full details for a single quotation. Replace `846` with a valid ID from your database."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quotation by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"duration\": \"39 Months\",\n    \"period\": \"Start Date: 14/07/2025 - End Date: 10/10/2028\",\n    \"totalAmount\": 9000.00\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/quote/846",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quote",
+								"846"
+							]
+						},
+						"description": "Updates top-level fields of a quotation. Replace `846` with a valid ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quotation by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/quote/846",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"quote",
+								"846"
+							]
+						},
+						"description": "Deletes a quotation and all its related data. Replace `846` with a valid ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schools",
+			"description": "Endpoints for managing schools.",
+			"item": [
+				{
+					"name": "Get All Schools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/schools",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"schools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create School",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Global Language Institute\",\n    \"logo\": \"https://placehold.co/100x100.png\",\n    \"location\": \"Melbourne\",\n    \"videoUrl\": \"https://www.youtube.com/embed/dQw4w9WgXcQ\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/schools",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"schools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/schools/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"schools",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update School by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Global Language Institute (Updated)\",\n    \"location\": \"Sydney\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/schools/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"schools",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete School by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/schools/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"schools",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sellers",
+			"description": "Endpoints for managing sellers.",
+			"item": [
+				{
+					"name": "Get All Sellers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sellers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Seller",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Smith\",\n    \"phone\": \"+61 412 345 678\",\n    \"email\": \"jane.s@stbaustralia.com.au\",\n    \"photo\": \"https://placehold.co/100x100.png\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sellers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Seller by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sellers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sellers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Seller by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane A. Smith\",\n    \"email\": \"jane.smith.updated@stbaustralia.com.au\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sellers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sellers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Seller by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sellers/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sellers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string",
+			"description": "The base URL for the API. Change this to your production URL when deployed."
+		}
+	]
+}
