@@ -35,12 +35,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'jaragua.lmq.cloudamqp.com',
-        port: '',
-        pathname: '/**',
-      }
     ],
   },
 };
