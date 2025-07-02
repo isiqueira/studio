@@ -40,6 +40,7 @@ export interface PaymentPlanInstallment {
 
 export type Quotation = {
   id: number;
+  quotation_id?: number; // From DB
   quote: {
     id: number;
     quotationHash: string;
@@ -54,7 +55,7 @@ export type Quotation = {
   };
 };
 export type School = {
-  id?: number;
+  school_id?: number;
   name: string;
   logo: string;
   location?: string;
@@ -86,7 +87,7 @@ export interface Greetings {
 }
 
 export interface Seller {
-    id?: number;
+    seller_id?: number;
     name: string;
     phone: string;
     email: string;
@@ -105,4 +106,18 @@ export interface QuoteDetails {
     duration: string;
     period: string;
     totalAmount: number;
+}
+
+export interface Proposal {
+  proposal_id: number;
+  name: string;
+  valid_until: string;
+  created_at: string;
+  seller_id?: number;
+  company_info_id?: number;
+  greetings_id?: number;
+  seller?: Seller;
+  companyInfo?: CompanyInfo;
+  greetings?: Greetings;
+  quotations?: Quotation[];
 }
