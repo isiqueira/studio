@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { QuotationService } from '@/services/quotation.service';
 import logger from '@/lib/logger';
+import type { Quotation } from '@/types';
 
 const quotationService = new QuotationService();
 
@@ -13,13 +14,17 @@ export async function GET(
   const { id } = params;
 
   if (!id) {
-    return NextResponse.json({ error: 'Quotation ID is required' }, { status: 400 });
+    const errorResponse = { error: 'Quotation ID is required' };
+    logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing quotation ID.');
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
   try {
     const data = await quotationService.findById(id);
     if (!data) {
-      return NextResponse.json({ error: 'Quotation not found' }, { status: 404 });
+      const errorResponse = { error: 'Quotation not found' };
+      logger.warn({ status: 404, body: errorResponse, id }, '[API] Not Found: Quotation not found.');
+      return NextResponse.json(errorResponse, { status: 404 });
     }
     return NextResponse.json(data);
   } catch (error) {
@@ -37,16 +42,26 @@ export async function PUT(
   const { id } = params;
 
   if (!id) {
-    return NextResponse.json({ error: 'Quotation ID is required' }, { status: 400 });
+    const errorResponse = { error: 'Quotation ID is required' };
+    logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing quotation ID for update.');
+    return NextResponse.json(errorResponse, { status: 400 });
+  }
+
+  let body: Partial<Quotation>;
+  try {
+    body = await request.json();
+  } catch (error) {
+    const errorResponse = { error: 'Invalid JSON in request body' };
+    logger.warn({ status: 400, err: error, id }, '[API] Bad Request: Invalid JSON for update.');
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
   try {
-    const body = await request.json();
     const data = await quotationService.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update quotation data';
-    logger.error({ err: error, id }, `[API] Error updating quotation: ${errorMessage}`);
+    logger.error({ err: error, id, body }, `[API] Error updating quotation: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -58,7 +73,9 @@ export async function DELETE(
 ) {
     const { id } = params;
     if (!id) {
-        return NextResponse.json({ error: 'Quotation ID is required' }, { status: 400 });
+        const errorResponse = { error: 'Quotation ID is required' };
+        logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing quotation ID for delete.');
+        return NextResponse.json(errorResponse, { status: 400 });
     }
 
     try {

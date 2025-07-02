@@ -11,13 +11,17 @@ export async function GET(request: Request, { params }: { params: { id: string }
   const { id } = params;
 
   if (!id) {
-    return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
+    const errorResponse = { error: 'Seller ID is required' };
+    logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing seller ID.');
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
   try {
     const data = await sellerService.findById(id);
     if (!data) {
-      return NextResponse.json({ error: 'Seller not found' }, { status: 404 });
+      const errorResponse = { error: 'Seller not found' };
+      logger.warn({ status: 404, body: errorResponse, id }, '[API] Not Found: Seller not found.');
+      return NextResponse.json(errorResponse, { status: 404 });
     }
     return NextResponse.json(data);
   } catch (error) {
@@ -32,16 +36,26 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const { id } = params;
 
   if (!id) {
-    return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
+    const errorResponse = { error: 'Seller ID is required' };
+    logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing seller ID for update.');
+    return NextResponse.json(errorResponse, { status: 400 });
+  }
+
+  let body: Seller;
+  try {
+    body = await request.json();
+  } catch (error) {
+    const errorResponse = { error: 'Invalid JSON in request body' };
+    logger.warn({ status: 400, err: error, id }, '[API] Bad Request: Invalid JSON for update.');
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
   try {
-    const body = await request.json() as Seller;
     const data = await sellerService.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update seller';
-    logger.error({ err: error, id }, `[API] Error updating seller: ${errorMessage}`);
+    logger.error({ err: error, id, body }, `[API] Error updating seller: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -51,7 +65,9 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   const { id } = params;
 
   if (!id) {
-    return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
+    const errorResponse = { error: 'Seller ID is required' };
+    logger.warn({ status: 400, body: errorResponse, id }, '[API] Bad Request: Missing seller ID for delete.');
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
   try {

@@ -19,13 +19,21 @@ export async function GET() {
 
 // POST a new proposal
 export async function POST(request: Request) {
+  let body;
   try {
-    const body = await request.json();
+    body = await request.json();
+  } catch (error) {
+    const errorResponse = { error: 'Invalid JSON in request body' };
+    logger.warn({ status: 400, err: error }, '[API] Bad Request: Invalid JSON.');
+    return NextResponse.json(errorResponse, { status: 400 });
+  }
+
+  try {
     const data = await proposalService.create(body);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create proposal';
-    logger.error({ err: error }, `[API] Error creating proposal: ${errorMessage}`);
+    logger.error({ err: error, body }, `[API] Error creating proposal: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
