@@ -1,4 +1,6 @@
+
 import amqp from 'amqplib';
+import { URL } from 'url';
 
 // A simple console logger for publisher-specific issues, to avoid circular dependency with the main logger.
 const publisherLogger = {
@@ -30,6 +32,12 @@ async function connect() {
     isConnecting = true;
 
     try {
+        // Add a check for the protocol, which is likely the cause of the error.
+        const url = new URL(RABBITMQ_URL);
+        if (url.protocol === 'amqp:' && url.hostname !== 'localhost' && url.hostname !== 'rabbitmq') {
+            publisherLogger.warn(`Attempting to connect to remote host (${url.hostname}) using non-secure 'amqp://' protocol. CloudAMQP and other production services usually require a secure connection with 'amqps://'. Please check your RABBITMQ_URL environment variable.`);
+        }
+
         publisherLogger.info(`Connecting to RabbitMQ...`);
         connection = await amqp.connect(RABBITMQ_URL);
         channel = await connection.createChannel();
