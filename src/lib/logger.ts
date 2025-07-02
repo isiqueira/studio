@@ -4,12 +4,9 @@ const logger = pino(
   process.env.NODE_ENV === 'production'
     ? {} // Default production settings
     : {
-        transport: {
-          target: 'pino-pretty',
-          options: {
-            colorize: true,
-          },
-        },
+        // The 'pino-pretty' transport is incompatible with the Next.js runtime,
+        // so we use standard JSON logging in development to resolve the error.
+        level: 'debug',
       }
 );
 
