@@ -1,4 +1,3 @@
-'use server';
 
 import amqplib from 'amqplib';
 import type { Connection, Channel } from 'amqplib';
@@ -45,27 +44,21 @@ async function connectToRabbitMQ() {
 }
 
 // Fire-and-forget sending function
-export function sendLogToRabbitMQ(log: any) {
-    (async () => {
-        if (!channel) {
-            await connectToRabbitMQ();
-        }
+export async function sendLogToRabbitMQ(log: any) {
+    if (!channel) {
+        await connectToRabbitMQ();
+    }
 
-        if (channel) {
-            try {
-                channel.sendToQueue(queueName, Buffer.from(JSON.stringify(log)), {
-                    persistent: true,
-                });
-            } catch (err) {
-                console.error('Failed to send log to RabbitMQ:', err instanceof Error ? err.message : String(err));
-                channel = null;
-                await connectToRabbitMQ();
-            }
+    if (channel) {
+        try {
+            channel.sendToQueue(queueName, Buffer.from(JSON.stringify(log)), {
+                persistent: true,
+            });
+        } catch (err) {
+            console.error('Failed to send log to RabbitMQ:', err instanceof Error ? err.message : String(err));
+            // Reset connection state to allow for reconnection attempt on next log
+            channel = null;
+            connection = null;
         }
-    })();
-}
-
-// Initial connection attempt in the background
-if (process.env.NODE_ENV !== 'test') {
-    connectToRabbitMQ();
+    }
 }
