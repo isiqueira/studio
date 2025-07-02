@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
         hostname: 'flagcdn.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
