@@ -19,7 +19,8 @@ async function getQuoteData(id: string): Promise<Quotation | null> {
       const res = await fetch(`${baseUrl}/api/quote/${id}`);
 
       if (!res.ok) {
-        logger.error({ status: res.status, statusText: res.statusText, id }, 'Failed to fetch quote');
+        // This will catch 404s and other non-200 responses from the API
+        logger.warn({ status: res.status, statusText: res.statusText, id }, 'Failed to fetch quote data from API.');
         return null;
       }
       
@@ -45,6 +46,7 @@ export default async function QuotePage({ params }: { params: { id: string } }) 
   const user = currentUser;
 
   if (!quoteData) {
+    logger.warn({ id: params.id }, `[Page] Quote not found. Rendering 'not found' page.`);
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-2xl font-bold">Quote not found</h1>
