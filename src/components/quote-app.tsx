@@ -6,7 +6,7 @@ import type { Quotation, User } from '@/types';
 import QuoteHeader from '@/components/quote-header';
 import QuoteGallery from '@/components/quote-gallery';
 import { Skeleton } from './ui/skeleton';
-import { FF_FROM_API } from '@/lib/feature-flags';
+import { FROM_API } from '@/lib/feature-flags';
 import { initialQuotations } from '@/data/quotes';
 
 interface QuoteAppProps {
@@ -31,7 +31,7 @@ export default function QuoteApp({ user }: QuoteAppProps) {
       setLoading(true);
       setError(null);
       
-      if (FF_FROM_API) {
+      if (FROM_API) {
         try {
           const res = await fetch('/api/quotations');
           if (!res.ok) {

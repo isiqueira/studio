@@ -3,11 +3,11 @@ import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
 import type { Quotation } from '@/types';
-import { FF_FROM_API } from '@/lib/feature-flags';
+import { FROM_API } from '@/lib/feature-flags';
 import { quoteDetailData } from '@/data/quote-details';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
-  if (FF_FROM_API) {
+  if (FROM_API) {
     try {
       // On the server, we need to use the full URL.
       // In a production environment, you should use an environment variable for the base URL.
