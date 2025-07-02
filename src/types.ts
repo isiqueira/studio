@@ -1,11 +1,13 @@
 import { ServiceSubmitBatchOptionalParamsModel } from "@azure/storage-blob";
 
 export interface CoursePrice {
+  priceId?: number;
   description: string;
   price: number;
 }
 
 export interface Course {
+  courseId?: number;
   logo: string;
   name: string;
   location: string;
@@ -15,6 +17,7 @@ export interface Course {
 }
 
 export interface Extra {
+  extraId?: number;
   logo: string;
   name: string;
   period: string;
@@ -22,11 +25,13 @@ export interface Extra {
 }
 
 export interface Payment {
+  paymentId?: number;
   description: string;
   price: number;
 }
 
 export interface PaymentPlanInstallment {
+  installmentId?: number;
   dueDate: string;
   firstPayment: boolean;
   description: string;
@@ -49,6 +54,7 @@ export type Quotation = {
   };
 };
 export type School = {
+  id?: number;
   name: string;
   logo: string;
   location?: string;
@@ -63,6 +69,7 @@ export type User = {
 };
 
 export interface CompanyInfo {
+    id?: number;
     phone: string;
     email: string;
     address: string;
@@ -70,6 +77,7 @@ export interface CompanyInfo {
 }
 
 export interface Greetings {
+    id?: number;
     greeting: string;
     line1: string;
     line2: string;
@@ -78,6 +86,7 @@ export interface Greetings {
 }
 
 export interface Seller {
+    id?: number;
     name: string;
     phone: string;
     email: string;
