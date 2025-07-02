@@ -16,10 +16,11 @@ interface ExtraItemProps {
 }
 
 export default function ExtraItem({ extra }: ExtraItemProps) {
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   return (
     <div>
       <div className="flex gap-6 items-start">
-        <Image src={extra.logo || 'https://placehold.co/100x100.png'} alt={`${extra.name} logo`} width={100} height={100} className="w-24 h-auto" />
+        <Image src={extra.logo || transparentPixel} alt={`${extra.name} logo`} width={100} height={100} className="w-24 h-auto" />
         <div className="flex-1">
           <h3 className="text-xl font-bold text-foreground">{extra.name}</h3>
           <p className="text-sm text-muted-foreground">{extra.period}</p>

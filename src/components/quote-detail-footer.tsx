@@ -6,6 +6,7 @@ export default function QuoteDetailFooter({ seller }: { seller: Seller }) {
     addressLine1: 'Level 6 / 225 Clarence St - Sydney - NSW - 2000',
     city: 'Sydney',
   };
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   return (
     <footer className="bg-white text-foreground mt-auto">
@@ -14,7 +15,7 @@ export default function QuoteDetailFooter({ seller }: { seller: Seller }) {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div className="flex items-center gap-6">
                         <Image
-                            src={seller.photo || 'https://placehold.co/80x80.png'}
+                            src={seller.photo || transparentPixel}
                             alt={seller.name}
                             width={80}
                             height={80}

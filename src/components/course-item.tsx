@@ -24,11 +24,13 @@ const PriceRow = ({ label, value }: { label: string; value: string }) => (
 
 export default function CourseItem({ course }: CourseItemProps) {
   const courseTotal = course.prices.reduce((total, item) => total + item.price, 0);
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 
   return (
     <div className="space-y-4">
       <div className="flex gap-6 items-start">
-        <Image src={course.logo || 'https://placehold.co/100x100.png'} alt={`${course.name} logo`} width={100} height={100} className="w-24 h-auto mt-1" />
+        <Image src={course.logo || transparentPixel} alt={`${course.name} logo`} width={100} height={100} className="w-24 h-auto mt-1" />
         <div className="flex-1">
           <h3 className="text-xl font-bold text-foreground">{course.name}</h3>
           {course.school?.name && <p className="text-md font-semibold text-muted-foreground">{course.school.name}</p>}

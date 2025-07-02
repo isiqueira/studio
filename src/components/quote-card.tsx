@@ -43,6 +43,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
   const total = course.prices.reduce((acc, p) => acc + p.price, 0);
   const schoolName = course.school.name;
   const cityName = course.location;
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   let startDate, endDate, durationWeeks;
   if (course.period && course.period.includes(' - ')) {
@@ -75,7 +76,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
       
       <div className="flex items-center gap-4">
         <Image
-          src={educationGroupLogo || 'https://placehold.co/48x48.png'}
+          src={educationGroupLogo || transparentPixel}
           alt={`${schoolName || 'School'} logo`}
           width={48}
           height={48}
