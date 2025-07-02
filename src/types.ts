@@ -1,3 +1,4 @@
+
 export interface CoursePrice {
   priceId?: number;
   description: string;
@@ -102,6 +103,7 @@ export interface Proposal {
   companyInfo?: CompanyInfo;
   greetings?: Greetings;
   quotations?: Quotation[]; // Now uses the unified Quotation type
+  quotations_count?: number;
 }
 
 export type User = {
