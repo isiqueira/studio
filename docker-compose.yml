@@ -14,17 +14,8 @@ services:
       # Your Azure connection string needs to be available as an environment variable.
       # Docker Compose automatically reads the .env file.
       - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}
-      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - otel-collector
-      - rabbitmq
-
-  # RabbitMQ
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"   # for app connection
-      - "15672:15672" # for management UI
 
   # OpenTelemetry Collector
   otel-collector:

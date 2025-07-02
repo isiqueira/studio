@@ -38,6 +38,7 @@ async function connectToRabbitMQ() {
         console.error('Failed to connect to RabbitMQ:', err instanceof Error ? err.message : String(err));
         channel = null;
         connection = null;
+        throw err; // Re-throw the error so the caller can handle it.
     } finally {
         isConnecting = false;
     }
@@ -46,19 +47,16 @@ async function connectToRabbitMQ() {
 // Fire-and-forget sending function
 export async function sendLogToRabbitMQ(log: any) {
     if (!channel) {
-        await connectToRabbitMQ();
+        await connectToRabbitMQ(); // This will throw if it fails, and the caller will catch it.
     }
 
     if (channel) {
-        try {
-            channel.sendToQueue(queueName, Buffer.from(JSON.stringify(log)), {
-                persistent: true,
-            });
-        } catch (err) {
-            console.error('Failed to send log to RabbitMQ:', err instanceof Error ? err.message : String(err));
-            // Reset connection state to allow for reconnection attempt on next log
-            channel = null;
-            connection = null;
-        }
+        // If channel is closed, this will throw an error, which will be caught by the caller's .catch()
+        channel.sendToQueue(queueName, Buffer.from(JSON.stringify(log)), {
+            persistent: true,
+        });
+    } else {
+        // This case is hit if connectToRabbitMQ failed.
+        throw new Error('RabbitMQ channel not available. Log was not sent.');
     }
 }
