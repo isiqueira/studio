@@ -1,8 +1,8 @@
 
 import { NextResponse } from 'next/server';
-import { QuotationRepository } from '@/repositories/quotation.repository';
+import { QuotationService } from '@/services/quotation.service';
 
-const quotationRepo = new QuotationRepository();
+const quotationService = new QuotationService();
 
 // This function handles GET requests to /api/quote/[id]
 export async function GET(
@@ -16,7 +16,7 @@ export async function GET(
   }
 
   try {
-    const data = await quotationRepo.findById(id);
+    const data = await quotationService.findById(id);
     if (!data) {
       return NextResponse.json({ error: 'Quotation not found' }, { status: 404 });
     }
@@ -40,7 +40,7 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    const data = await quotationRepo.update(id, body);
+    const data = await quotationService.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update quotation data';
@@ -59,7 +59,7 @@ export async function DELETE(
     }
 
     try {
-        const data = await quotationRepo.delete(id);
+        const data = await quotationService.delete(id);
         return NextResponse.json(data, { status: 200 });
 
     } catch (error) {

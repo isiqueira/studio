@@ -1,15 +1,15 @@
 
 import { NextResponse } from 'next/server';
-import { SchoolRepository } from '@/repositories/school.repository';
+import { SchoolService } from '@/services/school.service';
 import type { School } from '@/types';
 
-const schoolRepo = new SchoolRepository();
+const schoolService = new SchoolService();
 
 // GET a single school by ID
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
     const { id } = params;
-    const data = await schoolRepo.findById(id);
+    const data = await schoolService.findById(id);
     if (!data) return NextResponse.json({ error: 'School not found' }, { status: 404 });
     return NextResponse.json(data);
   } catch (error) {
@@ -23,7 +23,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   try {
     const { id } = params;
     const body = await request.json() as School;
-    const data = await schoolRepo.update(id, body);
+    const data = await schoolService.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update school';
@@ -35,7 +35,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
     const { id } = params;
-    const data = await schoolRepo.delete(id);
+    const data = await schoolService.delete(id);
     return NextResponse.json({ message: `School ${id} deleted successfully` }, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete school';

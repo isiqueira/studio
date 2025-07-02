@@ -1,8 +1,8 @@
 
 import { NextResponse } from 'next/server';
-import { ProposalRepository } from '@/repositories/proposal.repository';
+import { ProposalService } from '@/services/proposal.service';
 
-const proposalRepo = new ProposalRepository();
+const proposalService = new ProposalService();
 
 // GET a single proposal by ID
 export async function GET(request: Request, { params }: { params: { id: string } }) {
@@ -13,7 +13,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 
   try {
-    const data = await proposalRepo.findById(id);
+    const data = await proposalService.findById(id);
     if (!data) {
       return NextResponse.json({ error: 'Proposal not found' }, { status: 404 });
     }
@@ -34,7 +34,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     
   try {
     const body = await request.json();
-    const data = await proposalRepo.update(id, body);
+    const data = await proposalService.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update proposal';
@@ -51,7 +51,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   }
     
   try {
-    const data = await proposalRepo.delete(id);
+    const data = await proposalService.delete(id);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete proposal';

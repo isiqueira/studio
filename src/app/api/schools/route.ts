@@ -1,14 +1,14 @@
 
 import { NextResponse } from 'next/server';
-import { SchoolRepository } from '@/repositories/school.repository';
+import { SchoolService } from '@/services/school.service';
 import type { School } from '@/types';
 
-const schoolRepo = new SchoolRepository();
+const schoolService = new SchoolService();
 
 // GET all schools
 export async function GET() {
   try {
-    const data = await schoolRepo.findAll();
+    const data = await schoolService.findAll();
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch schools';
@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json() as School;
-    const data = await schoolRepo.create(body);
+    const data = await schoolService.create(body);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create school';

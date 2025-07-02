@@ -1,13 +1,13 @@
 
 import { NextResponse } from 'next/server';
-import { ProposalRepository } from '@/repositories/proposal.repository';
+import { ProposalService } from '@/services/proposal.service';
 
-const proposalRepo = new ProposalRepository();
+const proposalService = new ProposalService();
 
 // GET all proposals
 export async function GET() {
   try {
-    const data = await proposalRepo.findAll();
+    const data = await proposalService.findAll();
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch proposals';
@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const data = await proposalRepo.create(body);
+    const data = await proposalService.create(body);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create proposal';

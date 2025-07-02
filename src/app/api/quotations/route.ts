@@ -1,13 +1,13 @@
 
 import { NextResponse } from 'next/server';
-import { QuotationRepository } from '@/repositories/quotation.repository';
+import { QuotationService } from '@/services/quotation.service';
 
-const quotationRepo = new QuotationRepository();
+const quotationService = new QuotationService();
 
 // GET all quotations
 export async function GET() {
     try {
-        const data = await quotationRepo.findAll();
+        const data = await quotationService.findAll();
         return NextResponse.json(data);
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to fetch quotations';
@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const data = await quotationRepo.create(body);
+        const data = await quotationService.create(body);
         return NextResponse.json(data, { status: 201 });
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to create quotation';

@@ -1,14 +1,14 @@
 
 import { NextResponse } from 'next/server';
-import { SellerRepository } from '@/repositories/seller.repository';
+import { SellerService } from '@/services/seller.service';
 import type { Seller } from '@/types';
 
-const sellerRepo = new SellerRepository();
+const sellerService = new SellerService();
 
 // GET all sellers
 export async function GET() {
   try {
-    const data = await sellerRepo.findAll();
+    const data = await sellerService.findAll();
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch sellers';
@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json() as Seller;
-    const data = await sellerRepo.create(body);
+    const data = await sellerService.create(body);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create seller';
