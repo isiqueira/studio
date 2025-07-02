@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "c1a2b3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6",
 		"name": "STB Quotation API",
-		"description": "A collection of API endpoints for managing quotations, schools, and sellers in the STB Quotation App.",
+		"description": "A collection of API endpoints for managing quotations, proposals, schools, and sellers in the STB Quotation App.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -121,6 +121,127 @@
 							]
 						},
 						"description": "Deletes a quotation and all its related data. Replace `846` with a valid ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proposals",
+			"description": "Endpoints for managing proposals.",
+			"item": [
+				{
+					"name": "Get All Proposals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proposals",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proposals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Proposal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New Client Proposal - 2025\",\n    \"valid_until\": \"2025-12-31T23:59:59Z\",\n    \"seller_id\": 1,\n    \"company_info_id\": 1,\n    \"greetings_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/proposals",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proposals"
+							]
+						},
+						"description": "Creates a new proposal. The `seller_id`, `company_info_id`, and `greetings_id` should correspond to existing records in their respective tables."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Proposal by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proposals/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proposals",
+								"1"
+							]
+						},
+						"description": "Fetches a single proposal by its ID, including all related quotations and their details. Replace `1` with a valid ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Proposal by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Client Proposal - 2025\",\n    \"valid_until\": \"2026-01-15T23:59:59Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/proposals/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proposals",
+								"1"
+							]
+						},
+						"description": "Updates the details of a specific proposal. Replace `1` with a valid ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Proposal by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/proposals/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"proposals",
+								"1"
+							]
+						},
+						"description": "Deletes a proposal by its ID. This action cannot be undone. Replace `1` with a valid ID."
 					},
 					"response": []
 				}
