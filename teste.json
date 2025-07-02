@@ -1,0 +1,228 @@
+{
+    "quotations": [
+      {
+        "quotationId": "2025 - 1783",
+        "quotationHash": "6e7319e9-277d-4775-8f2c-2a81054df721",
+        "courses": [
+          {
+            "logo": "",
+            "name": "General English (Begginer to Advanced) - Semi Intensive",
+            "location": "BYRON BAY",
+            "period": "Start Date: 23/06/2025 - End Date:  18/07/2025",
+            "prices": [
+              {
+                "description": "Tuition Fee",
+                "price": 1240
+              },
+              {
+                "description": "Material Fee",
+                "price": 60
+              },
+              {
+                "description": "Enrolment Fee",
+                "price": 225
+              },
+              {
+                "description": "Additional Fee",
+                "price": 0
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "logo": "",
+            "name": "VISA Application",
+            "period": "Subsequent temporary application charge",
+            "price": 709.8
+          }
+        ],
+        "paymentPlan": [
+          {
+            "dueDate": "26/06/2025",
+            "firstPayment": true,
+            "description": "",
+            "payments": [
+              {
+                "description": "General English (Begginer to Advanced) - Semi Intensive",
+                "price": 1525
+              },
+              {
+                "description": "Subsequent",
+                "price": 709.8
+              },
+              {
+                "description": "Off Shore Admin VISA Fee",
+                "price": 185
+              }
+            ]
+          }
+        ],
+        "duration": "4",
+        "period": ".",
+        "totalAmount": 2419.8
+      },
+      {
+        "quotationId": "2025 - 1783",
+        "quotationHash": "20d8d067-1dfb-4bd0-9f3e-b9c18850ec1f",
+        "courses": [
+          {
+            "logo": "",
+            "name": "General English - Evening Classes",
+            "location": "GOLD COAST",
+            "period": "Start Date: 23/06/2025 - End Date:  27/06/2025",
+            "prices": [
+              {
+                "description": "Tuition Fee",
+                "price": 290
+              },
+              {
+                "description": "Material Fee",
+                "price": 60
+              },
+              {
+                "description": "Enrolment Fee",
+                "price": 250
+              },
+              {
+                "description": "Additional Fee",
+                "price": 0
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "logo": "",
+            "name": "Allianz OSHC",
+            "period": "Couple - Start Date: 23/06/2025 - End Date: 27/06/2025",
+            "price": 507
+          }
+        ],
+        "paymentPlan": [
+          {
+            "dueDate": " ",
+            "firstPayment": true,
+            "description": "",
+            "payments": [
+              {
+                "description": "General English (Begginer to Advanced) - Semi Intensive",
+                "price": 1525
+              },
+              {
+                "description": "Subsequent",
+                "price": 709.8
+              },
+              {
+                "description": "Off Shore Admin VISA Fee",
+                "price": 185
+              }
+            ]
+          },
+          {
+            "dueDate": "26/06/2025",
+            "firstPayment": false,
+            "description": "",
+            "payments": [
+              {
+                "description": "General English - Evening Classes",
+                "price": 600
+              },
+              {
+                "description": "Allianz OSHC",
+                "price": 507
+              },
+              {
+                "description": "Off Shore Admin VISA Fee",
+                "price": 250
+              }
+            ]
+          }
+        ],
+        "duration": "4",
+        "period": ".",
+        "totalAmount": 3776.8
+      },
+      {
+        "quotationId": "2025 - 1783",
+        "quotationHash": "63659f1f-391b-4a00-8774-ce51cdc543aa",
+        "courses": [
+          {
+            "logo": "",
+            "name": "Allianz OSHC",
+            "period": "Couple - Start Date: 23/06/2025 - End Date: 27/06/2025",
+            "price": 507
+          }
+        ],
+        "paymentPlan": [
+          {
+            "dueDate": " ",
+            "firstPayment": true,
+            "description": "",
+            "payments": [
+              {
+                "description": "General English (Begginer to Advanced) - Semi Intensive",
+                "price": 1525
+              },
+              {
+                "description": "Subsequent",
+                "price": 709.8
+              },
+              {
+                "description": "Off Shore Admin VISA Fee",
+                "price": 185
+              }
+            ]
+          },
+          {
+            "dueDate": "",
+            "firstPayment": false,
+            "description": "",
+            "payments": []
+          },
+          {
+            "dueDate": "26/06/2025",
+            "firstPayment": false,
+            "description": "",
+            "payments": [
+              {
+                "description": "General English (Elementary to Advanced)",
+                "price": 1080
+              },
+              {
+                "description": "Allianz OSHC",
+                "price": 507
+              },
+              {
+                "description": "Off Shore Admin VISA Fee",
+                "price": 250
+              }
+            ]
+          }
+        ],
+        "duration": "4",
+        "period": ".",
+        "totalAmount": 5613.8
+      }
+    ],
+    "companyInfo": {
+      "phone": "+61 (02) 9299 4428",
+      "email": "info@stbaustralia.com.au",
+      "address": "Level 6 / 225 Clarence St - Sydney - NSW - 2000",
+      "city": " Sydney"
+    },
+    "seller": {
+      "name": "STB ",
+      "phone": "12996158715",
+      "email": "integrations@stbaustralia.com.au",
+      "photo": "data:image/jpeg;base64,"
+    },
+    "greetings": {
+      "greeting": "Hi ,",
+      "line1": "We prepared this quotation and it's valid until Tue, Jul 08, 2025.",
+      "line2": "It was created on Tue, Jul 01, 2025.",
+      "line3": " ",
+      "line4": "You can read our Terms&Conditions about your quotation here."
+    }
+  }
+  

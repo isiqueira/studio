@@ -10,7 +10,7 @@ export interface Course {
   name: string;
   location: string;
   period: string;
-  school: School;  
+  school?: School;  
   prices: CoursePrice[];
 }
 
@@ -85,13 +85,14 @@ export interface Seller {
 }
 
 export interface QuoteDetails {
-    quotationId: number;
-    companyInfo: CompanyInfo;
+    quotationId: number | string;
+    quotationHash?: string;
+    companyInfo?: CompanyInfo;
     courses: Course[];
     extras: Extra[];
     paymentPlan: PaymentPlanInstallment[];
-    seller: Seller;
-    greetings: Greetings;
+    seller?: Seller;
+    greetings?: Greetings;
     duration: string;
     period: string;
     totalAmount: number;
