@@ -1,7 +1,14 @@
-import type { QuoteDetails } from '@/types';
+import type { Quotation } from '@/types';
 
-export const quoteDetailsData: QuoteDetails = {
-  "quotationId": 846,
+// NOTE: This is a single detailed mock object for local development.
+// `firstPaymentAmount` is manually calculated from the first payment plan installment.
+// `name` is derived from the course names to satisfy the data model.
+export const quoteDetailData: Quotation = {
+  "id": 846,
+  "name": "Advanced Diploma of Leadership and Management & Graduate Diploma of Management (learning)",
+  "totalAmount": 8536.2,
+  "firstPaymentAmount": 7036.2, // 1750 + 1622.4 + 709.8 + 2954
+  "quotationHash": "mock-hash-for-id-846",
   "companyInfo": {
     "phone": "+61 (02) 9299 4428",
     "email": "info@stbaustralia.com.au",
@@ -10,27 +17,15 @@ export const quoteDetailsData: QuoteDetails = {
   },
   "courses": [
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "name": "Advanced Diploma of Leadership and Management",
       "location": "SYDNEY",
       "period": "Start Date: 14/07/2025 - End Date:  09/07/2026",
       "prices": [
-        {
-          "description": "Tuition Fee",
-          "price": 6000
-        },
-        {
-          "description": "Material Fee",
-          "price": 0
-        },
-        {
-          "description": "Enrolment Fee",
-          "price": 250
-        },
-        {
-          "description": "Additional Fee",
-          "price": 0
-        }
+        { "description": "Tuition Fee", "price": 6000 },
+        { "description": "Material Fee", "price": 0 },
+        { "description": "Enrolment Fee", "price": 250 },
+        { "description": "Additional Fee", "price": 0 }
       ],
       "school": {
         "name": "Pacific College",
@@ -40,27 +35,15 @@ export const quoteDetailsData: QuoteDetails = {
       }
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "name": "Graduate Diploma of Management (learning)",
       "location": "SYDNEY",
       "period": "Start Date: 13/07/2026 - End Date:  10/07/2028",
       "prices": [
-        {
-          "description": "Tuition Fee",
-          "price": 12000
-        },
-        {
-          "description": "Material Fee",
-          "price": 0
-        },
-        {
-          "description": "Enrolment Fee",
-          "price": 0
-        },
-        {
-          "description": "Additional Fee",
-          "price": 0
-        }
+        { "description": "Tuition Fee", "price": 12000 },
+        { "description": "Material Fee", "price": 0 },
+        { "description": "Enrolment Fee", "price": 0 },
+        { "description": "Additional Fee", "price": 0 }
       ],
       "school": {
         "name": "Management School",
@@ -72,19 +55,19 @@ export const quoteDetailsData: QuoteDetails = {
   ],
   "extras": [
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "name": "VISA Application",
       "period": "Student VISA Subclass 500",
       "price": 1622.4
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "name": "VISA Application",
       "period": "Subsequent temporary application charge",
       "price": 709.8
     },
     {
-      "logo": "https://placehold.co/100x100.png",
+      "logo": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
       "name": "Bupa OSHC",
       "period": "Single - Start Date: 14/07/2025 - End Date: 10/09/2028",
       "price": 2954
@@ -96,22 +79,10 @@ export const quoteDetailsData: QuoteDetails = {
       "firstPayment": true,
       "description": "",
       "payments": [
-        {
-          "description": "Advanced Diploma of Leadership and Management",
-          "price": 1750
-        },
-        {
-          "description": "Student VISA",
-          "price": 1622.4
-        },
-        {
-          "description": "Subsequent",
-          "price": 709.8
-        },
-        {
-          "description": "Bupa OSHC",
-          "price": 2954
-        }
+        { "description": "Advanced Diploma of Leadership and Management", "price": 1750 },
+        { "description": "Student VISA", "price": 1622.4 },
+        { "description": "Subsequent", "price": 709.8 },
+        { "description": "Bupa OSHC", "price": 2954 }
       ]
     },
     {
@@ -119,10 +90,7 @@ export const quoteDetailsData: QuoteDetails = {
       "firstPayment": false,
       "description": "Paid every 3 months until the end of the course",
       "payments": [
-        {
-          "description": "Advanced Diploma of Leadership and Management",
-          "price": 1500
-        }
+        { "description": "Advanced Diploma of Leadership and Management", "price": 1500 }
       ]
     }
   ],
@@ -140,6 +108,5 @@ export const quoteDetailsData: QuoteDetails = {
     "line4": "You can read our Terms&Conditions about your quotation here."
   },
   "duration": "38 Months",
-  "period": "Start Date: 14/07/2025 - End Date: 10/09/2028",
-  "totalAmount": 8536.2
+  "period": "Start Date: 14/07/2025 - End Date: 10/09/2028"
 };

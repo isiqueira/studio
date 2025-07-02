@@ -6,6 +6,8 @@ import type { Quotation, User } from '@/types';
 import QuoteHeader from '@/components/quote-header';
 import QuoteGallery from '@/components/quote-gallery';
 import { Skeleton } from './ui/skeleton';
+import { FF_FROM_API } from '@/lib/feature-flags';
+import { initialQuotations } from '@/data/quotes';
 
 interface QuoteAppProps {
   user: User;
@@ -25,23 +27,31 @@ export default function QuoteApp({ user }: QuoteAppProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchQuotations() {
+    async function loadQuotations() {
       setLoading(true);
       setError(null);
-      try {
-        const res = await fetch('/api/quotations');
-        if (!res.ok) {
-          throw new Error('Failed to fetch quotations from the server.');
+      
+      if (FF_FROM_API) {
+        try {
+          const res = await fetch('/api/quotations');
+          if (!res.ok) {
+            throw new Error('Failed to fetch quotations from the server.');
+          }
+          const data = await res.json();
+          setQuotations(data);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+        } finally {
+          setLoading(false);
         }
-        const data = await res.json();
-        setQuotations(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred.');
-      } finally {
+      } else {
+        // Use local mock data when feature flag is off
+        setQuotations(initialQuotations);
         setLoading(false);
       }
     }
-    fetchQuotations();
+    
+    loadQuotations();
   }, []);
 
   return (
