@@ -1,39 +1,121 @@
--- This DDL is generated based on the application's data models.
--- It's designed for PostgreSQL and can be used to set up your database schema.
+-- This DDL is designed for PostgreSQL and is based on the data models in `src/types.ts`.
+-- It establishes the schema for storing quotation data for the STB application.
 
--- Extensions
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Drop existing tables with CASCADE to handle dependencies.
+-- This allows the script to be re-runnable without manual cleanup.
+DROP TABLE IF EXISTS payment_plan_payments CASCADE;
+DROP TABLE IF EXISTS payment_plan_installments CASCADE;
+DROP TABLE IF EXISTS extras CASCADE;
+DROP TABLE IF EXISTS course_prices CASCADE;
+DROP TABLE IF EXISTS courses CASCADE;
+DROP TABLE IF EXISTS quotations CASCADE;
+DROP TABLE IF EXISTS proposals CASCADE;
+DROP TABLE IF EXISTS greetings CASCADE;
+DROP TABLE IF EXISTS sellers CASCADE;
+DROP TABLE IF EXISTS company_info CASCADE;
+DROP TABLE IF EXISTS schools CASCADE;
 
--- Table: schools
-CREATE TABLE schools (
-    school_id SERIAL PRIMARY KEY,
+
+-- The `proposals` table is the new parent table that groups multiple quotation options.
+CREATE TABLE proposals (
+    proposal_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    logo TEXT,
-    location VARCHAR(255),
-    video_url TEXT
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    valid_until TIMESTAMPTZ,
+    seller_id INT,
+    company_info_id INT,
+    greetings_id INT
 );
 
--- Table: sellers
-CREATE TABLE sellers (
-    seller_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    phone VARCHAR(50),
-    email VARCHAR(255),
-    photo TEXT
+-- The `quotations` table now represents a single option within a proposal.
+-- It includes a foreign key `proposal_id` to link back to the parent proposal.
+CREATE TABLE quotations (
+    quotation_id SERIAL PRIMARY KEY,
+    proposal_id INT NOT NULL,
+    quotation_hash VARCHAR(255) UNIQUE,
+    duration VARCHAR(255),
+    period VARCHAR(255),
+    total_amount NUMERIC(10, 2),
+    first_payment_amount NUMERIC(10, 2),
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Table: company_info
+-- Stores company contact information, referenced by proposals.
 CREATE TABLE company_info (
-    id SERIAL PRIMARY KEY,
+    company_info_id SERIAL PRIMARY KEY,
     phone VARCHAR(50),
     email VARCHAR(255),
     address VARCHAR(255),
     city VARCHAR(100)
 );
 
--- Table: greetings
+-- Stores information about the sales representatives (sellers).
+CREATE TABLE sellers (
+    seller_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    email VARCHAR(255),
+    photo TEXT -- Using TEXT to store Base64 string or URL
+);
+
+-- Stores details about the educational institutions.
+CREATE TABLE schools (
+    school_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    logo TEXT, -- TEXT for Base64 or URL
+    location VARCHAR(255),
+    video_url TEXT
+);
+
+-- Stores course details, linked to a quotation and a school.
+CREATE TABLE courses (
+    course_id SERIAL PRIMARY KEY,
+    quotation_id INT NOT NULL,
+    school_id INT,
+    name VARCHAR(255) NOT NULL,
+    logo TEXT, -- TEXT for Base64 or URL
+    location VARCHAR(255),
+    period VARCHAR(255)
+);
+
+-- Stores individual price components for each course.
+CREATE TABLE course_prices (
+    price_id SERIAL PRIMARY KEY,
+    course_id INT NOT NULL,
+    description VARCHAR(255),
+    price NUMERIC(10, 2)
+);
+
+-- Stores extra items or fees associated with a quotation.
+CREATE TABLE extras (
+    extra_id SERIAL PRIMARY KEY,
+    quotation_id INT NOT NULL,
+    logo TEXT, -- TEXT for Base64 or URL
+    name VARCHAR(255),
+    period VARCHAR(255),
+    price NUMERIC(10, 2)
+);
+
+-- Stores the installments of a payment plan for a quotation.
+CREATE TABLE payment_plan_installments (
+    installment_id SERIAL PRIMARY KEY,
+    quotation_id INT NOT NULL,
+    due_date VARCHAR(50),
+    first_payment BOOLEAN,
+    description TEXT
+);
+
+-- Stores the individual payment line items within an installment.
+CREATE TABLE payment_plan_payments (
+    payment_id SERIAL PRIMARY KEY,
+    installment_id INT NOT NULL,
+    description VARCHAR(255),
+    price NUMERIC(10, 2)
+);
+
+-- Stores greeting text for the proposal.
 CREATE TABLE greetings (
-    id SERIAL PRIMARY KEY,
+    greetings_id SERIAL PRIMARY KEY,
     greeting TEXT,
     line1 TEXT,
     line2 TEXT,
@@ -41,84 +123,30 @@ CREATE TABLE greetings (
     line4 TEXT
 );
 
--- NEW TABLE: proposals
--- This table groups multiple quotation options for a single client.
-CREATE TABLE proposals (
-    proposal_id SERIAL PRIMARY KEY,
-    client_name VARCHAR(255) NOT NULL,
-    status VARCHAR(50) DEFAULT 'draft' CHECK (status IN ('draft', 'sent', 'accepted', 'declined')),
-    created_at TIMESTAMPTZ DEFAULT now(),
-    valid_until TIMESTAMPTZ,
-    seller_id INT REFERENCES sellers(seller_id) ON DELETE SET NULL,
-    company_info_id INT REFERENCES company_info(id) ON DELETE SET NULL,
-    greetings_id INT REFERENCES greetings(id) ON DELETE SET NULL
-);
+-- Foreign Key Constraints
+-- Note: ON DELETE CASCADE is used to automatically clean up related data
+-- when a parent record (like a quotation or proposal) is deleted.
 
--- Table: quotations
--- Represents a single quote option within a proposal.
-CREATE TABLE quotations (
-    quotation_id SERIAL PRIMARY KEY,
-    proposal_id INT NOT NULL REFERENCES proposals(proposal_id) ON DELETE CASCADE,
-    quotation_hash UUID DEFAULT gen_random_uuid(),
-    name VARCHAR(255), -- Name for this specific option, e.g., "Option 1: General English"
-    duration TEXT,
-    period TEXT,
-    total_amount NUMERIC(10, 2),
-    first_payment_amount NUMERIC(10, 2)
-);
+ALTER TABLE proposals
+ADD CONSTRAINT fk_seller FOREIGN KEY (seller_id) REFERENCES sellers(seller_id) ON DELETE SET NULL,
+ADD CONSTRAINT fk_company_info FOREIGN KEY (company_info_id) REFERENCES company_info(company_info_id) ON DELETE SET NULL,
+ADD CONSTRAINT fk_greetings FOREIGN KEY (greetings_id) REFERENCES greetings(greetings_id) ON DELETE SET NULL;
 
--- Table: courses
--- Represents a course within a quotation.
-CREATE TABLE courses (
-    course_id SERIAL PRIMARY KEY,
-    quotation_id INT NOT NULL REFERENCES quotations(quotation_id) ON DELETE CASCADE,
-    school_id INT REFERENCES schools(school_id) ON DELETE SET NULL,
-    logo TEXT,
-    name VARCHAR(255) NOT NULL,
-    location VARCHAR(255),
-    period TEXT
-);
+ALTER TABLE quotations
+ADD CONSTRAINT fk_proposal FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id) ON DELETE CASCADE;
 
--- Table: course_prices
--- Represents the pricing breakdown for a course.
-CREATE TABLE course_prices (
-    price_id SERIAL PRIMARY KEY,
-    course_id INT NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    description VARCHAR(255),
-    price NUMERIC(10, 2)
-);
+ALTER TABLE courses
+ADD CONSTRAINT fk_quotation FOREIGN KEY (quotation_id) REFERENCES quotations(quotation_id) ON DELETE CASCADE,
+ADD CONSTRAINT fk_school FOREIGN KEY (school_id) REFERENCES schools(school_id) ON DELETE SET NULL;
 
--- Table: extras
--- Represents extra items in a quotation, like VISA fees or insurance.
-CREATE TABLE extras (
-    extra_id SERIAL PRIMARY KEY,
-    quotation_id INT NOT NULL REFERENCES quotations(quotation_id) ON DELETE CASCADE,
-    logo TEXT,
-    name VARCHAR(255),
-    period TEXT,
-    price NUMERIC(10, 2)
-);
+ALTER TABLE course_prices
+ADD CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE;
 
--- Table: payment_plan_installments
--- Represents an installment in the payment plan.
-CREATE TABLE payment_plan_installments (
-    installment_id SERIAL PRIMARY KEY,
-    quotation_id INT NOT NULL REFERENCES quotations(quotation_id) ON DELETE CASCADE,
-    due_date TEXT,
-    first_payment BOOLEAN DEFAULT FALSE,
-    description TEXT
-);
+ALTER TABLE extras
+ADD CONSTRAINT fk_quotation FOREIGN KEY (quotation_id) REFERENCES quotations(quotation_id) ON DELETE CASCADE;
 
--- Table: payment_plan_payments
--- Represents a single payment line within an installment.
-CREATE TABLE payment_plan_payments (
-    payment_id SERIAL PRIMARY KEY,
-    installment_id INT NOT NULL REFERENCES payment_plan_installments(installment_id) ON DELETE CASCADE,
-    description VARCHAR(255),
-    price NUMERIC(10, 2)
-);
+ALTER TABLE payment_plan_installments
+ADD CONSTRAINT fk_quotation FOREIGN KEY (quotation_id) REFERENCES quotations(quotation_id) ON DELETE CASCADE;
 
--- Note: ON DELETE CASCADE is used to ensure that when a parent record is deleted,
--- all its associated child records are also deleted.
--- ON DELETE SET NULL is used for optional relationships, so that deleting a
--- related record doesn't delete the main record, but just unlinks it.
+ALTER TABLE payment_plan_payments
+ADD CONSTRAINT fk_installment FOREIGN KEY (installment_id) REFERENCES payment_plan_installments(installment_id) ON DELETE CASCADE;
