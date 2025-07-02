@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { QuotationService } from '@/services/quotation.service';
+import logger from '@/lib/logger';
 
 const quotationService = new QuotationService();
 
@@ -23,7 +24,7 @@ export async function GET(
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch quotation data';
-    console.error(`[API] Error fetching quotation ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error fetching quotation: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -45,7 +46,7 @@ export async function PUT(
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update quotation data';
-    console.error(`[API] Error updating quotation ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error updating quotation: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -66,7 +67,7 @@ export async function DELETE(
 
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to delete quotation data';
-        console.error(`[API] Error deleting quotation ${id}:`, error);
+        logger.error({ err: error, id }, `[API] Error deleting quotation: ${errorMessage}`);
         return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }

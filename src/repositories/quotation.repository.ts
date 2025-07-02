@@ -1,6 +1,7 @@
 
 import { supabase } from '@/lib/supabase';
 import type { Quotation } from '@/types';
+import logger from '@/lib/logger';
 
 export class QuotationRepository {
   async findAll() {
@@ -23,7 +24,7 @@ export class QuotationRepository {
       `);
     
     if (error) {
-      console.error('Supabase query error:', error);
+      logger.error({ err: error }, 'Supabase query error in QuotationRepository.findAll');
       throw error;
     }
     return quotations;
@@ -85,7 +86,7 @@ export class QuotationRepository {
       .single();
 
     if (error) {
-      console.error('Supabase query error:', error);
+      logger.error({ err: error, id }, 'Supabase query error in QuotationRepository.findById');
       throw error;
     }
 
@@ -114,7 +115,7 @@ export class QuotationRepository {
       .single();
 
     if (error) {
-      console.error('Supabase insert error:', error);
+      logger.error({ err: error }, 'Supabase insert error in QuotationRepository.create');
       throw error;
     }
     return data;
@@ -135,7 +136,7 @@ export class QuotationRepository {
       .single();
 
     if (error) {
-      console.error('Supabase update error:', error);
+      logger.error({ err: error, id }, 'Supabase update error in QuotationRepository.update');
       throw error;
     }
     return data;
@@ -148,7 +149,7 @@ export class QuotationRepository {
       .eq('quotation_id', id);
 
     if (error) {
-      console.error('Supabase delete error:', error);
+      logger.error({ err: error, id }, 'Supabase delete error in QuotationRepository.delete');
       throw error;
     }
     return { message: `Quotation ${id} deleted successfully.` };

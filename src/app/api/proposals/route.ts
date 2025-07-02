@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { ProposalService } from '@/services/proposal.service';
+import logger from '@/lib/logger';
 
 const proposalService = new ProposalService();
 
@@ -11,7 +12,7 @@ export async function GET() {
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch proposals';
-    console.error('[API] Error fetching proposals:', error);
+    logger.error({ err: error }, `[API] Error fetching proposals: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create proposal';
-    console.error('[API] Error creating proposal:', error);
+    logger.error({ err: error }, `[API] Error creating proposal: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

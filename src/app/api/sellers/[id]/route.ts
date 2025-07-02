@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { SellerService } from '@/services/seller.service';
 import type { Seller } from '@/types';
+import logger from '@/lib/logger';
 
 const sellerService = new SellerService();
 
@@ -21,7 +22,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch seller';
-    console.error(`[API] Error fetching seller ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error fetching seller: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -40,7 +41,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update seller';
-    console.error(`[API] Error updating seller ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error updating seller: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -58,7 +59,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete seller';
-    console.error(`[API] Error deleting seller ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error deleting seller: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

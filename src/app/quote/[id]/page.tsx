@@ -5,6 +5,7 @@ import QuoteDetailHeader from '@/components/quote-detail-header';
 import type { Quotation } from '@/types';
 import { FROM_API } from '@/lib/feature-flags';
 import { quoteDetailData } from '@/data/quote-details';
+import logger from '@/lib/logger';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
   if (FROM_API) {
@@ -18,14 +19,14 @@ async function getQuoteData(id: string): Promise<Quotation | null> {
       const res = await fetch(`${baseUrl}/api/quote/${id}`);
 
       if (!res.ok) {
-        console.error(`Failed to fetch quote: ${res.status} ${res.statusText}`);
+        logger.error({ status: res.status, statusText: res.statusText, id }, 'Failed to fetch quote');
         return null;
       }
       
       const data = await res.json();
       return data;
     } catch (error) {
-      console.error('Error fetching quote data:', error);
+      logger.error({ err: error, id }, 'Error fetching quote data');
       return null;
     }
   } else {

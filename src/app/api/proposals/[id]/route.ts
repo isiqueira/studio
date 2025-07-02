@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { ProposalService } from '@/services/proposal.service';
+import logger from '@/lib/logger';
 
 const proposalService = new ProposalService();
 
@@ -20,7 +21,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch proposal data';
-    console.error(`[API] Error fetching proposal ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error fetching proposal: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -39,7 +40,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update proposal';
-    console.error(`[API] Error updating proposal ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error updating proposal: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -57,7 +58,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete proposal';
-    console.error(`[API] Error deleting proposal ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error deleting proposal: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

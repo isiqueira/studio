@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { SellerService } from '@/services/seller.service';
 import type { Seller } from '@/types';
+import logger from '@/lib/logger';
 
 const sellerService = new SellerService();
 
@@ -12,7 +13,7 @@ export async function GET() {
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch sellers';
-    console.error('[API] Error fetching sellers:', error);
+    logger.error({ err: error }, `[API] Error fetching sellers: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create seller';
-    console.error('[API] Error creating seller:', error);
+    logger.error({ err: error }, `[API] Error creating seller: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

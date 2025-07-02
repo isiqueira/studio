@@ -2,6 +2,7 @@
 'use server';
 
 import { BlobClient, BlobDownloadResponseParsed, BlobServiceClient, ContainerClient } from '@azure/storage-blob';
+import logger from './logger';
 
 const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
 
@@ -23,10 +24,10 @@ export async function getBlobFile(containerName: string, blobName: string): Prom
     const blobClient = containerClient.getBlobClient(blobName);
 
     const downloadResponse = await blobClient.downloadToBuffer();
-    console.log('download success');
+    logger.info(`Successfully downloaded blob "${blobName}" from container "${containerName}".`);
     return downloadResponse;
   } catch (error) {
-    console.error(`Failed to retrieve blob "${blobName}" from container "${containerName}":`, error);
+    logger.error({ err: error, containerName, blobName }, `Failed to retrieve blob from Azure.`);
     throw new Error('Could not retrieve file from Azure Blob Storage.');
   }
 }
@@ -46,16 +47,17 @@ export async function downloadBlobToString(
       downloadResponse.readableStreamBody
     );
     if (downloaded) {
-      console.log('Downloaded blob content:', downloaded.toString());
+      logger.info({ blobName }, 'Downloaded blob content as string.');
       return downloaded.toString();
     } else {
-      console.error('Failed to download blob content.');
+      logger.error({ blobName }, 'Failed to download blob content to string, buffer was empty.');
       return '';
     }
   }
+  return '';
 }
 
-function streamToBuffer(readableStream) {
+function streamToBuffer(readableStream: NodeJS.ReadableStream): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
 

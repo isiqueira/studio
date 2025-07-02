@@ -1,6 +1,7 @@
 
 import { supabase } from '@/lib/supabase';
 import type { Proposal } from '@/types';
+import logger from '@/lib/logger';
 
 export class ProposalRepository {
   async findAll() {
@@ -45,7 +46,7 @@ export class ProposalRepository {
       .single();
 
     if (error) {
-        console.error('Supabase query error:', error);
+        logger.error({ err: error, id }, 'Supabase query error in ProposalRepository.findById');
         throw error;
     }
     return data;

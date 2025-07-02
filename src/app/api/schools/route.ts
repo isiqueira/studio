@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { SchoolService } from '@/services/school.service';
 import type { School } from '@/types';
+import logger from '@/lib/logger';
 
 const schoolService = new SchoolService();
 
@@ -12,7 +13,7 @@ export async function GET() {
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch schools';
-    console.error('[API] Error fetching schools:', error);
+    logger.error({ err: error }, `[API] Error fetching schools: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create school';
-    console.error('[API] Error creating school:', error);
+    logger.error({ err: error }, `[API] Error creating school: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

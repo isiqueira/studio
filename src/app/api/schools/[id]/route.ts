@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import { SchoolService } from '@/services/school.service';
 import type { School } from '@/types';
+import logger from '@/lib/logger';
 
 const schoolService = new SchoolService();
 
@@ -21,7 +22,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch school';
-    console.error(`[API] Error fetching school ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error fetching school: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -40,7 +41,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update school';
-    console.error(`[API] Error updating school ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error updating school: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
@@ -58,7 +59,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete school';
-    console.error(`[API] Error deleting school ${id}:`, error);
+    logger.error({ err: error, id }, `[API] Error deleting school: ${errorMessage}`);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { QuotationService } from '@/services/quotation.service';
+import logger from '@/lib/logger';
 
 const quotationService = new QuotationService();
 
@@ -11,7 +12,7 @@ export async function GET() {
         return NextResponse.json(data);
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to fetch quotations';
-        console.error('[API] Error fetching quotations:', error);
+        logger.error({ err: error }, `[API] Error fetching quotations: ${errorMessage}`);
         return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
         return NextResponse.json(data, { status: 201 });
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to create quotation';
-        console.error('[API] Error creating quotation:', error);
+        logger.error({ err: error }, `[API] Error creating quotation: ${errorMessage}`);
         return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
