@@ -1,12 +1,14 @@
+
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { SellerRepository } from '@/repositories/seller.repository';
 import type { Seller } from '@/types';
+
+const sellerRepo = new SellerRepository();
 
 // GET all sellers
 export async function GET() {
   try {
-    const { data, error } = await supabase.from('sellers').select('*');
-    if (error) throw error;
+    const data = await sellerRepo.findAll();
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch sellers';
@@ -17,14 +19,8 @@ export async function GET() {
 // POST a new seller
 export async function POST(request: Request) {
   try {
-    const { name, phone, email, photo } = await request.json() as Seller;
-    const { data, error } = await supabase
-      .from('sellers')
-      .insert([{ name, phone, email, photo }])
-      .select()
-      .single();
-      
-    if (error) throw error;
+    const body = await request.json() as Seller;
+    const data = await sellerRepo.create(body);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to create seller';

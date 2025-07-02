@@ -1,5 +1,8 @@
+
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { ProposalRepository } from '@/repositories/proposal.repository';
+
+const proposalRepo = new ProposalRepository();
 
 // GET a single proposal by ID
 export async function GET(request: Request, { params }: { params: { id: string } }) {
@@ -10,39 +13,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 
   try {
-    // This is a complex query to fetch a proposal and all its related data,
-    // assuming relationships (including M2M) are set up in Supabase.
-    const { data, error } = await supabase
-      .from('proposals')
-      .select(`
-        proposal_id,
-        name,
-        valid_until,
-        created_at,
-        companyInfo:company_info(*),
-        seller:sellers(*),
-        greetings(*),
-        quotations:quotations(
-          *,
-          courses:courses(*, school:schools(*), prices:course_prices(*)),
-          extras:extras(*),
-          paymentPlan:payment_plan_installments(
-            *,
-            payments:payment_plan_payments(*)
-          )
-        )
-      `)
-      .eq('proposal_id', id)
-      .single();
-
-    if (error) {
-      console.error('Supabase query error:', error);
-      throw error;
-    }
+    const data = await proposalRepo.findById(id);
     if (!data) {
       return NextResponse.json({ error: 'Proposal not found' }, { status: 404 });
     }
-
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch proposal data';
@@ -59,16 +33,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
     
   try {
-    const { name, valid_until, seller_id, company_info_id, greetings_id } = await request.json();
-    
-    const { data, error } = await supabase
-      .from('proposals')
-      .update({ name, valid_until, seller_id, company_info_id, greetings_id })
-      .eq('proposal_id', id)
-      .select()
-      .single();
-      
-    if (error) throw error;
+    const body = await request.json();
+    const data = await proposalRepo.update(id, body);
     return NextResponse.json(data);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to update proposal';
@@ -85,12 +51,8 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   }
     
   try {
-    // ON DELETE CASCADE in the DB will handle deleting associated quotations.
-    const { error } = await supabase.from('proposals').delete().eq('proposal_id', id);
-
-    if (error) throw error;
-        
-    return NextResponse.json({ message: `Proposal ${id} deleted successfully.` }, { status: 200 });
+    const data = await proposalRepo.delete(id);
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Failed to delete proposal';
     return NextResponse.json({ error: errorMessage }, { status: 500 });
