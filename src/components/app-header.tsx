@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import UserComponent from './user-component';
 import { currentUser } from '@/data/user';
-import { Button } from '@/components/ui/button';
 
 export default function AppHeader() {
   return (
@@ -19,14 +18,6 @@ export default function AppHeader() {
             priority
           />
         </Link>
-        <nav className="hidden md:flex items-center gap-2">
-            <Button asChild variant="ghost" className="text-white hover:bg-white/10 hover:text-white">
-                <Link href="/">Quotations</Link>
-            </Button>
-            <Button asChild variant="ghost" className="text-white hover:bg-white/10 hover:text-white">
-                <Link href="/proposals">Proposals</Link>
-            </Button>
-        </nav>
       </div>
       <div className="flex items-center gap-4">
         <UserComponent user={currentUser} />
