@@ -22,6 +22,7 @@ export async function POST(request: Request) {
   let body;
   try {
     body = await request.json();
+    logger.info({ payload: body }, '[API] Received new proposal payload.');
   } catch (error) {
     const errorResponse = { error: 'Invalid JSON in request body' };
     logger.warn({ status: 400, err: error }, '[API] Bad Request: Invalid JSON.');
