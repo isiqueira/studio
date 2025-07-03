@@ -126,13 +126,17 @@ export class ProposalRepository {
 
     // Loop through quotations to create them and their children
     for (const quotation of proposalData.quotations || []) {
+      const quotationName = quotation.courses?.map((c: any) => c.name).join(' & ') || 'Quotation';
+      const firstPaymentInstallment = quotation.paymentPlan?.find((p: any) => p.firstPayment);
+      const firstPaymentAmount = firstPaymentInstallment ? firstPaymentInstallment.payments.reduce((sum: number, p: any) => sum + p.price, 0) : 0;
+      
       const { data: newQuotation, error: quotationError } = await supabase
         .from('quotations')
         .insert({
-          name: quotation.name,
+          name: quotationName,
           total_amount: quotation.totalAmount,
-          first_payment_amount: quotation.firstPaymentAmount,
-          duration: quotation.duration,
+          first_payment_amount: firstPaymentAmount,
+          duration: String(quotation.duration),
           period: quotation.period,
           proposal_id: proposal_id,
           quotation_hash: quotation.quotationHash,
@@ -195,6 +199,13 @@ export class ProposalRepository {
             logger.error({ err: pricesError }, 'Failed to create course prices.');
             throw pricesError;
           }
+        } else if (course.price) {
+            const priceToInsert = { description: course.name, price: course.price, course_id };
+            const { error: pricesError } = await supabase.from('course_prices').insert([priceToInsert]);
+            if (pricesError) {
+                logger.error({ err: pricesError }, 'Failed to create single course price.');
+                throw pricesError;
+            }
         }
       }
 
@@ -213,7 +224,7 @@ export class ProposalRepository {
         const { data: newInstallment, error: installmentError } = await supabase
           .from('payment_plan_installments')
           .insert({
-            due_date: installment.dueDate,
+            due_date: installment.dueDate?.trim() ? installment.dueDate : null,
             first_payment: installment.firstPayment,
             description: installment.description,
             quotation_id: quotation_id,
