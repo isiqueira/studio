@@ -14,7 +14,7 @@ export class ProposalRepository {
 
     if (error) throw error;
     
-    return data?.map(p => ({
+    return data?.map((p: any) => ({
       ...p,
       quotations_count: p.quotations[0]?.count ?? 0,
       quotations: undefined,
@@ -52,17 +52,196 @@ export class ProposalRepository {
     return data;
   }
 
-  async create(proposalData: Omit<Proposal, 'proposal_id' | 'created_at'>) {
-    const { name, valid_until, seller_id, company_info_id, greetings_id } = proposalData;
-    const { data, error } = await supabase
-      .from('proposals')
-      .insert({ name, valid_until, seller_id, company_info_id, greetings_id })
+  async create(proposalData: any): Promise<Proposal | null> {
+    // Upsert Seller based on email
+    const { data: sellerData, error: sellerError } = await supabase
+      .from('sellers')
+      .upsert({
+        name: proposalData.seller.name,
+        phone: proposalData.seller.phone,
+        email: proposalData.seller.email,
+        photo: proposalData.seller.photo,
+      }, { onConflict: 'email' })
       .select()
       .single();
 
-    if (error) throw error;
-    return data;
+    if (sellerError) {
+      logger.error({ err: sellerError }, 'Failed to upsert seller during proposal creation.');
+      throw sellerError;
+    }
+    const seller_id = sellerData.seller_id;
+
+    // Upsert CompanyInfo based on email
+    const { data: companyInfoData, error: companyInfoError } = await supabase
+      .from('company_info')
+      .upsert({
+        phone: proposalData.companyInfo.phone,
+        email: proposalData.companyInfo.email,
+        address: proposalData.companyInfo.address,
+        city: proposalData.companyInfo.city,
+      }, { onConflict: 'email' })
+      .select()
+      .single();
+    
+    if (companyInfoError) {
+      logger.error({ err: companyInfoError }, 'Failed to upsert company info during proposal creation.');
+      throw companyInfoError;
+    }
+    const company_info_id = companyInfoData.id;
+
+    // Insert Greetings (no unique constraint to upsert on)
+    const { data: greetingsData, error: greetingsError } = await supabase
+      .from('greetings')
+      .insert(proposalData.greetings)
+      .select()
+      .single();
+    
+    if (greetingsError) {
+      logger.error({ err: greetingsError }, 'Failed to insert greetings during proposal creation.');
+      throw greetingsError;
+    }
+    const greetings_id = greetingsData.id;
+
+    // Create the Proposal record
+    const proposalName = proposalData.name || `Proposal for ${proposalData.greetings.greeting.replace('Hi ', '').replace(',', '')}`;
+    const validUntil = proposalData.valid_until || new Date(new Date().setDate(new Date().getDate() + 30)).toISOString();
+
+    const { data: newProposal, error: proposalError } = await supabase
+      .from('proposals')
+      .insert({
+        name: proposalName,
+        valid_until: validUntil,
+        seller_id: seller_id,
+        company_info_id: company_info_id,
+        greetings_id: greetings_id,
+      })
+      .select()
+      .single();
+
+    if (proposalError) {
+      logger.error({ err: proposalError }, 'Failed to create proposal record.');
+      throw proposalError;
+    }
+    const proposal_id = newProposal.proposal_id;
+
+    // Loop through quotations to create them and their children
+    for (const quotation of proposalData.quotations || []) {
+      const { data: newQuotation, error: quotationError } = await supabase
+        .from('quotations')
+        .insert({
+          name: quotation.name,
+          total_amount: quotation.totalAmount,
+          first_payment_amount: quotation.firstPaymentAmount,
+          duration: quotation.duration,
+          period: quotation.period,
+          proposal_id: proposal_id,
+          quotation_hash: quotation.quotationHash,
+          valid_until: validUntil,
+        })
+        .select('quotation_id')
+        .single();
+
+      if (quotationError) {
+        logger.error({ err: quotationError, quotation }, 'Failed to create quotation record.');
+        throw quotationError;
+      }
+      const quotation_id = newQuotation.quotation_id;
+      
+      // Courses
+      for (const course of quotation.courses || []) {
+        let school_id = null;
+        if (course.school) {
+          const { data: schoolData, error: schoolError } = await supabase
+            .from('schools')
+            .upsert({
+              name: course.school.name,
+              logo: course.school.logo,
+              location: course.school.location,
+              video_url: course.school.videoUrl,
+            }, { onConflict: 'name' })
+            .select('school_id')
+            .single();
+
+          if (schoolError) {
+            logger.error({ err: schoolError, school: course.school }, 'Failed to upsert school.');
+            throw schoolError;
+          }
+          school_id = schoolData.school_id;
+        }
+
+        const { data: newCourse, error: courseError } = await supabase
+          .from('courses')
+          .insert({
+            name: course.name,
+            logo: course.logo,
+            location: course.location,
+            period: course.period,
+            quotation_id: quotation_id,
+            school_id: school_id,
+          })
+          .select('course_id')
+          .single();
+
+        if (courseError) {
+          logger.error({ err: courseError, course }, 'Failed to create course record.');
+          throw courseError;
+        }
+        const course_id = newCourse.course_id;
+
+        if (course.prices && course.prices.length > 0) {
+          const pricesToInsert = course.prices.map((p: any) => ({ ...p, course_id }));
+          const { error: pricesError } = await supabase.from('course_prices').insert(pricesToInsert);
+          if (pricesError) {
+            logger.error({ err: pricesError }, 'Failed to create course prices.');
+            throw pricesError;
+          }
+        }
+      }
+
+      // Extras
+      if (quotation.extras && quotation.extras.length > 0) {
+        const extrasToInsert = quotation.extras.map((e: any) => ({ ...e, quotation_id }));
+        const { error: extrasError } = await supabase.from('extras').insert(extrasToInsert);
+        if (extrasError) {
+          logger.error({ err: extrasError }, 'Failed to create extras.');
+          throw extrasError;
+        }
+      }
+
+      // Payment Plan
+      for (const installment of quotation.paymentPlan || []) {
+        const { data: newInstallment, error: installmentError } = await supabase
+          .from('payment_plan_installments')
+          .insert({
+            due_date: installment.dueDate,
+            first_payment: installment.firstPayment,
+            description: installment.description,
+            quotation_id: quotation_id,
+          })
+          .select('installment_id')
+          .single();
+        
+        if (installmentError) {
+          logger.error({ err: installmentError }, 'Failed to create payment installment.');
+          throw installmentError;
+        }
+        const installment_id = newInstallment.installment_id;
+
+        if (installment.payments && installment.payments.length > 0) {
+          const paymentsToInsert = installment.payments.map((p: any) => ({ ...p, installment_id }));
+          const { error: paymentsError } = await supabase.from('payment_plan_payments').insert(paymentsToInsert);
+          if (paymentsError) {
+            logger.error({ err: paymentsError }, 'Failed to create payment plan payments.');
+            throw paymentsError;
+          }
+        }
+      }
+    }
+
+    // Return the newly created, fully populated proposal
+    return this.findById(String(proposal_id));
   }
+
 
   async update(id: string, proposalData: Partial<Omit<Proposal, 'proposal_id' | 'created_at'>>) {
     const { name, valid_until, seller_id, company_info_id, greetings_id } = proposalData;

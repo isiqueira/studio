@@ -12,7 +12,7 @@ export class ProposalService {
     return this.proposalRepo.findById(id);
   }
 
-  async create(proposalData: Omit<Proposal, 'proposal_id' | 'created_at'>) {
+  async create(proposalData: any) {
     return this.proposalRepo.create(proposalData);
   }
 
