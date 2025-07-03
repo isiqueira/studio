@@ -42,9 +42,11 @@ export class QuotationRepository {
         firstPaymentAmount: first_payment_amount,
         validUntil: valid_until,
         createdAt: created_at,
-        companyInfo:proposals(company_info(*)),
-        seller:proposals(sellers(*)),
-        greetings:proposals(greetings(*)),
+        proposal:proposals(
+            companyInfo:company_info(*),
+            seller:sellers(*),
+            greetings:greetings(*)
+        ),
         courses:courses (
           courseId:course_id,
           logo,
@@ -92,11 +94,15 @@ export class QuotationRepository {
 
     if (!data) return null;
 
+    // The data for companyInfo, seller, and greetings is nested inside 'proposal'.
+    // We need to flatten it to match the Quotation type.
+    const { proposal, ...restOfData } = data;
+    
     return {
-        ...data,
-        companyInfo: data.companyInfo?.company_info,
-        seller: data.seller?.sellers,
-        greetings: data.greetings?.greetings,
+      ...restOfData,
+      companyInfo: proposal?.companyInfo,
+      seller: proposal?.seller,
+      greetings: proposal?.greetings,
     };
   }
 
