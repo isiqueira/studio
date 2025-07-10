@@ -1,5 +1,10 @@
+
+"use client";
+
 import type { Course } from '@/types';
 import Image from 'next/image';
+import { useState } from 'react';
+import ImageModal from './image-modal';
 
 interface CourseItemProps {
   course: Course;
@@ -23,9 +28,18 @@ const PriceRow = ({ label, value }: { label: string; value: string }) => (
 );
 
 export default function CourseItem({ course }: CourseItemProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  
   const courseTotal = course.prices.reduce((total, item) => total + item.price, 0);
   const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
 
   return (
     <div className="space-y-4">
@@ -56,16 +70,16 @@ export default function CourseItem({ course }: CourseItemProps) {
         {course.school?.images && course.school.images.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {course.school.images.map((src, index) => (
-              <div key={index} className="relative aspect-video">
+              <button key={index} onClick={() => handleImageClick(src)} className="relative aspect-video block w-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
                 <Image
                   src={src}
                   alt={`School image ${index + 1}`}
                   layout="fill"
                   objectFit="cover"
-                  className="rounded-lg"
+                  className="rounded-lg hover:opacity-80 transition-opacity"
                   data-ai-hint="campus students"
                 />
-              </div>
+              </button>
             ))}
           </div>
         )}
@@ -87,6 +101,7 @@ export default function CourseItem({ course }: CourseItemProps) {
             )}
         </div>
       </div>
+      <ImageModal isOpen={!!selectedImage} onClose={handleCloseModal} imageUrl={selectedImage} />
     </div>
   );
 }
