@@ -1,3 +1,4 @@
+
 import QuoteDetailPage from '@/components/quote-detail-page';
 import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
@@ -8,37 +9,14 @@ import { quoteDetailData } from '@/data/quote-details';
 import logger from '@/lib/logger';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
-  if (FROM_API) {
-    try {
-      // On the server, we need to use the full URL.
-      // In a production environment, you should use an environment variable for the base URL.
-      const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
-        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
-        : 'http://localhost:3000';
-        
-      const res = await fetch(`${baseUrl}/api/quote/${id}`);
-
-      if (!res.ok) {
-        // This will catch 404s and other non-200 responses from the API
-        logger.warn({ status: res.status, statusText: res.statusText, id }, 'Failed to fetch quote data from API.');
-        return null;
-      }
-      
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      logger.error({ err: error, id }, 'Error fetching quote data');
-      return null;
-    }
-  } else {
-    // Use local mock data.
-    // NOTE: The mock data only contains one detailed quote, so this will only work for its ID.
+    // Always use local mock data for testing purposes.
+    logger.info({ id }, '[Page] Fetching quote data from local mock file.');
     const numericId = parseInt(id, 10);
     if (numericId === quoteDetailData.id) {
       return Promise.resolve(quoteDetailData);
     }
+    logger.warn({ id }, `[Page] Mock quote with ID ${id} not found.`);
     return Promise.resolve(null);
-  }
 }
 
 export default async function QuotePage({ params }: { params: { id: string } }) {
