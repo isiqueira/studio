@@ -11,6 +11,7 @@ export interface School {
   logo: string;
   location?: string;
   videoUrl?: string;
+  images?: string[];
 }
 
 export interface Course {

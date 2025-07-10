@@ -39,11 +39,11 @@ export default function CourseItem({ course }: CourseItemProps) {
         </div>
       </div>
       
-      <div className="pl-[124px] space-y-4">
+      <div className="pl-[124px] space-y-6">
         {course.school?.videoUrl && (
-            <div className="relative h-0 pb-[56.25%]">
+            <div className="relative h-0 pb-[56.25%] rounded-lg overflow-hidden">
               <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                className="absolute top-0 left-0 w-full h-full"
                 src={course.school.videoUrl}
                 title={`${course.school.name || course.name} video`}
                 frameBorder="0"
@@ -51,6 +51,23 @@ export default function CourseItem({ course }: CourseItemProps) {
                 allowFullScreen
               ></iframe>
             </div>
+        )}
+
+        {course.school?.images && course.school.images.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {course.school.images.map((src, index) => (
+              <div key={index} className="relative aspect-video">
+                <Image
+                  src={src}
+                  alt={`School image ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-lg"
+                  data-ai-hint="campus students"
+                />
+              </div>
+            ))}
+          </div>
         )}
         
         <div className="space-y-2">
