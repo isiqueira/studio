@@ -4,19 +4,13 @@ import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
 import type { Quotation } from '@/types';
-import { FROM_API } from '@/lib/feature-flags';
 import { quoteDetailData } from '@/data/quote-details';
 import logger from '@/lib/logger';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
-    // Always use local mock data for testing purposes.
+    // Always use local mock data for testing purposes, ignoring the ID.
     logger.info({ id }, '[Page] Fetching quote data from local mock file.');
-    const numericId = parseInt(id, 10);
-    if (numericId === quoteDetailData.id) {
-      return Promise.resolve(quoteDetailData);
-    }
-    logger.warn({ id }, `[Page] Mock quote with ID ${id} not found.`);
-    return Promise.resolve(null);
+    return Promise.resolve(quoteDetailData);
 }
 
 export default async function QuotePage({ params }: { params: { id: string } }) {
@@ -24,7 +18,7 @@ export default async function QuotePage({ params }: { params: { id: string } }) 
   const user = currentUser;
 
   if (!quoteData) {
-    logger.warn({ id: params.id }, `[Page] Quote not found. Rendering 'not found' page.`);
+    logger.warn({ id: params.id }, `[Page] Quote not found. This should not happen with the current mock setup.`);
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-2xl font-bold">Quote not found</h1>
