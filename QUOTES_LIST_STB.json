@@ -1,0 +1,212 @@
+
+[
+  {
+    "id": 1503074,
+    "name": "General English Full Time",
+    "totalAmount": 14205,
+    "firstPaymentAmount": 710.25,
+    "courses": [
+      {
+        "logo": "",
+        "name": "Full Time Program Evening 20 hrs/wk",
+        "location": "LSC Brisbane",
+        "period": "June 06, 2025 - December 12, 2025",
+        "school": {
+          "name": "APC - Australian Pacific College",
+          "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
+        },
+        "prices": [
+          {
+            "description": "Programa",
+            "price": 5800
+          },
+          {
+            "description": "Matrícula",
+            "price": 240
+          },
+          {
+            "description": "Material",
+            "price": 260
+          }
+        ]
+      },
+      {
+        "logo": "",
+        "name": "Certificate IV in Project Management Practice (2025/26 Intakes)",
+        "location": "APC Brisbane",
+        "period": "June 06, 2025 - March 27, 2026",
+        "school": {
+          "name": "APC - Australian Pacific College",
+          "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
+        },
+        "prices": [
+          {
+            "description": "BANANA",
+            "price": 4500
+          },
+          {
+            "description": "Matrícula",
+            "price": 150
+          }
+        ]
+      }
+    ],
+    "extras": [
+      {
+        "logo": "",
+        "name": "OSHC - SINGLE",
+        "period": "Overseas Student Health Cover",
+        "price": 1323
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Subclass 500",
+        "period": "Australian Government Fee",
+        "price": 1632
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Single Support",
+        "period": "Administrative Support",
+        "price": 300
+      }
+    ],
+    "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
+    "validUntil": "2025-06-27T00:00:00.000Z",
+    "createdAt": "2025-06-05 14:32:53",
+    "paymentPlan": []
+  },
+  {
+    "id": 1503075,
+    "name": "General English Full Time",
+    "totalAmount": 14205,
+    "firstPaymentAmount": 710.25,
+    "courses": [
+      {
+        "logo": "",
+        "name": "General English Day (20 hrs/wk)",
+        "location": "ILSC Language Schools | LSC Brisbane",
+        "period": "June 06, 2025 - December 12, 2025",
+        "school": {
+          "name": "ILSC Language Schools",
+          "location": "LSC Brisbane",
+          "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
+        },
+        "prices": [
+          {
+            "description": "Programa",
+            "price": 5800
+          },
+          {
+            "description": "Matrícula",
+            "price": 240
+          },
+          {
+            "description": "Material",
+            "price": 260
+          }
+        ]
+      }
+    ],
+    "extras": [
+      {
+        "logo": "",
+        "name": "OSHC - SINGLE",
+        "period": "Overseas Student Health Cover",
+        "price": 1323
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Subclass 500",
+        "period": "Australian Government Fee",
+        "price": 1632
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Single Support",
+        "period": "Administrative Support",
+        "price": 300
+      }
+    ],
+    "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
+    "validUntil": "2025-06-27T00:00:00.000Z",
+    "createdAt": "2025-06-05 14:32:53",
+    "paymentPlan": []
+  },
+  {
+    "id": 1503076,
+    "name": "General English Full Time",
+    "totalAmount": 14205,
+    "firstPaymentAmount": 710.25,
+    "courses": [
+      {
+        "logo": "",
+        "name": "Full Time Program Evening 20 hrs/wk",
+        "location": "LSC Brisbane",
+        "period": "June 06, 2025 - December 12, 2025",
+        "school": {
+          "name": "ILSC Language Schools",
+          "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
+        },
+        "prices": [
+          {
+            "description": "Programa",
+            "price": 5800
+          },
+          {
+            "description": "Matrícula",
+            "price": 240
+          },
+          {
+            "description": "Material",
+            "price": 260
+          }
+        ]
+      },
+      {
+        "logo": "",
+        "name": "Certificate IV in Project Management Practice (2025/26 Intakes)",
+        "location": "APC Brisbane",
+        "period": "June 06, 2025 - March 27, 2026",
+        "school": {
+          "name": "APC - Australian Pacific College",
+          "logo": "https://bgnaezcaazpvxiiflzek.supabase.co/storage/v1/object/public/quote-images/school_7550.jpg"
+        },
+        "prices": [
+          {
+            "description": "Programa",
+            "price": 4500
+          },
+          {
+            "description": "Matrícula",
+            "price": 150
+          }
+        ]
+      }
+    ],
+    "extras": [
+      {
+        "logo": "",
+        "name": "OSHC - SINGLE",
+        "period": "Overseas Student Health Cover",
+        "price": 1323
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Subclass 500",
+        "period": "Australian Government Fee",
+        "price": 1632
+      },
+      {
+        "logo": "",
+        "name": "Student VISA Application - Single Support",
+        "period": "Administrative Support",
+        "price": 300
+      }
+    ],
+    "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
+    "validUntil": "2025-06-27T00:00:00.000Z",
+    "createdAt": "2025-06-05 14:32:53",
+    "paymentPlan": []
+  }
+]
