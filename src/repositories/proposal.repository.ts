@@ -31,7 +31,10 @@ export class ProposalRepository {
         created_at,
         companyInfo:company_info(*),
         seller:sellers(*),
-        greetings(*),
+        greetings(
+          *,
+          videoUrl:video_url
+        ),
         quotations:quotations(
           *,
           courses:courses(*, school:schools(*), prices:course_prices(*)),
@@ -92,7 +95,10 @@ export class ProposalRepository {
     // Insert Greetings (no unique constraint to upsert on)
     const { data: greetingsData, error: greetingsError } = await supabase
       .from('greetings')
-      .insert(proposalData.greetings)
+      .insert({
+        ...proposalData.greetings,
+        video_url: proposalData.greetings.videoUrl
+      })
       .select()
       .single();
     

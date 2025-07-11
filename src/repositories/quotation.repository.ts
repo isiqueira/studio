@@ -45,7 +45,10 @@ export class QuotationRepository {
         proposal:proposals(
             companyInfo:company_info(*),
             seller:sellers(*),
-            greetings:greetings(*)
+            greetings:greetings(
+              *,
+              videoUrl:video_url
+            )
         ),
         courses:courses (
           courseId:course_id,
@@ -62,7 +65,8 @@ export class QuotationRepository {
             name,
             logo,
             location,
-            videoUrl:video_url
+            videoUrl:video_url,
+            images
           )
         ),
         extras:extras (

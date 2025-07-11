@@ -28,16 +28,18 @@ export default function QuoteInfoBox({ greetings, userName }: QuoteInfoBoxProps)
         </p>
       </div>
 
-      <div className="relative h-0 pb-[56.25%] rounded-lg overflow-hidden">
-        <iframe
-          className="absolute top-0 left-0 w-full h-full"
-          src="https://www.youtube.com/embed/JRS4GkR39RU"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
+      {greetings.videoUrl && (
+        <div className="relative h-0 pb-[56.25%] rounded-lg overflow-hidden">
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src={greetings.videoUrl}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
     </div>
   );
 }

@@ -115,7 +115,8 @@ export const quoteDetailData: Quotation = {
     "line1": "We prepared this quotation and it's valid until Thu, Jul 03, 2025.",
     "line2": "It was created on Thu, Jun 26, 2025.",
     "line3": " ",
-    "line4": "You can read our Terms&Conditions about your quotation here."
+    "line4": "You can read our Terms&Conditions about your quotation here.",
+    "videoUrl": "https://www.youtube.com/embed/JRS4GkR39RU"
   },
   "duration": "38 Months",
   "period": "Start Date: 14/07/2025 - End Date: 10/09/2028"

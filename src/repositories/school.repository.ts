@@ -4,13 +4,13 @@ import type { School } from '@/types';
 
 export class SchoolRepository {
   async findAll() {
-    const { data, error } = await supabase.from('schools').select('*');
+    const { data, error } = await supabase.from('schools').select('*, videoUrl:video_url');
     if (error) throw error;
     return data;
   }
 
   async findById(id: string) {
-    const { data, error } = await supabase.from('schools').select('*').eq('school_id', id).single();
+    const { data, error } = await supabase.from('schools').select('*, videoUrl:video_url').eq('school_id', id).single();
     if (error) throw error;
     return data;
   }
@@ -20,7 +20,7 @@ export class SchoolRepository {
     const { data, error } = await supabase
       .from('schools')
       .insert([{ name, logo, location, video_url: videoUrl, images }])
-      .select()
+      .select('*, videoUrl:video_url')
       .single();
     if (error) throw error;
     return data;
@@ -32,7 +32,7 @@ export class SchoolRepository {
       .from('schools')
       .update({ name, logo, location, video_url: videoUrl, images })
       .eq('school_id', id)
-      .select()
+      .select('*, videoUrl:video_url')
       .single();
     if (error) throw error;
     return data;

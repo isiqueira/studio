@@ -61,6 +61,7 @@ export interface Greetings {
     line2: string;
     line3: string;
     line4: string;
+    videoUrl?: string;
 }
 
 export interface Seller {
