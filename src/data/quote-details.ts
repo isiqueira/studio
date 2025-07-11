@@ -31,7 +31,7 @@ export const quoteDetailData: Quotation = {
         "name": "Pacific College",
         "logo": "",
         "location": "SYDNEY",
-        "videoUrl": "https://www.youtube.com/embed/JRS4GkR39RU",
+        "videoUrl": "https://www.youtube.com/embed/S3NP4vgCaqo",
         "images": [
           "https://placehold.co/600x400.png",
           "https://placehold.co/600x400.png",
@@ -54,7 +54,7 @@ export const quoteDetailData: Quotation = {
         "name": "Management School",
         "logo": "",
         "location": "SYDNEY",
-        "videoUrl": "https://www.youtube.com/embed/JRS4GkR39RU",
+        "videoUrl": "https://www.youtube.com/embed/Zyh-y9vpaiI",
         "images": [
           "https://placehold.co/600x400.png",
           "https://placehold.co/600x400.png",

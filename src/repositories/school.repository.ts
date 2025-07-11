@@ -16,10 +16,10 @@ export class SchoolRepository {
   }
 
   async create(schoolData: School) {
-    const { name, logo, location, videoUrl } = schoolData;
+    const { name, logo, location, videoUrl, images } = schoolData;
     const { data, error } = await supabase
       .from('schools')
-      .insert([{ name, logo, location, video_url: videoUrl }])
+      .insert([{ name, logo, location, video_url: videoUrl, images }])
       .select()
       .single();
     if (error) throw error;
@@ -27,10 +27,10 @@ export class SchoolRepository {
   }
 
   async update(id: string, schoolData: School) {
-    const { name, logo, location, videoUrl } = schoolData;
+    const { name, logo, location, videoUrl, images } = schoolData;
     const { data, error } = await supabase
       .from('schools')
-      .update({ name, logo, location, video_url: videoUrl })
+      .update({ name, logo, location, video_url: videoUrl, images })
       .eq('school_id', id)
       .select()
       .single();
