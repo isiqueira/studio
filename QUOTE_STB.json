@@ -6,6 +6,8 @@
   "quotationHash": "mock-hash-for-id-846",
   "duration": "38 Months",
   "period": "Start Date: 14/07/2025 - End Date: 10/09/2028",
+  "periodStart": "2025-07-14",
+  "periodEnd": "2028-09-10",
   "companyInfo": {
     "phone": "+61 (02) 9299 4428",
     "email": "info@stbaustralia.com.au",

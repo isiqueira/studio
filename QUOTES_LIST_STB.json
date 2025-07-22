@@ -73,8 +73,7 @@
     ],
     "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
     "validUntil": "2025-06-27T00:00:00.000Z",
-    "createdAt": "2025-06-05 14:32:53",
-    "paymentPlan": []
+    "createdAt": "2025-06-05T14:32:53"
   },
   {
     "id": 1503075,
@@ -130,8 +129,7 @@
     ],
     "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
     "validUntil": "2025-06-27T00:00:00.000Z",
-    "createdAt": "2025-06-05 14:32:53",
-    "paymentPlan": []
+    "createdAt": "2025-06-05 14:32:53"
   },
   {
     "id": 1503076,
@@ -206,7 +204,6 @@
     ],
     "quotationHash": "d851b157-1b3f-4242-88ac-aace4b6c6bf6",
     "validUntil": "2025-06-27T00:00:00.000Z",
-    "createdAt": "2025-06-05 14:32:53",
-    "paymentPlan": []
+    "createdAt": "2025-06-05 14:32:53"
   }
 ]
