@@ -1,0 +1,200 @@
+[{
+            "quotationId": "2025 - 1783",
+            "quotationHash": "ef3e12a4-cf2f-4e70-ac99-2934e9564731",
+            "name": "INTERNATIONAL HOUSE English",
+            "courses": [{
+            "logo": "",
+            "name": "General English (Begginer to Advanced) - Semi Intensive",
+            "location": "BYRON BAY",
+            "period": "Start Date: 23/06/2025 - End Date:  18/07/2025",
+            "prices": [
+                {
+                    "description": "Tuition Fee",
+                    "price": 1240
+                },
+                {
+                    "description": "Material Fee",
+                    "price": 60
+                },
+                {
+                    "description": "Enrolment Fee",
+                    "price": 225
+                },
+                 {
+                    "description": "Additional Fee",
+                    "price": 0
+                }
+            ]
+        }],
+    "extras": [{
+            "logo": "",
+            "name": "VISA Application",
+            "period": "Subsequent temporary application charge",
+            "price": 709.8
+        }],
+    "paymentPlan": [
+     {
+    "dueDate": "26/06/2025",
+    "firstPayment": true,
+    "description": "",
+    "prices": [{
+            "description": "General English (Begginer to Advanced) - Semi Intensive",
+            "price": 1525
+},{
+            "description": "Subsequent",
+            "price": 709.8
+},{
+            "description": "Off Shore Admin VISA Fee",
+            "price": 185
+}]
+}],
+"duration": "4",
+"period": ".",
+"totalAmount": 2419.8,
+"validUntil": "Fri, Jul 25, 2025",
+"createdAt": "Fri, Jul 18, 2025"
+},{
+            "quotationId": "2025 - 1783",
+            "quotationHash": "76915179-e43d-42f6-9012-23d1d298729e",
+            "name": "BHLC - Burleigh Heads Language College",
+            "courses": [{
+            "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAMAUExURQAAAAAAAgMDAfn5+QICAgMEBAIBAP////39/fv7++3t7YGBgf/fAP/hAP/dAGxsbJWVlhkZGR8fH//jAPf4+AYGBf/bAI+PjzAwMG5ubl9fXyQkJBQUFJeXl//lAGVlZf/ZAPHx8X5+fqysrJmZmaioqTU1NYODg0tLSwkIAVxcXAgICJuam/X19QwMDFhYWAoKCsPExDIyMg4ODiIiIouLi2JiYrOzs+vr65+fn3h4eAYGAePj4zo6Ow4NAVJSUmhoaMXFxf/nAKWlpbe3t5GRkenp6QsMAfPz89fX10dHRzUxAm9wcCgoKNvb24WFhQYGBB4dA0FBQT05AnV1db29vU5OThgWASYmJq+vr+Xl5Xx8fI2NjRISEv3UAIeHh9PT01ZWVru7u7/Av1paW0ZAA+/v8ODg4fzaACoqKjAtAWlgAxwcG8HBwbW1tsfHxy4uLnBlAiooAs/PzywsLOfn50RERMvLy9HR0RsZAWpqaz4+PltUA9nZ2ZOTk8nJyc3OzmBXA8OrAVRUVKOjo4mJibGxsTg4OP/rAFVNAqiYAnZsAnp6eqGhoVBKAqCQAiQjA/LQALm5uZ2dneTGAP7YANXV1e7QAEI+AmFbAv/tAMavAYp7AuzLAL6rAhAQEIF1AxAQAf/pAHluAtS5ACgmArajAv/wAKuZAVBQUC0pAsqzAE1FAq+fAsmwAWRbAiIgApaGAt3e3vnZAKeWAvbXABQTAaOSAvTVAmZcA7uiAZyLApKEA/fTAN/CArGaAd/DANi9AnRqA4Z5BLShArynApCBAefJAIZ1Av3dATg0A62bApeIAr+nAUtDAox/AvjRAOnMAO7NANS8AuTIAufOAtm/ArKgAmJiZOjJAlxcXsm0Aw8PBPfZAvPTAHJycs+4ANy/AK6dBs21A2lgCUtGA52dn9O4AsnJy9m7ABkYC6uTAjAuCM65ALuqBvz7/X1yAcOuBSwsLnZtCO7QApuZmfv7+YN4CKGXBk5QUPHVAF5aCIGBfp+RCHhwCv39/x5zZPAAAASRaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49J++7vycgaWQ9J1c1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCc/Pgo8eDp4bXBtZXRhIHhtbG5zOng9J2Fkb2JlOm5zOm1ldGEvJz4KPHJkZjpSREYgeG1sbnM6cmRmPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjJz4KCiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0nJwogIHhtbG5zOkF0dHJpYj0naHR0cDovL25zLmF0dHJpYnV0aW9uLmNvbS9hZHMvMS4wLyc+CiAgPEF0dHJpYjpBZHM+CiAgIDxyZGY6U2VxPgogICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSdSZXNvdXJjZSc+CiAgICAgPEF0dHJpYjpDcmVhdGVkPjIwMjMtMDUtMTY8L0F0dHJpYjpDcmVhdGVkPgogICAgIDxBdHRyaWI6RXh0SWQ+ZDYwNjExZjEtMWU1ZS00NDM5LTk4OWUtMDgyNGU5MThjZDVmPC9BdHRyaWI6RXh0SWQ+CiAgICAgPEF0dHJpYjpGYklkPjUyNTI2NTkxNDE3OTU4MDwvQXR0cmliOkZiSWQ+CiAgICAgPEF0dHJpYjpUb3VjaFR5cGU+MjwvQXR0cmliOlRvdWNoVHlwZT4KICAgIDwvcmRmOmxpPgogICA8L3JkZjpTZXE+CiAgPC9BdHRyaWI6QWRzPgogPC9yZGY6RGVzY3JpcHRpb24+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpkYz0naHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8nPgogIDxkYzp0aXRsZT4KICAgPHJkZjpBbHQ+CiAgICA8cmRmOmxpIHhtbDpsYW5nPSd4LWRlZmF1bHQnPk1BVFJJWiBERSBMT0dPVElQT1MgUEFSQSBPIFNJU1RFTUEgLSAyMzwvcmRmOmxpPgogICA8L3JkZjpBbHQ+CiAgPC9kYzp0aXRsZT4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6cGRmPSdodHRwOi8vbnMuYWRvYmUuY29tL3BkZi8xLjMvJz4KICA8cGRmOkF1dGhv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",
+            "name": "General English - Evening Classes",
+            "location": "GOLD COAST",
+            "period": "Start Date: 23/06/2025 - End Date:  27/06/2025",
+            "prices": [
+                {
+                    "description": "Tuition Fee",
+                    "price": 290
+                },
+                {
+                    "description": "Material Fee",
+                    "price": 60
+                },
+                {
+                    "description": "Enrolment Fee",
+                    "price": 250
+                },
+                 {
+                    "description": "Additional Fee",
+                    "price": 0
+                }
+            ]
+        }],
+    "extras": [{
+            "logo": "",
+            "name": "Allianz OSHC",
+            "period": "Couple - Start Date: 23/06/2025 - End Date: 27/06/2025",
+            "price": 507
+        }],
+    "paymentPlan": [
+     {
+    "dueDate": " ",
+    "firstPayment": true,
+    "description": "",
+    "prices": [{
+            "description": "General English (Begginer to Advanced) - Semi Intensive",
+            "price": 1525
+},{
+            "description": "Subsequent",
+            "price": 709.8
+},{
+            "description": "Off Shore Admin VISA Fee",
+            "price": 185
+}]
+},{
+    "dueDate": "26/06/2025",
+    "firstPayment": false,
+    "description": "",
+    "payments": [{
+            "description": "General English - Evening Classes",
+            "price": 600 
+},{
+            "description": "Allianz OSHC",
+            "price": 507 
+},{
+            "description": "Off Shore Admin VISA Fee",
+            "price": 250 
+}     ]
+    }],
+"duration": "4",
+"period": ".",
+"totalAmount": 3776.8,
+"validUntil": "Fri, Jul 25, 2025",
+"createdAt": "Fri, Jul 18, 2025"
+},{
+            "quotationId": "2025 - 1783",
+            "quotationHash": "a866cb5b-3736-4876-a3d2-075d666a1f12",
+            "name": "SPC - Sun Pacific College English",
+            "courses": [{
+            "logo": "",
+            "name": "General English (Elementary to Advanced)",
+            "location": "CAIRNS",
+            "period": "Start Date: 23/06/2025 - End Date:  27/06/2025",
+            "prices": [
+                {
+                    "description": "Tuition Fee",
+                    "price": 440
+                },
+                {
+                    "description": "Material Fee",
+                    "price": 100
+                },
+                {
+                    "description": "Enrolment Fee",
+                    "price": 290
+                },
+                 {
+                    "description": "Additional Fee",
+                    "price": 250
+                }
+            ]
+        }],
+    "extras": [{
+            "logo": "",
+            "name": "Allianz OSHC",
+            "period": "Couple - Start Date: 23/06/2025 - End Date: 27/06/2025",
+            "price": 507
+        }],
+    "paymentPlan": [
+     {
+    "dueDate": " ",
+    "firstPayment": true,
+    "description": "",
+    "prices": [{
+            "description": "General English (Begginer to Advanced) - Semi Intensive",
+            "price": 1525
+},{
+            "description": "Subsequent",
+            "price": 709.8
+},{
+            "description": "Off Shore Admin VISA Fee",
+            "price": 185
+}]
+},{
+    "dueDate": "",
+    "firstPayment": false,
+    "description": "",
+    "payments": [     ]
+    },{
+    "dueDate": "26/06/2025",
+    "firstPayment": false,
+    "description": "",
+    "payments": [ {
+            "description": "General English (Elementary to Advanced)",
+            "price": 1080 
+},{
+            "description": "Allianz OSHC",
+            "price": 507 
+},{
+            "description": "Off Shore Admin VISA Fee",
+            "price": 250 
+}     ]
+    }],
+"duration": "4",
+"period": ".",
+"totalAmount": 5613.8,
+"validUntil": "Fri, Jul 25, 2025",
+"createdAt": "Fri, Jul 18, 2025"
+}
+]
