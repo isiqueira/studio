@@ -76,10 +76,15 @@ export default function CourseItem({ course }: CourseItemProps) {
         )}
 
         {course.school?.images && course.school.images.length > 0 && (
-          <Carousel className="w-full">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
             <CarouselContent>
               {course.school.images.map((src, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
                     <Card className="overflow-hidden">
                       <CardContent className="p-0 flex items-center justify-center relative aspect-video">
