@@ -107,7 +107,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
         </div>
       </div>
       
-      <SectionTitle>Valores</SectionTitle>
+      <SectionTitle>Prices</SectionTitle>
       
       <div className="space-y-[7px]">
         {course.prices.map((price, priceIndex) => {
@@ -153,7 +153,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
             <>
               <Separator />
               <Section>
-                <h3 className="text-sm font-semibold text-[#61657e] mb-4">Taxas</h3>
+                <h3 className="text-sm font-semibold text-[#61657e] mb-4">Extras</h3>
                 <div className="flex flex-col">
                   {quotation.extras.map((extra, extraIndex) => (
                     <React.Fragment key={extraIndex}>
