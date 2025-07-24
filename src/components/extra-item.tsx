@@ -1,3 +1,4 @@
+
 import type { Extra } from '@/types';
 import Image from 'next/image';
 
