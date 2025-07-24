@@ -5,6 +5,14 @@ import type { Course } from '@/types';
 import Image from 'next/image';
 import { useState } from 'react';
 import ImageModal from './image-modal';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from './ui/card';
 
 interface CourseItemProps {
   course: Course;
@@ -68,20 +76,32 @@ export default function CourseItem({ course }: CourseItemProps) {
         )}
 
         {course.school?.images && course.school.images.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {course.school.images.map((src, index) => (
-              <button key={index} onClick={() => handleImageClick(src)} className="relative aspect-video block w-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg">
-                <Image
-                  src={src}
-                  alt={`School image ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg hover:opacity-80 transition-opacity"
-                  data-ai-hint="campus students"
-                />
-              </button>
-            ))}
-          </div>
+          <Carousel className="w-full">
+            <CarouselContent>
+              {course.school.images.map((src, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card className="overflow-hidden">
+                      <CardContent className="p-0 flex items-center justify-center relative aspect-video">
+                         <button onClick={() => handleImageClick(src)} className="block w-full h-full">
+                            <Image
+                              src={src}
+                              alt={`School image ${index + 1}`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="object-cover hover:opacity-80 transition-opacity"
+                              data-ai-hint="campus students"
+                            />
+                         </button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="ml-12" />
+            <CarouselNext className="mr-12" />
+          </Carousel>
         )}
         
         <div className="space-y-2">
