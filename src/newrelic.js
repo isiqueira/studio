@@ -8,12 +8,14 @@
 exports.config = {
   /**
    * Array of application names.
+   * This is now being set via the NEW_RELIC_APP_NAME environment variable in package.json
    */
-  app_name: ["stb-multi-quote"],
+  // app_name: ["stb-multi-quote"],
   /**
    * Your New Relic license key.
+   * This is now being set via the NEW_RELIC_LICENSE_KEY environment variable in package.json
    */
-  license_key: "792fdda14f036ccc389710c4b653f5c3FFFFNRAL",
+  // license_key: "...",
   /**
    * This setting controls distributed tracing.
    * Distributed tracing lets you see the path that a request takes through your
