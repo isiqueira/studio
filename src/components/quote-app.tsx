@@ -8,6 +8,7 @@ import QuoteGallery from '@/components/quote-gallery';
 import { Skeleton } from './ui/skeleton';
 import { FROM_API } from '@/lib/feature-flags';
 import { initialQuotations } from '@/data/quotes';
+import logger from '@/lib/logger';
 
 interface QuoteAppProps {
   user: User;
@@ -46,11 +47,12 @@ export default function QuoteApp({ user }: QuoteAppProps) {
         }
       } else {
         // Use local mock data when feature flag is off
+        logger.info('Using local mock data for quotations');
         setQuotations(initialQuotations);
         setLoading(false);
       }
     }
-    
+    logger.info({ 'mainPage': 'quote-app' }, '[Page] Fetching quote data from local mock file.');
     loadQuotations();
   }, []);
 

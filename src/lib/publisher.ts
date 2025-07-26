@@ -1,86 +1,53 @@
+// import client, { Connection, Channel, ConsumeMessage, ChannelModel } from "amqplib";
+// const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672';
+// const LOG_QUEUE = process.env.LOG_QUEUE || 'log_events';
 
-import amqp from 'amqplib';
-import { URL } from 'url';
+// class RabbitMQConnection {
+//   connection!: ChannelModel;
+//   channel!: Channel;
+//   private connected!: Boolean;
 
-// A simple console logger for publisher-specific issues, to avoid circular dependency with the main logger.
-const publisherLogger = {
-    info: (msg: string) => console.log(`[Publisher] INFO: ${msg}`),
-    warn: (msg: string) => console.warn(`[Publisher] WARN: ${msg}`),
-    error: (err: any, msg: string) => console.error(`[Publisher] ERROR: ${msg}`, err),
-}
+//   async connect() {
+//     if (this.connected && this.channel) return;
+    
+//     try {
+//       console.log(`⌛️ Connecting to Rabbit-MQ Server`);
+      
+//       // Create connection
+//       this.connection = await client.connect(RABBITMQ_URL);
 
-const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672';
-const LOG_QUEUE = 'log_events';
+//       console.log(`✅ Rabbit MQ Connection is ready`);
+//       console.log(`RabbitMQ URL: ${RABBITMQ_URL}`);
+//       // Create channel from connection
+//       this.channel = await this.connection.createChannel();
+      
+//       this.connected = true;
+//     } catch (error) {
+//       console.error('Connection failed:', error);
+//       this.connected = false;
+//     }
+//   }
 
-let connection: amqp.Connection | null = null;
-let channel: amqp.Channel | null = null;
-let isConnecting = false;
+//   async sendToQueue(queue: string, message: any) {
+//     try {
+//       if (!this.channel) {
+//         await this.connect();
+//       }
 
-function resetConnection() {
-    channel = null;
-    connection = null;
-    isConnecting = false;
-}
+//       this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+//     } catch (error) {
+//       console.error(error);
+//       throw error;
+//     }
+//   }
 
-async function connect() {
-    if (isConnecting) {
-        publisherLogger.info('Connection attempt in progress, skipping new attempt.');
-        return;
-    }
-    if (connection) return;
+//     async publishLog(logData: object) {
+//         const message = Buffer.from(JSON.stringify(logData));
+//         await this.sendToQueue(LOG_QUEUE, message);
+//     }
+// }
 
-    isConnecting = true;
 
-    try {
-        // Add a check for the protocol, which is likely the cause of the error.
-        const url = new URL(RABBITMQ_URL);
-        if (url.protocol === 'amqp:' && url.hostname !== 'localhost' && url.hostname !== 'rabbitmq') {
-            publisherLogger.warn(`Attempting to connect to remote host (${url.hostname}) using non-secure 'amqp://' protocol. CloudAMQP and other production services usually require a secure connection with 'amqps://'. Please check your RABBITMQ_URL environment variable.`);
-        }
+// const amqpClient = new RabbitMQConnection();
 
-        publisherLogger.info(`Connecting to RabbitMQ...`);
-        connection = await amqp.connect(RABBITMQ_URL);
-        channel = await connection.createChannel();
-        await channel.assertQueue(LOG_QUEUE, { durable: true });
-        publisherLogger.info('RabbitMQ connected and queue asserted.');
-
-        connection.on('error', (err) => {
-            publisherLogger.error(err, 'RabbitMQ connection error');
-            resetConnection();
-        });
-        connection.on('close', () => {
-            publisherLogger.warn('RabbitMQ connection closed. It will auto-reconnect on the next log publish.');
-            resetConnection();
-        });
-    } catch (err) {
-        publisherLogger.error(err, 'Failed to connect to RabbitMQ.');
-        resetConnection();
-    } finally {
-        isConnecting = false;
-    }
-}
-
-export async function publishLog(logData: object) {
-    if (!connection || !channel) {
-        // Attempt to connect if not already connected.
-        await connect();
-    }
-
-    if (channel) {
-        try {
-            const message = Buffer.from(JSON.stringify(logData));
-            // This is non-blocking
-            channel.sendToQueue(LOG_QUEUE, message, { persistent: true });
-        } catch(err) {
-            publisherLogger.error(err, 'Failed to send log to queue.');
-            resetConnection();
-        }
-    }
-    // If channel is still null here, it means connection failed, and it was already logged.
-}
-
-// Initial connection attempt on startup.
-// We catch errors here so a failure on startup doesn't crash the whole app.
-connect().catch(err => {
-    publisherLogger.error(err, 'Initial RabbitMQ connection failed on startup. The app will continue to run.');
-});
+// export default amqpClient;

@@ -4,12 +4,14 @@ import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
 import type { Proposal } from '@/types';
 import { FROM_API } from '@/lib/feature-flags';
-import logger from '@/lib/logger';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import logger from '@/lib/logger';
 
 async function getProposals(): Promise<Proposal[]> {
+    console.log('Fetching proposals data...');
+    logger.info('FROM_API:', FROM_API);
     if (FROM_API) {
         try {
         const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
