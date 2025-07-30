@@ -3,36 +3,39 @@ import ProposalList from '@/components/proposal-list';
 import AppHeader from '@/components/app-header';
 import AppFooter from '@/components/app-footer';
 import type { Proposal } from '@/types';
-import { FROM_API } from '@/lib/feature-flags';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import logger from '@/lib/logger';
 
 async function getProposals(): Promise<Proposal[]> {
-    console.log('Fetching proposals data...');
-    logger.info('FROM_API:', FROM_API);
-    if (FROM_API) {
-        try {
-        const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-            ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-            : 'http://localhost:3000';
-
-        // Use no-store to ensure fresh data on each request
-        const res = await fetch(`${baseUrl}/api/proposals`, { cache: 'no-store' });
+    const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+    logger.info(`Fetching proposals data from ${url}`);
+    
+    try {
+        const res = await fetch(url, { cache: 'no-store' });
 
         if (!res.ok) {
-            logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from API.');
+            logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
             return [];
         }
 
         const data = await res.json();
-        return data;
-        } catch (error) {
-        logger.error({ err: error }, 'Error fetching proposals data');
-        return [];
+        
+        // Transform the data to match the Proposal type
+        if (Array.isArray(data)) {
+            return data.map((item: any) => ({
+                proposal_id: item.quotationId || item.quotationHash,
+                name: item.name,
+                created_at: item.createdAt || new Date().toISOString(),
+                valid_until: item.validUntil || new Date().toISOString(),
+                quotations_count: (item.courses?.length || 0) + (item.extras?.length || 0),
+            }));
         }
-    } else {
+
+        return [];
+    } catch (error) {
+        logger.error({ err: error }, 'Error fetching or processing proposals data');
         return [];
     }
 }
