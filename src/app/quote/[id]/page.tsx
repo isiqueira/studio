@@ -8,31 +8,28 @@ import { quoteDetailData } from '@/data/quote-details';
 import logger from '@/lib/logger';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
-    // Always use local mock data for testing purposes, ignoring the ID.
     console.log(`[QuotePage] Fetching quote data for ID: ${id}`);
-     
-      const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/quotes/quotation2.json';
-      logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
-      
-      try {
-          const res = await fetch(url, { cache: 'no-store' });
-          console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
-          if (!res.ok) {
-              const errorText = await res.text();
-              logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
-              throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
-          }
-          console.log(`[QuotePage] Fetching quote data from: ${url}`);
-          const data = await res.json();
-          return Promise.resolve(data)
-          ;
-          
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
+    const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/quotes/quotation2.json';
+    logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
+    
+    try {
+        const res = await fetch(url, { cache: 'no-store' });
+        console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+        if (!res.ok) {
+            const errorText = await res.text();
+            logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
+            throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+        }
+        console.log(`[QuotePage] Fetching quote data from: ${url}`);
+        const data = await res.json();
+        return Promise.resolve(data);
+        
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
 
-        logger.error({ err }, 'Error fetching or processing quotations data');
-        console.error('[QuoteApp] Error fetching or processing quotations data:', err);
-      } 
+      logger.error({ err }, 'Error fetching or processing quotations data');
+      console.error('[QuoteApp] Error fetching or processing quotations data:', err);
+    } 
     
     return Promise.resolve(null);
 }

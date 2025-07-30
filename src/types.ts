@@ -18,8 +18,11 @@ export interface Course {
   courseId?: number;
   logo: string;
   name: string;
+  firstPaymentAmount:string; // This field is not in the original data, but added for consistency
   location: string;
   period: string;
+  periodStart: string; // Start date in DD/MM/YYYY format
+  periodEnd: string; // End date in DD/MM/YYYY format
   school?: School;  
   prices: CoursePrice[];
 }
@@ -43,7 +46,7 @@ export interface PaymentPlanInstallment {
   dueDate: string;
   firstPayment: boolean;
   description:string;
-  payments: Payment[];
+  prices: Payment[];
 }
 
 export interface CompanyInfo {
@@ -74,7 +77,7 @@ export interface Seller {
 
 // A unified Quotation type for both list and detail views.
 export interface Quotation {
-  id: number;
+  quotationId: string;
   name: string;
   totalAmount: number;
   firstPaymentAmount: number;

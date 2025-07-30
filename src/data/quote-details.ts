@@ -88,7 +88,7 @@ export const quoteDetailData: Quotation = {
       "dueDate": "30/06/2025",
       "firstPayment": true,
       "description": "",
-      "payments": [
+      "prices": [
         { "description": "Advanced Diploma of Leadership and Management", "price": 1750 },
         { "description": "Student VISA", "price": 1622.4 },
         { "description": "Subsequent", "price": 709.8 },
@@ -99,7 +99,7 @@ export const quoteDetailData: Quotation = {
       "dueDate": "01/10/2025",
       "firstPayment": false,
       "description": "Paid every 3 months until the end of the course",
-      "payments": [
+      "prices": [
         { "description": "Advanced Diploma of Leadership and Management", "price": 1500 }
       ]
     }

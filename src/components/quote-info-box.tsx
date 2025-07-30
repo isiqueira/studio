@@ -27,7 +27,11 @@ export default function QuoteInfoBox({ greetings, userName }: QuoteInfoBoxProps)
           {termsText[1]}
         </p>
       </div>
-
+      {!greetings.videoUrl && (
+        <div className="relative h-0 pb-[56.25%] rounded-lg overflow-hidden">
+          <p>No video available</p>
+        </div>
+      )}
       {greetings.videoUrl && (
         <div className="relative h-0 pb-[56.25%] rounded-lg overflow-hidden">
           <iframe
