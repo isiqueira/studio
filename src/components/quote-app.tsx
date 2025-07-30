@@ -41,50 +41,42 @@ export default function QuoteApp({ user }: QuoteAppProps) {
           const data = await res.json();
           setQuotations(data);
         } catch (err) {
-          setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+          const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred.';
+          setError(errorMessage);
+          logger.error({ err }, '[API] Error fetching quotations.');
         } finally {
           setLoading(false);
         }
       } else {
-
         const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
-        console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
-        logger.info(`Fetching proposals data from ${url}`);
+        logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
         
         try {
             const res = await fetch(url, { cache: 'no-store' });
-            console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
-    
             if (!res.ok) {
-                logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
-                console.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
+                const errorText = await res.text();
+                logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
+                throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
             }
     
             const data = await res.json();
-            console.log('[ProposalsPage] Fetched data:', JSON.stringify(data, null, 2));
             
-            // Transform the data to match the Proposal type
             if (Array.isArray(data)) {
-                data.map((item: any) => ({
-                    proposal_id: item.quotationId || item.quotationHash,
-                    name: item.name,
-                    created_at: item.createdAt || new Date().toISOString(),
-                    valid_until: item.validUntil || new Date().toISOString(),
-                    quotations_count: (item.courses?.length || 0) + (item.extras?.length || 0),
-                }));
               setQuotations(data);
-              setLoading(false);
+            } else {
+              throw new Error("Fetched data is not an array.");
             }
-        } catch (error) {
-          logger.error({ err: error }, 'Error fetching or processing proposals data');
-          console.error('[ProposalsPage] Error fetching or processing proposals data:', error);
+        } catch (err) {
+          const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
+          setError(errorMessage);
+          logger.error({ err }, 'Error fetching or processing proposals data');
+          console.error('[QuoteApp] Error fetching or processing proposals data:', err);
+        } finally {
+            setLoading(false);
         }
-        // Use local mock data when feature flag is off
-        logger.info('Using local mock data for quotations');
-        // setQuotations(initialQuotations);
       }
     }
-    logger.info({ 'mainPage': 'quote-app' }, '[Page] Fetching quote data from local mock file.');
+    
     loadQuotations();
   }, []);
 
