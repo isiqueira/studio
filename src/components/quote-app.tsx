@@ -32,49 +32,32 @@ export default function QuoteApp({ user }: QuoteAppProps) {
       setLoading(true);
       setError(null);
       
-      if (FROM_API) {
-        try {
-          const res = await fetch('/api/quotations');
+      const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+      logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
+      
+      try {
+          const res = await fetch(url, { cache: 'no-store' });
+          console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
           if (!res.ok) {
-            throw new Error('Failed to fetch quotations from the server.');
+              const errorText = await res.text();
+              logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
+              throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
           }
-          const data = await res.json();
-          setQuotations(data);
-        } catch (err) {
-          const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred.';
-          setError(errorMessage);
-          logger.error({ err }, '[API] Error fetching quotations.');
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
-        logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
-        
-        try {
-            const res = await fetch(url, { cache: 'no-store' });
-            console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
-            if (!res.ok) {
-                const errorText = await res.text();
-                logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
-                throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
-            }
 
-            const data = await res.json();
-            
-            if (Array.isArray(data)) {
-              setQuotations(data);
-            } else {
-              throw new Error("Fetched data is not an array.");
-            }
-        } catch (err) {
-          const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
-          setError(errorMessage);
-          logger.error({ err }, 'Error fetching or processing quotations data');
-          console.error('[QuoteApp] Error fetching or processing quotations data:', err);
-        } finally {
-            setLoading(false);
-        }
+          const data = await res.json();
+          
+          if (Array.isArray(data)) {
+            setQuotations(data);
+          } else {
+            throw new Error("Fetched data is not an array.");
+          }
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
+        setError(errorMessage);
+        logger.error({ err }, 'Error fetching or processing quotations data');
+        console.error('[QuoteApp] Error fetching or processing quotations data:', err);
+      } finally {
+          setLoading(false);
       }
     }
     
