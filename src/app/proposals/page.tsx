@@ -10,17 +10,21 @@ import logger from '@/lib/logger';
 
 async function getProposals(): Promise<Proposal[]> {
     const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+    console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
     logger.info(`Fetching proposals data from ${url}`);
     
     try {
         const res = await fetch(url, { cache: 'no-store' });
+        console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
 
         if (!res.ok) {
             logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
+            console.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
             return [];
         }
 
         const data = await res.json();
+        console.log('[ProposalsPage] Fetched data:', JSON.stringify(data, null, 2));
         
         // Transform the data to match the Proposal type
         if (Array.isArray(data)) {
@@ -36,6 +40,7 @@ async function getProposals(): Promise<Proposal[]> {
         return [];
     } catch (error) {
         logger.error({ err: error }, 'Error fetching or processing proposals data');
+        console.error('[ProposalsPage] Error fetching or processing proposals data:', error);
         return [];
     }
 }
