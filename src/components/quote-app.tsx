@@ -46,10 +46,42 @@ export default function QuoteApp({ user }: QuoteAppProps) {
           setLoading(false);
         }
       } else {
+
+        const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+        console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
+        logger.info(`Fetching proposals data from ${url}`);
+        
+        try {
+            const res = await fetch(url, { cache: 'no-store' });
+            console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+    
+            if (!res.ok) {
+                logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
+                console.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
+            }
+    
+            const data = await res.json();
+            console.log('[ProposalsPage] Fetched data:', JSON.stringify(data, null, 2));
+            
+            // Transform the data to match the Proposal type
+            if (Array.isArray(data)) {
+                data.map((item: any) => ({
+                    proposal_id: item.quotationId || item.quotationHash,
+                    name: item.name,
+                    created_at: item.createdAt || new Date().toISOString(),
+                    valid_until: item.validUntil || new Date().toISOString(),
+                    quotations_count: (item.courses?.length || 0) + (item.extras?.length || 0),
+                }));
+              setQuotations(data);
+              setLoading(false);
+            }
+        } catch (error) {
+          logger.error({ err: error }, 'Error fetching or processing proposals data');
+          console.error('[ProposalsPage] Error fetching or processing proposals data:', error);
+        }
         // Use local mock data when feature flag is off
         logger.info('Using local mock data for quotations');
-        setQuotations(initialQuotations);
-        setLoading(false);
+        // setQuotations(initialQuotations);
       }
     }
     logger.info({ 'mainPage': 'quote-app' }, '[Page] Fetching quote data from local mock file.');
