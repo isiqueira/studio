@@ -69,8 +69,8 @@ export default function QuoteApp({ user }: QuoteAppProps) {
         } catch (err) {
           const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
           setError(errorMessage);
-          logger.error({ err }, 'Error fetching or processing proposals data');
-          console.error('[QuoteApp] Error fetching or processing proposals data:', err);
+          logger.error({ err }, 'Error fetching or processing quotations data');
+          console.error('[QuoteApp] Error fetching or processing quotations data:', err);
         } finally {
             setLoading(false);
         }
