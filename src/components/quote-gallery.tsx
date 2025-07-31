@@ -27,7 +27,7 @@ const QuoteGallerySkeleton = () => (
 
 export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
   const isMobile = useIsMobile();
-
+  console.log('[QuoteGallery] quotations', quotations);
   if (quotations.length === 0) {
     return (
       <div className="text-center py-20">
@@ -52,7 +52,7 @@ export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
       >
         <CarouselContent>
           {quotations.map((quotation, index) => (
-            <CarouselItem key={quotation.id}>
+            <CarouselItem key={quotation.quotationId}>
               <div className="p-1">
                 <QuoteCard quotation={quotation} index={index} />
               </div>
@@ -68,7 +68,7 @@ export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {quotations.map((quotation, index) => (
-        <QuoteCard key={quotation.id} quotation={quotation} index={index} />
+        <QuoteCard key={quotation.quotationId} quotation={quotation} index={index} />
       ))}
     </div>
   );

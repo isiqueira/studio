@@ -24,7 +24,7 @@ async function getProposals(): Promise<Proposal[]> {
         }
 
         const data = await res.json();
-        console.log('[ProposalsPage] Fetched data:', JSON.stringify(data));
+        console.log('[ProposalsPage] Fetched data:', data);
         
         // Transform the data to match the Proposal type
         if (Array.isArray(data)) {

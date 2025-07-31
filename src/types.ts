@@ -83,7 +83,8 @@ export interface Quotation {
   firstPaymentAmount: number;
   courses: Course[];
   extras: Extra[];
-
+  paymentPlan?: PaymentPlanInstallment[];
+  
   // Optional fields, mainly for the detail view
   quotationHash?: string;
   duration?: string;
@@ -93,7 +94,6 @@ export interface Quotation {
   companyInfo?: CompanyInfo;
   seller?: Seller;
   greetings?: Greetings;
-  paymentPlan?: PaymentPlanInstallment[];
 }
 
 export interface Proposal {
