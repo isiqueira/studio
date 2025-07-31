@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -132,6 +133,9 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
 
 export default function QuoteCard({ quotation }: QuoteCardProps) {
+  const firstPaymentInstallment = quotation.paymentPlan?.find(p => p.firstPayment);
+  const firstPaymentAmount = firstPaymentInstallment?.prices.reduce((sum, item) => sum + item.price, 0) ?? 0;
+
   return (
     <Link href={`/quote/${quotation.quotationHash}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
@@ -152,7 +156,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
             <>
               <Separator />
               <Section>
-                <h3 className="text-sm font-semibold text-[#61657e] mb-4">Extras</h3>
+                <h3 className="text-sm font-semibold uppercase text-muted-foreground tracking-wider mb-4">Extras</h3>
                 <div className="flex flex-col">
                   {quotation.extras.map((extra, extraIndex) => (
                     <React.Fragment key={extraIndex}>
@@ -189,7 +193,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                     </p>
                     <p className="text-2xl font-bold text-primary">
                       {formatCurrency(
-                        quotation.firstPaymentAmount,
+                        firstPaymentAmount,
                         "AUD"
                       )}
                     </p>
@@ -204,3 +208,4 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
     </Link>
   );
 }
+
