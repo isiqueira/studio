@@ -45,7 +45,7 @@ export default function QuoteApp({ user }: QuoteAppProps) {
           }
 
           const data = await res.json();
-          
+          console.log('[QuoteApp] data', data);
           if (Array.isArray(data)) {
             setQuotations(data);
           } else {
