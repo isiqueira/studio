@@ -34,6 +34,8 @@ async function getProposals(): Promise<Proposal[]> {
                 created_at: item.createdAt || new Date().toISOString(),
                 valid_until: item.validUntil || new Date().toISOString(),
                 quotations_count: (item.courses?.length || 0) + (item.extras?.length || 0),
+                extra: item.extras,
+                paymentPlan: item.paymentPlan
             }));
         }
 
