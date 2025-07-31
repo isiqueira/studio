@@ -134,6 +134,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
 export default function QuoteCard({ quotation }: QuoteCardProps) {
   const firstPaymentInstallment = quotation.paymentPlan?.find(p => p.firstPayment);
+  console.log('[QuoteCard] firstPaymentInstallment',firstPaymentInstallment )
   const firstPaymentAmount = firstPaymentInstallment?.prices.reduce((sum, item) => sum + item.price, 0) ?? 0;
 
   return (
