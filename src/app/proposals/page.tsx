@@ -8,8 +8,10 @@ import { Suspense } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import logger from '@/lib/logger';
 
-async function getProposals(): Promise<Proposal[]> {
-    const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+async function getProposals(urlParam?: string): Promise<Proposal[]> {
+    const defaultUrl = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+    const url = urlParam || defaultUrl;
+    
     console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
     logger.info(`Fetching proposals data from ${url}`);
     
@@ -47,8 +49,8 @@ async function getProposals(): Promise<Proposal[]> {
     }
 }
 
-async function ProposalsData() {
-    const proposals = await getProposals();
+async function ProposalsData({ urlParam }: { urlParam?: string }) {
+    const proposals = await getProposals(urlParam);
     return <ProposalList proposals={proposals} />;
 }
 
@@ -77,7 +79,8 @@ const ProposalsSkeleton = () => (
     </div>
 );
 
-export default async function ProposalsPage() {
+export default async function ProposalsPage({ searchParams }: { searchParams?: { url?: string } }) {
+  const urlParam = searchParams?.url;
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <AppHeader />
@@ -86,7 +89,7 @@ export default async function ProposalsPage() {
             <h1 className="text-3xl font-bold">Proposals</h1>
         </div>
         <Suspense fallback={<ProposalsSkeleton />}>
-            <ProposalsData />
+            <ProposalsData urlParam={urlParam} />
         </Suspense>
       </main>
       <AppFooter />
