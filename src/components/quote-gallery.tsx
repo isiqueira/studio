@@ -27,7 +27,7 @@ const QuoteGallerySkeleton = () => (
 
 export default function QuoteGallery({ quotations }: QuoteGalleryProps) {
   const isMobile = useIsMobile();
-  console.log('[QuoteGallery] quotations', quotations);
+  
   if (quotations.length === 0) {
     return (
       <div className="text-center py-20">

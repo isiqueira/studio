@@ -134,11 +134,10 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
 export default function QuoteCard({ quotation }: QuoteCardProps) {
   const firstPaymentInstallment = quotation.paymentPlan?.find(p => p.firstPayment);
-  console.log('[QuoteCard] firstPaymentInstallment',quotation )
   const firstPaymentAmount = firstPaymentInstallment?.prices.reduce((sum, item) => sum + item.price, 0) ?? 0;
 
   return (
-    <Link href={`/quote/${quotation.quotationHash}`} className="block h-full">
+    <Link href={`/quote/${quotation.quotationId}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
         <CardContent className="p-0 flex-grow">
           <Section>
@@ -209,4 +208,3 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
     </Link>
   );
 }
-

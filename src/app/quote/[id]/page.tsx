@@ -4,34 +4,34 @@ import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
 import QuoteDetailHeader from '@/components/quote-detail-header';
 import type { Quotation } from '@/types';
-import { quoteDetailData } from '@/data/quote-details';
 import logger from '@/lib/logger';
 
 async function getQuoteData(id: string): Promise<Quotation | null> {
-    console.log(`[QuotePage] Fetching quote data for ID: ${id}`);
-    const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/quotes/quotation2.json';
-    logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
+    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : 'http://localhost:9002';
+      
+    const url = `${baseUrl}/api/quote/${id}`;
+    logger.info(`[QuotePage] Fetching quote data for ID: ${id} from ${url}`);
     
     try {
         const res = await fetch(url, { cache: 'no-store' });
-        console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+        
         if (!res.ok) {
             const errorText = await res.text();
-            logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
+            logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, `Failed to fetch quote data from API for ID: ${id}.`);
             throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
         }
-        console.log(`[QuotePage] Fetching quote data from: ${url}`);
+
         const data = await res.json();
-        return Promise.resolve(data);
+        return data as Quotation;
         
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
-
-      logger.error({ err }, 'Error fetching or processing quotations data');
-      console.error('[QuoteApp] Error fetching or processing quotations data:', err);
+      logger.error({ err, id }, `[QuotePage] Error fetching or processing quotation data: ${errorMessage}`);
+      console.error('[QuotePage] Error fetching or processing quotation data:', err);
+      return null;
     } 
-    
-    return Promise.resolve(null);
 }
 
 export default async function QuotePage({ params }: { params: { id: string } }) {
