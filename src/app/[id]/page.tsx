@@ -1,53 +1,98 @@
 
-import ProposalDetailPage from '@/components/proposal-detail-page';
-import { currentUser } from '@/data/user';
+import ProposalList from '@/components/proposal-list';
+import AppHeader from '@/components/app-header';
+import AppFooter from '@/components/app-footer';
 import type { Proposal } from '@/types';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Suspense } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import logger from '@/lib/logger';
 
-async function getProposalData(id: string): Promise<Proposal | null> {
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : 'http://localhost:9002';
+async function getProposals(urlParam?: string): Promise<Proposal[]> {
+    const defaultUrl = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+    const url = urlParam || defaultUrl;
     
-    const url = `${baseUrl}/api/proposals/${id}`;
-    logger.info(`[ProposalPage] Fetching proposal data for ID: ${id} from ${url}`);
+    console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
+    logger.info(`Fetching proposals data from ${url}`);
     
     try {
         const res = await fetch(url, { cache: 'no-store' });
-        
+        console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+
         if (!res.ok) {
-            const errorText = await res.text();
-            logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, `Failed to fetch proposal data from API for ID: ${id}.`);
-            throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+            logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
+            console.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
+            return [];
         }
-        
+
         const data = await res.json();
-        return data as Proposal;
+        console.log('[ProposalsPage] Fetched data:', data);
         
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
-      logger.error({ err, id }, `[ProposalPage] Error fetching or processing proposal data: ${errorMessage}`);
-      console.error('[ProposalPage] Error fetching or processing proposal data:', err);
-      return null;
-    } 
+        // Transform the data to match the Proposal type
+        if (Array.isArray(data)) {
+            return data.map((item: any) => ({
+                proposal_id: item.quotationId || item.quotationHash,
+                name: item.name,
+                created_at: item.createdAt || new Date().toISOString(),
+                valid_until: item.validUntil || new Date().toISOString(),
+                quotations_count: (item.courses?.length || 0) + (item.extras?.length || 0),
+                extra: item.extras,
+                paymentPlan: item.paymentPlan
+            }));
+        }
+
+        return [];
+    } catch (error) {
+        logger.error({ err: error }, 'Error fetching or processing proposals data');
+        console.error('[ProposalsPage] Error fetching or processing proposals data:', error);
+        return [];
+    }
 }
 
-export default async function ProposalPage({ params }: { params: { id: string } }) {
-  console.log(`[ProposalPage] Rendering proposal page for ID: ${params.id}`);
-  const proposalData = await getProposalData(params.id);
-  const user = currentUser;
+async function ProposalsData({ urlParam }: { urlParam?: string }) {
+    const proposals = await getProposals(urlParam);
+    return <ProposalList proposals={proposals} />;
+}
 
-  if (!proposalData) {
-    logger.warn({ id: params.id }, `[Page] Proposal not found.`);
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold">Proposal not found</h1>
-        <p className="text-muted-foreground">Could not retrieve the proposal details for ID: {params.id}.</p>
-      </div>
-    );
-  }
+const ProposalsSkeleton = () => (
+     <div className="border rounded-lg">
+        <Table>
+        <TableHeader>
+            <TableRow>
+            <TableHead className="w-[40%]"><Skeleton className="h-5 w-24" /></TableHead>
+            <TableHead><Skeleton className="h-5 w-32" /></TableHead>
+            <TableHead><Skeleton className="h-5 w-32" /></TableHead>
+            <TableHead className="text-center"><Skeleton className="h-5 w-20 mx-auto" /></TableHead>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            {[...Array(5)].map((_, i) => (
+            <TableRow key={i}>
+                <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
+                <TableCell><Skeleton className="h-5 w-24" /></TableCell>
+                <TableCell><Skeleton className="h-5 w-24" /></TableCell>
+                <TableCell className="text-center"><Skeleton className="h-6 w-8 mx-auto rounded-full" /></TableCell>
+            </TableRow>
+            ))}
+        </TableBody>
+        </Table>
+    </div>
+);
 
+export default async function ProposalsPage({ searchParams }: { searchParams?: { url?: string } }) {
+  const urlParam = searchParams?.url;
   return (
-    <ProposalDetailPage proposal={proposalData} user={user} />
+    <div className="flex flex-col min-h-screen bg-background">
+      <AppHeader />
+      <main className="flex-grow container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold">Proposals</h1>
+        </div>
+        <Suspense fallback={<ProposalsSkeleton />}>
+            <ProposalsData urlParam={urlParam} />
+        </Suspense>
+      </main>
+      <AppFooter />
+    </div>
   );
 }
