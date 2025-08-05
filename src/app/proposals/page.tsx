@@ -11,8 +11,7 @@ import logger from '@/lib/logger';
 async function getProposals(urlParam?: string): Promise<Proposal[]> {
     const defaultUrl = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
     const url = urlParam || defaultUrl;
-    
-    console.log(`[ProposalsPage] Fetching proposals data from: ${url}`);
+
     logger.info(`Fetching proposals data from ${url}`);
     
     try {
@@ -50,6 +49,7 @@ async function getProposals(urlParam?: string): Promise<Proposal[]> {
 }
 
 async function ProposalsData({ urlParam }: { urlParam?: string }) {
+    console.log(`[ProposalsData] URL Parameter: ${urlParam}`);
     const proposals = await getProposals(urlParam);
     return <ProposalList proposals={proposals} />;
 }
