@@ -12,6 +12,7 @@ import logger from '@/lib/logger';
 
 interface QuoteAppProps {
   user: User;
+  proposalHash: string;
 }
 
 const QuoteAppSkeleton = () => (
@@ -22,7 +23,7 @@ const QuoteAppSkeleton = () => (
     </div>
   );
 
-export default function QuoteApp({ user }: QuoteAppProps) {
+export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
   const [quotations, setQuotations] = useState<Quotation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,8 +32,8 @@ export default function QuoteApp({ user }: QuoteAppProps) {
     async function loadQuotations() {
       setLoading(true);
       setError(null);
-      
-      const url = 'https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/quotationfinished.json';
+
+      const url = `https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/proposals/${proposalHash}.json`;
       logger.info(`[QuoteApp] Fetching quotations data from: ${url}`);
       
       try {

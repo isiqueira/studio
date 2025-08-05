@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <AppHeader />
       <main className="flex-grow">
-        <QuoteApp user={currentUser} />
+        <QuoteApp user={currentUser} proposalHash='' />
       </main>
       <AppFooter />
     </div>

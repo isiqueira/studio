@@ -10,8 +10,8 @@ async function getQuoteData(id: string): Promise<Quotation | null> {
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : 'http://localhost:9002';
-      
-    const url = `${baseUrl}/api/quote/${id}`;
+
+    const url = `https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/quotes/${id}.json`;
     logger.info(`[QuotePage] Fetching quote data for ID: ${id} from ${url}`);
     
     try {

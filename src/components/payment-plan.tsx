@@ -47,8 +47,7 @@ export default function PaymentPlan({ installments, duration, period, totalAmoun
       
       <div className='space-y-6'>
         {installments.map((installment, index) => {
-          console.log('Installment:', installment);
-          const installmentTotal = installment.prices.reduce((total, item) => total + item.price, 0);
+          const installmentTotal = installment?.prices?.reduce((total, item) => total + item.price, 0);
           return (
             <Card key={index} className="overflow-hidden">
               <CardHeader className='bg-muted'>
@@ -62,7 +61,7 @@ export default function PaymentPlan({ installments, duration, period, totalAmoun
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-1 mt-2">
-                    {installment.prices.map((item, pIndex) => (
+                    {installment?.prices?.map((item, pIndex) => (
                         <PlanRow key={pIndex} label={item.description} value={formatCurrency(item.price)} />
                     ))}
                     <div className="pt-2">
