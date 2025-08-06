@@ -24,6 +24,8 @@ async function getQuoteData(id: string): Promise<Quotation | null> {
         }
 
         const data = await res.json();
+        console.log(`[QuotePage] Quote data fetched successfully for ID: ${id}`)
+        console.log(`[QuotePage] Quote data:`, data);
         return data as Quotation;
         
     } catch (err) {
