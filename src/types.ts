@@ -80,7 +80,7 @@ export interface Quotation {
   quotationId: string;
   name: string;
   totalAmount: number;
-  firstPaymentAmount: number;
+  firstPaymentAmount: string;
   courses: Course[];
   extras: Extra[];
   paymentPlan?: PaymentPlanInstallment[];

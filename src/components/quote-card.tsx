@@ -191,7 +191,7 @@ export default function QuoteCard({ quotation }: QuoteCardProps) {
                     </p>
                     <p className="text-2xl font-bold text-primary">
                       {formatCurrency(
-                        quotation.firstPaymentAmount,
+                        parseInt(quotation.firstPaymentAmount),
                         "AUD"
                       )}
                     </p>
