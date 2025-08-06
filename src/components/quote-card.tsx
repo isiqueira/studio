@@ -133,7 +133,7 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
 
 
 export default function QuoteCard({ quotation }: QuoteCardProps) {
-  console.log(`[QuoteCard] Rendering QuoteCard component firstPaymentAmount Value ${parseInt(quotation.firstPaymentAmount)}`)
+  console.log(`[QuoteCard] Rendering QuoteCard component firstPaymentAmount Value ${quotation.firstPaymentAmount}`)
   return (
     <Link href={`/quote/${quotation.quotationHash}`} className="block h-full">
       <Card className="flex flex-col h-full overflow-hidden border-2 rounded-lg bg-card hover:shadow-lg hover:border-[#0c0f3a] transition-all duration-200">
