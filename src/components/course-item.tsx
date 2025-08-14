@@ -17,6 +17,15 @@ interface CourseItemProps {
   course: Course;
 }
 
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+  });
+}
+
+
 // Assuming AUD as currency since it's not provided in the new model
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-AU', {
@@ -49,6 +58,9 @@ export default function CourseItem({ course }: CourseItemProps) {
     setSelectedImage(null);
   };
 
+  const _startDate = new Date(course.periodStart);
+  const _endDate = new Date(course.periodEnd);
+  const _period = `Start Date: ${formatDate(_startDate)} - End Date: ${formatDate(_endDate)}`;
   return (
     <div className="space-y-4">
       <div className="flex gap-6 items-start">
@@ -57,7 +69,7 @@ export default function CourseItem({ course }: CourseItemProps) {
           <h3 className="text-xl font-bold text-foreground">{course.name}</h3>
           {course.school?.name && <p className="text-md font-semibold text-muted-foreground">{course.school.name}</p>}
           <p className="text-sm text-muted-foreground">{course.location}</p>
-          <p className="text-sm text-muted-foreground">{course.period}</p>
+          <p className="text-sm text-muted-foreground">{_period}</p>
         </div>
       </div>
       
