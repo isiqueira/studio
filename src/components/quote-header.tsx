@@ -66,15 +66,14 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
       <header className="flex justify-between items-center mb-8">
         <div>
           <h3 className="text-4xl md:text-5xl font-headline font-bold text-foreground/90">{title}</h3>
-          {creationDate && <p className="text-muted-foreground mt-2">criado em {creationDate}</p>}
+          {creationDate && <p className="text-muted-foreground mt-2">Created at {creationDate}</p>}
         </div>
       </header>
       <div className="flex justify-between items-center">
         <div>
-            <h2 className="text-2xl font-bold text-foreground/90">Visão Geral</h2>
-            <p className="text-muted-foreground">{quoteCount} Opções</p>
+            <p className="text-muted-foreground">{quoteCount} Quote {quoteCount === 1 ? '' : 's'}</p>
         </div>
-        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+        {/* <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
             <SelectTrigger className="w-auto border-foreground">
                 {languages[selectedLanguage as keyof typeof languages].flag}
             </SelectTrigger>
@@ -88,7 +87,7 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
                 </SelectItem>
               ))}
             </SelectContent>
-        </Select>
+        </Select> */}
       </div>
     </div>
   );
