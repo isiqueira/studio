@@ -46,19 +46,17 @@ const CourseSection = ({ course, educationGroupLogo }: { course: Course, educati
   const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   let startDate, endDate, durationWeeks;
-  if (course.period && course.period.includes(' - ')) {
-    const [startDateStr, endDateStr] = course.period.split(' - ');
-    startDate = new Date(startDateStr.trim());
-    endDate = new Date(endDateStr.trim());
-    if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
-      const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      durationWeeks = Math.round(diffDays / 7);
-    } else {
-        startDate = undefined;
-        endDate = undefined;
-    }
+  startDate = new Date(course.periodStart.trim());
+  endDate = new Date(course.periodEnd.trim());
+  if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    durationWeeks = Math.round(diffDays / 7);
+  } else {
+    startDate = undefined;
+    endDate = undefined;
   }
+  
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-GB', {
