@@ -59,7 +59,7 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
     }));
   }, []);
 
-  const title = `Orçamento para ${user.name}`;
+  const title = `Quotation for ${user.name}`;
 
   return (
     <div className="mb-12">
