@@ -26,7 +26,7 @@ interface PaymentPlanProps {
 }
 
 export default function PaymentPlan({ installments, duration, period, totalAmount }: PaymentPlanProps) {
-  const _durationText = `${duration} Weeks`;
+  const _durationText = `${duration}`;
 
   return (
     <div className="space-y-8">
