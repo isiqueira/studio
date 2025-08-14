@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -134,14 +133,8 @@ export default function SellerList({ initialSellers }: SellerListProps) {
             <DialogHeader>
                 <DialogTitle>{selectedSeller ? 'Edit Seller' : 'Add New Seller'}</DialogTitle>
             </DialogHeader>
-            <SellerForm
-                seller={selectedSeller}
-                onSubmit={handleSave}
-                onCancel={handleFormClose}
-            />
         </DialogContent>
       </Dialog>
-
 
       <div className="border rounded-lg">
         <Table>

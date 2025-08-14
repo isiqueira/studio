@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -6,8 +5,6 @@ import type { Quotation, User } from '@/types';
 import QuoteHeader from '@/components/quote-header';
 import QuoteGallery from '@/components/quote-gallery';
 import { Skeleton } from './ui/skeleton';
-import { FROM_API } from '@/lib/feature-flags';
-import { initialQuotations } from '@/data/quotes';
 import logger from '@/lib/logger';
 
 interface QuoteAppProps {
