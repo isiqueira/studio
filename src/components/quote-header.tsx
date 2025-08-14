@@ -70,7 +70,7 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
       </header>
       <div className="flex justify-between items-center">
         <div>
-            <p className="text-muted-foreground">{quoteCount} Quote {quoteCount === 1 ? '' : 's'}</p>
+            <p className="text-muted-foreground">{quoteCount} {quoteCount === 1 ? 'Quote' : 'Quotes'}</p>
         </div>
         {/* <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
             <SelectTrigger className="w-auto border-foreground">
