@@ -1,4 +1,3 @@
-
 import QuoteDetailPage from '@/components/quote-detail-page';
 import { currentUser } from '@/data/user';
 import QuoteDetailFooter from '@/components/quote-detail-footer';
@@ -13,36 +12,30 @@ async function getQuoteData(id: string): Promise<Quotation | null> {
 
     const url = `https://proposalcpqstb.blob.core.windows.net/propostas/multi-quote/quotes/${id}.json`;
     logger.info(`[QuotePage] Fetching quote data for ID: ${id} from ${url}`);
-    
+
     try {
         const res = await fetch(url, { cache: 'no-store' });
-        
-        if (!res.ok) {
-            const errorText = await res.text();
-            logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, `Failed to fetch quote data from API for ID: ${id}.`);
-            throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
-        }
 
-        const data = await res.json();
-        console.log(`[QuotePage] Quote data fetched successfully for ID: ${id}`)
-        console.log(`[QuotePage] Quote data:`, data);
-        return data as Quotation;
-        
+        if (res.ok) {
+          const data = await res.json();
+          logger.info(`[QuotePage] Quote data fetched successfully for ID: ${id}`)
+          return data as Quotation;
+        }
+        return null;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred while fetching data.';
       logger.error({ err, id }, `[QuotePage] Error fetching or processing quotation data: ${errorMessage}`);
-      console.error('[QuotePage] Error fetching or processing quotation data:', err);
       return null;
     } 
 }
 
 export default async function QuotePage({ params }: { params: { id: string } }) {
-  console.log(`[QuotePage] Rendering quote page for ID: ${params.id}`);
+  logger.info(`[QuotePage] Rendering quote page for ID: ${params.id}`);
   const quoteData = await getQuoteData(params.id);
   const user = currentUser;
 
   if (!quoteData) {
-    logger.warn({ id: params.id }, `[Page] Quote not found. This should not happen with the current mock setup.`);
+    logger.warn(`[Page] Quote not found. This should not happen with the current mock setup.`);
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-2xl font-bold">Quote not found</h1>

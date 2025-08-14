@@ -36,13 +36,14 @@ const PriceRow = ({ label, value }: { label: string; value: string }) => (
 
 export default function CourseItem({ course }: CourseItemProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  
   const courseTotal = course.prices.reduce((total, item) => total + item.price, 0);
   const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
   const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl);
   };
+
+  const _images = course.school?.images?.filter((image) => !!image) || [];
 
   const handleCloseModal = () => {
     setSelectedImage(null);
@@ -74,7 +75,7 @@ export default function CourseItem({ course }: CourseItemProps) {
             </div>
         )}
 
-        {course.school?.images && course.school.images.length > 0 && (
+        {_images && _images.length > 0 && (
           <Carousel
             opts={{
               align: "start",
@@ -82,7 +83,7 @@ export default function CourseItem({ course }: CourseItemProps) {
             className="w-full"
           >
             <CarouselContent>
-              {course.school.images.map((src, index) => (
+              {_images.map((src, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
                     <Card className="overflow-hidden">

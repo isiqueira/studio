@@ -26,13 +26,15 @@ interface PaymentPlanProps {
 }
 
 export default function PaymentPlan({ installments, duration, period, totalAmount }: PaymentPlanProps) {
+  const _durationText = `${duration} Weeks`;
+
   return (
     <div className="space-y-8">
       <div className="border border-gray-200 rounded-lg overflow-hidden">
         <div className="bg-[#0B0F3A] text-white p-6 space-y-4">
           <div className="flex justify-between">
             <span>Total study plan duration</span>
-            <span>{duration}</span>
+            <span>{_durationText}</span>
           </div>
           <div className="flex justify-between">
             <span>Dates</span>

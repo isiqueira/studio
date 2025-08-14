@@ -38,7 +38,7 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
       
       try {
           const res = await fetch(url, { cache: 'no-store' });
-          console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+          logger.info(`[ProposalsPage] Fetch response status: ${res.status}`);
           if (!res.ok) {
               const errorText = await res.text();
               logger.warn({ status: res.status, statusText: res.statusText, body: errorText }, 'Failed to fetch proposals data from URL.');
@@ -46,7 +46,7 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
           }
 
           const data = await res.json();
-          console.log('[QuoteApp] data', data);
+
           if (Array.isArray(data)) {
             setQuotations(data);
           } else {

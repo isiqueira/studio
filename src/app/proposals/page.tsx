@@ -16,16 +16,16 @@ async function getProposals(urlParam?: string): Promise<Proposal[]> {
     
     try {
         const res = await fetch(url, { cache: 'no-store' });
-        console.log(`[ProposalsPage] Fetch response status: ${res.status}`);
+        logger.info(`[ProposalsPage] Fetch response status: ${res.status}`);
 
         if (!res.ok) {
             logger.warn({ status: res.status, statusText: res.statusText }, 'Failed to fetch proposals data from URL.');
-            console.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
+            logger.error(`[ProposalsPage] Failed to fetch proposals data. Status: ${res.status}`);
             return [];
         }
 
         const data = await res.json();
-        console.log('[ProposalsPage] Fetched data:', data);
+        logger.info('[ProposalsPage] Fetched data:', data);
         
         // Transform the data to match the Proposal type
         if (Array.isArray(data)) {
@@ -42,14 +42,13 @@ async function getProposals(urlParam?: string): Promise<Proposal[]> {
 
         return [];
     } catch (error) {
-        logger.error({ err: error }, 'Error fetching or processing proposals data');
-        console.error('[ProposalsPage] Error fetching or processing proposals data:', error);
+        logger.error('[ProposalsPage] Error fetching or processing proposals data:', error);
         return [];
     }
 }
 
 async function ProposalsData({ urlParam }: { urlParam?: string }) {
-    console.log(`[ProposalsData] URL Parameter: ${urlParam}`);
+    logger.info(`[ProposalsData] URL Parameter: ${urlParam}`);
     const proposals = await getProposals(urlParam);
     return <ProposalList proposals={proposals} />;
 }
