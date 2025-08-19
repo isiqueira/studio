@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { Facebook, Instagram } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AppFooter() {
   return (
@@ -30,11 +32,21 @@ export default function AppFooter() {
             <p>Phone: +61 432 545 100</p>
           </div>
         </div>
-        
-        <div className="border-t pt-6 text-center">
-          <p className="text-xs text-muted-foreground font-code">
-            © Copyright 2020 - STB Pacific Pty Ltd - Todos os direitos reservados - Politica de Privacidade
-          </p>
+
+        <div className="border-t pt-8">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 mb-8">
+                <Link href="https://facebook.com/stbaustralia" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm font-code text-muted-foreground hover:text-primary transition-colors">
+                    <Facebook className="w-5 h-5" />
+                    <span>facebook.com/stbaustralia</span>
+                </Link>
+                <Link href="https://instagram.com/stb_australia" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm font-code text-muted-foreground hover:text-primary transition-colors">
+                    <Instagram className="w-5 h-5" />
+                    <span>@stb_australia</span>
+                </Link>
+            </div>
+            <p className="text-center text-xs text-muted-foreground font-code">
+                © Copyright 2020 - STB Pacific Pty Ltd - Todos os direitos reservados - Politica de Privacidade
+            </p>
         </div>
       </div>
     </footer>
