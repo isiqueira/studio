@@ -24,7 +24,7 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
   const [quotations, setQuotations] = useState<Quotation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  let receivedUser: User | null = null;
+  const [activeUser, setActiveUser] = useState<User>(user);
 
   useEffect(() => {
     async function loadQuotations() {
@@ -47,17 +47,17 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
 
           if (Array.isArray(data)) {
             console.log('[QuoteApp] Fetched seller:', data[0].seller);
-            if (data[0].seller) {
+            if (data[0] && data[0].seller) {
               console.log('[QuoteApp] Fetching user data...');
-                receivedUser = {
+                const receivedUser = {
                     name: data[0].seller.name,
                     email: data[0].seller.email,
                     avatarUrl: data[0].seller.photo,
-                    avatarFallback: '',
+                    avatarFallback: data[0].seller.name.substring(0,2),
                 };
+                setActiveUser(receivedUser);
                 console.log('[QuoteApp] Fetched user:', receivedUser);
             }
-            console.log('[QuoteApp] Fetched user:', receivedUser);
             setQuotations(data);
           } else {
             throw new Error("Fetched data is not an array.");
@@ -72,12 +72,16 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
       }
     }
     
-    loadQuotations();
-  }, []);
+    if (proposalHash) {
+      loadQuotations();
+    } else {
+      setLoading(false);
+    }
+  }, [proposalHash]);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <QuoteHeader quoteCount={quotations.length} user={user} />
+      <QuoteHeader quoteCount={quotations.length} user={activeUser} />
       {loading ? (
         <QuoteAppSkeleton />
       ) : error ? (
