@@ -11,7 +11,7 @@ interface QuoteHeaderProps {
 export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
   const [creationDate, setCreationDate] = useState('');
   const [selectedUser, setSelectedUser] = useState(user);
-  console.log('[QuoteHeader] Fetched user:', user);
+  
   useEffect(() => {
     // This runs only on the client, after hydration
     setCreationDate(new Date().toLocaleDateString('pt-BR', {
@@ -20,7 +20,7 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
       year: 'numeric'
     }));
     setSelectedUser(user);
-  }, []);
+  }, [user]);
 
   const title = `Quotation for ${selectedUser.name}`;
 
