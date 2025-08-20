@@ -6,9 +6,9 @@ import AppFooter from '@/components/app-footer';
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <AppHeader />
+      <AppHeader user={currentUser} />
       <main className="flex-grow">
-        <QuoteApp user={currentUser} proposalHash='' />
+        <QuoteApp initialQuotations={[]} user={currentUser} />
       </main>
       <AppFooter />
     </div>

@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import UserComponent from './user-component';
-import { currentUser } from '@/data/user';
+import type { User } from '@/types';
 
-export default function AppHeader() {
+interface AppHeaderProps {
+    user: User;
+}
+
+export default function AppHeader({ user }: AppHeaderProps) {
   return (
     <header className="flex items-center justify-between h-20 px-4 sm:px-8 bg-[#0B0F3A] border-b border-gray-700">
       <div className="flex items-center gap-6">
@@ -19,7 +23,7 @@ export default function AppHeader() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <UserComponent user={currentUser} />
+        <UserComponent user={user} />
       </div>
     </header>
   );
