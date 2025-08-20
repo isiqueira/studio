@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Facebook, Instagram } from 'lucide-react';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AppFooter() {
@@ -42,6 +42,10 @@ export default function AppFooter() {
                 <Link href="https://instagram.com/stb_australia" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm font-code text-muted-foreground hover:text-primary transition-colors">
                     <Instagram className="w-5 h-5" />
                     <span>@stb_australia</span>
+                </Link>
+                 <Link href="https://www.youtube.com/@STBAustralia" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm font-code text-muted-foreground hover:text-primary transition-colors">
+                    <Youtube className="w-5 h-5" />
+                    <span>@STBAustralia</span>
                 </Link>
             </div>
             <p className="text-center text-xs text-muted-foreground font-code">
