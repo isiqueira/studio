@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import type { User } from '@/types';
 
 interface QuoteHeaderProps {
@@ -11,8 +10,8 @@ interface QuoteHeaderProps {
 
 export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
   const [creationDate, setCreationDate] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('pt-br');
-
+  const [selectedUser, setSelectedUser] = useState(user);
+  console.log('[QuoteHeader] Fetched user:', user);
   useEffect(() => {
     // This runs only on the client, after hydration
     setCreationDate(new Date().toLocaleDateString('pt-BR', {
@@ -20,9 +19,10 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
       month: 'long',
       year: 'numeric'
     }));
+    setSelectedUser(user);
   }, []);
 
-  const title = `Quotation for ${user.name}`;
+  const title = `Quotation for ${selectedUser.name}`;
 
   return (
     <div className="mb-12">
@@ -36,21 +36,6 @@ export default function QuoteHeader({ quoteCount, user }: QuoteHeaderProps) {
         <div>
             <p className="text-muted-foreground">{quoteCount} {quoteCount === 1 ? 'Quote' : 'Quotes'}</p>
         </div>
-        {/* <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-            <SelectTrigger className="w-auto border-foreground">
-                {languages[selectedLanguage as keyof typeof languages].flag}
-            </SelectTrigger>
-            <SelectContent>
-              {Object.entries(languages).map(([value, { flag, label }]) => (
-                <SelectItem key={value} value={value}>
-                  <div className="flex items-center gap-2">
-                    {flag}
-                    {label}
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-        </Select> */}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
   const [quotations, setQuotations] = useState<Quotation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  let receivedUser: User | null = null;
 
   useEffect(() => {
     async function loadQuotations() {
@@ -45,6 +46,18 @@ export default function QuoteApp({ user, proposalHash }: QuoteAppProps) {
           const data = await res.json();
 
           if (Array.isArray(data)) {
+            console.log('[QuoteApp] Fetched seller:', data[0].seller);
+            if (data[0].seller) {
+              console.log('[QuoteApp] Fetching user data...');
+                receivedUser = {
+                    name: data[0].seller.name,
+                    email: data[0].seller.email,
+                    avatarUrl: data[0].seller.photo,
+                    avatarFallback: '',
+                };
+                console.log('[QuoteApp] Fetched user:', receivedUser);
+            }
+            console.log('[QuoteApp] Fetched user:', receivedUser);
             setQuotations(data);
           } else {
             throw new Error("Fetched data is not an array.");
