@@ -29,6 +29,7 @@ async function getProposalData(id: string): Promise<{quotations: Quotation[], us
             email: seller.email || currentUser.email,
             avatarUrl: seller.photo || currentUser.avatarUrl,
             avatarFallback: seller.name ? seller.name.substring(0,2) : currentUser.avatarFallback,
+            phone: seller.phone || currentUser.phone,
         } : currentUser;
         
         logger.info(`[ProposalPage] Proposal data fetched successfully for ID: ${id}`);
@@ -43,13 +44,13 @@ async function getProposalData(id: string): Promise<{quotations: Quotation[], us
 
 
 export default async function Home({ params }: { params: { id: string } }) {
-    const proposalData = await getProposalData(params.id);
+    const proposalData = await getProposalData(params?.id);
 
     if (!proposalData) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen">
                 <h1 className="text-2xl font-bold">Proposal not found</h1>
-                <p className="text-muted-foreground">Could not retrieve the proposal details for ID: {params.id}.</p>
+                <p className="text-muted-foreground">Could not retrieve the proposal details for ID: {params?.id}.</p>
             </div>
         );
     }
